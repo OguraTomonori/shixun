@@ -39,4 +39,24 @@
     <servlet-name>SearchServlet</servlet-name>
     <url-pattern>/SearchServlet</url-pattern>
   </servlet-mapping>
+  <filter>
+    <display-name>CharacterEncodingFilter</display-name>
+    <filter-name>CharacterEncodingFilter</filter-name>
+    <filter-class>team543.filter.CharacterEncodingFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>CharacterEncodingFilter</filter-name>
+    <url-pattern>/LoginServlet</url-pattern>
+    <url-pattern>/SearchServlet</url-pattern>
+    <url-pattern>/UpdateServlet</url-pattern>
+  </filter-mapping>
+  <filter>
+  	<filter-name>UserCheckFilter</filter-name>
+  	<filter-class>team543.filter.UserCheckFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>UserCheckFilter</filter-name>
+  	<url-pattern>/SearchServlet</url-pattern>
+  	<url-pattern>/UpdateServlet</url-pattern>
+  </filter-mapping>
 </web-app>

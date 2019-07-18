@@ -4,3 +4,7 @@
 body {
 	min-height:2000px;
 }
+
+#titlebar {
+	filter:blur(10px);
+}

@@ -2,6 +2,7 @@ package team543.servlet;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +28,10 @@ public class LoginServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String username = request.getParameter("username");
 		String passwd = request.getParameter("passwd");
-		response.getWriter().append(username + " " + passwd);
+		// TODO 使用username和passwd向后台交互
+		System.out.println("login");
+		response.addCookie(new Cookie("sessionID", "oeauaoeuaoensohentsheosnt"));
+		response.getWriter().append("doneeeeeeee");
 	}
 
 	/**

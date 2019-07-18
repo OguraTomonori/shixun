@@ -18,8 +18,10 @@
     <!-- Custom styles -->
     <link href="css/index.css" rel="stylesheet">
     <link href="css/navbar.css" rel="stylesheet">
-
+  </head>
   <body>
+    <script src="${pageContext.request.contextPath }/js/cookie.js"></script>
+    <script src="${pageContext.request.contextPath }/js/login.js"></script>
     <div id="loginer">
     	<div class="container">
     		<div class="row">
@@ -39,8 +41,7 @@
 			</div>
     	</div>
     </div>
-    <div id="main_page">
-    	<nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top" id="titlebar">
 	      <div class="container">
 	        <div class="navbar-header">
 	          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -77,7 +78,15 @@
 	        </div><!--/.nav-collapse -->
 	      </div>
 	    </nav>
-
+    <div id="main_page">
+		<script type="text/javascript">
+	    if (isLogined()) { 
+	    	//如果登录，则取消模糊，不再display登录界面
+	    	document.getElementById("loginer").style["display"] = "none";
+	    	document.getElementById("main_page").style["filter"] = "blur(0px)";
+	    	document.getElementById("titlebar").style["filter"] = "blur(0px)";
+	    }
+    	</script>
 	    <div class="container main">
 	
 	      <!-- Main component for a primary marketing message or call to action -->
@@ -98,9 +107,6 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
-    
-    <script src="${pageContext.request.contextPath }/js/cookie.js"></script>
-    <script src="${pageContext.request.contextPath }/js/login.js"></script>
     <script src="${pageContext.request.contextPath }/js/index.js"></script>
   </body>
 </html>
