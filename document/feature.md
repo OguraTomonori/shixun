@@ -1,0 +1,4 @@
+- 暂存修改，一次提交
+- cookie：userid，权限等级012， sessionid——id + secretID + 权限，防止被强破
+- 每次修改，使用filter访问数据库进行用户校验，servlet传递json给后台service
+- 
