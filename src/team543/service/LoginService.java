@@ -23,7 +23,7 @@ public class LoginService {
 	public static List login(String userId, String password) {
 		List list = new LinkedList<>();
 		try {
-			Connection con = utils.DBUtils.getConnection();
+			Connection con = team543.utils.DBUtils.getConnection();
 			Statement createStatement = con.createStatement();
 			String sql = "select user_password,user_root from t_user where user_id ='"+userId+"';";
 			
@@ -36,11 +36,12 @@ public class LoginService {
 					//密码正确
 					list.add(0);      
 					list.add(re.getString("user_root"));
-					list.add(utils.MyMD5Util.encrypt(userId));
+					String res = team543.utils.DBUtils.getSecretID() + userId;
+					list.add(team543.utils.MyMD5Util.encrypt(res));
 				} else list.add(1);
 			} else list.add(2);
 			//关闭连接
-			utils.DBUtils.closeConn();
+			team543.utils.DBUtils.closeConn();
 		} catch (ReflectiveOperationException | SQLException e) {
 			e.printStackTrace();
 		}
