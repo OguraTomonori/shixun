@@ -19,7 +19,7 @@ window.onload = function() {
 			},
 			"success": function(response, status, xhr) {
 				//这时cookie已经被设置
-				location.reload();
+				location.reload(); //登陆后会被立即重定向
 			} 
 		});
 	}

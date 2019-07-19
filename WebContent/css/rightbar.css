@@ -1,0 +1,17 @@
+/*
+	rightbar，fix于窗口右侧，提供保存当前待修改列表
+*/
+#rightbar_div {
+	position:fixed;
+	padding-top:50px;
+	margin-left:70%;
+	width:30%;
+	height:100%;
+	background-color:rgb(100,100,200);
+}
+#rightbar {
+	
+}
+#main {
+	padding-top:50px;
+}
