@@ -1,4 +1,5 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
+<%@attribute name="permission" type="int" required="false" description="标识用户等级" %>
 <nav class="navbar navbar-default navbar-fixed-top" id="titlebar">
 	      <div class="container">
 	        <div class="navbar-header">

@@ -1,7 +1,7 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@attribute name="css" type="java.lang.String" required="true" description="要包含的css文件，使用,分割"%>
-<%@attribute name="js" type="java.lang.String" required="false" description="首部要包含的js文件，使用,分割"%>
+<%@attribute name="css" type="java.lang.String" required="true" description="要包含的css文件，使用,分割"  %>
+<%@attribute name="js" type="java.lang.String" required="false" description="首部要包含的js文件，使用,分割" %>
 <%
 	String[] csses = css.split(",");
 	String[] jses = js.split(",");
