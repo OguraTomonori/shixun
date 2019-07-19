@@ -6,18 +6,24 @@
 <html lang="zh-CN">
   <tags:head 
   css="${pageContext.request.contextPath }/css/index.css,
-  ${pageContext.request.contextPath }/css/navbar.css"
+  ${pageContext.request.contextPath }/css/navbar.css,
+  ${pageContext.request.contextPath }/css/rightbar.css,
+  ${pageContext.request.contextPath }/css/leftbar.css"
   js="${pageContext.request.contextPath }/js/cookie.js,
   ${pageContext.request.contextPath }/js/login.js"/>
  <body>
   	<tags:titlebar/>
   	<tags:loginer/>
+  		
 	    <div class="container main" id="main">
+	      <tags:search/>
 	      <!-- Main component for a primary marketing message or call to action -->
-	      <tags:leftbar/>
-	      <tags:rightbar/>
+	      <div class="row">
+		      <tags:leftbar/>
+	      </div>
 	   </div> <!-- /container -->
-    
+	   <tags:rightbar/>
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
