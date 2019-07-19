@@ -1,5 +1,6 @@
-#main_page {
+#main {
     filter:blur(10px);
+    padding-top:50px;
 }
 #loginer {
     position: fixed;
