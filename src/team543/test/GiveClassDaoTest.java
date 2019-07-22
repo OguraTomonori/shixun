@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import dao.*;
 import entity.GiveClass;
+import team543.dao.GiveClassDao;
 
 public class GiveClassDaoTest {
 	
@@ -15,7 +16,7 @@ public class GiveClassDaoTest {
 		
 		}
 		public static void main(String[] args) throws ReflectiveOperationException, SQLException {
-			List<GiveClass> gc = giveclass.getAllGiveClass();
+			List<team543.entity.GiveClass> gc = giveclass.getAllGiveClass();
 			System.out.println(gc);
 		}
 
