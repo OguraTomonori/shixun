@@ -15,7 +15,7 @@ public class ClassDao {
 	 */
 	public void deleteClass(String c_id) throws ReflectiveOperationException, SQLException {
 		String sql = "DELETE FROM t_class WHERE c_id=?";
-		Connection connection = utils.DBUtils.getConnection();
+		Connection connection = team543.utils.DBUtils.getConnection();
 		PreparedStatement pst = connection.prepareStatement(sql);
 		pst.setString(1, c_id);
 		pst.executeUpdate();
@@ -26,9 +26,9 @@ public class ClassDao {
 	 * @throws SQLException
 	 * @throws ReflectiveOperationException
 	 */
-	public void updateClass(entity.Class c) throws SQLException, ReflectiveOperationException {
+	public void updateClass(team543.entity.Class c) throws SQLException, ReflectiveOperationException {
 		String sql = "UPDATE t_class SET c_name=? , c_classState=? , c_score = ?, c_openDP=? , c_percentage=?  WHERE c_id=?";
-		Connection connection = utils.DBUtils.getConnection();
+		Connection connection = team543.utils.DBUtils.getConnection();
 		PreparedStatement pst = connection.prepareStatement(sql);
 		pst.setString(1, c.getC_name());
 		pst.setString(2, c.getC_classstate());
@@ -45,10 +45,10 @@ public class ClassDao {
 	 * @throws ReflectiveOperationException
 	 * @throws SQLException
 	 */
-	public void addClass(entity.Class c) throws ReflectiveOperationException, SQLException {
+	public void addClass(team543.entity.Class c) throws ReflectiveOperationException, SQLException {
 		String sql="INSERT INTO t_giveclass(c_id,c_name,c_classState,c_score,c_openDP,c_percentage) VALUES(?,?,?,?,?,?)";
 		
-		Connection connection = utils.DBUtils.getConnection();
+		Connection connection = team543.utils.DBUtils.getConnection();
 		PreparedStatement pst = connection.prepareStatement(sql);
 		
 		pst.setString(1, c.getC_id());
@@ -60,19 +60,19 @@ public class ClassDao {
 		pst.executeUpdate();
 	}
 	/**
-	 * Êä³ö¿Î³ÌidµÄ¿Î³ÌÐÅÏ¢
+	 * ï¿½ï¿½ï¿½ï¿½Î³ï¿½idï¿½Ä¿Î³ï¿½ï¿½ï¿½Ï¢
 	 * @param id
 	 * @throws SQLException 
 	 * @throws ReflectiveOperationException 
 	 */
-	public entity.Class getClassById(String id) throws ReflectiveOperationException, SQLException {
+	public team543.entity.Class getClassById(String id) throws ReflectiveOperationException, SQLException {
 		String sql = "SELECT * FROM t_class where t_id = '"+ id +"';";
 		
-		Connection connection = utils.DBUtils.getConnection();
+		Connection connection = team543.utils.DBUtils.getConnection();
 		Statement statement = connection.createStatement();
 		
 		ResultSet rs = statement.executeQuery(sql);
-		entity.Class c = null;
+		team543.entity.Class c = null;
 		
 		if(rs.next()) {
 			c.setC_id(rs.getString("c_id"));
@@ -86,21 +86,21 @@ public class ClassDao {
 		return c;
 	}
 	/**
-	 * @return List<entity.Class>ÀàÐÍ
+	 * @return List<entity.Class>ï¿½ï¿½ï¿½ï¿½
 	 * @throws SQLException
 	 * @throws ReflectiveOperationException
 	 */
-	public List<entity.Class> getAllClass() throws SQLException, ReflectiveOperationException{
+	public List<team543.entity.Class> getAllClass() throws SQLException, ReflectiveOperationException{
 		String sql = "SELECT * FROM t_class ;";
 		
-		Connection connection = utils.DBUtils.getConnection();
+		Connection connection = team543.utils.DBUtils.getConnection();
 		Statement statement = connection.createStatement();
 		
 		ResultSet rs = statement.executeQuery(sql);
-		List<entity.Class> cl = null;
+		List<team543.entity.Class> cl = null;
 		
 		while(rs.next()) {
-			entity.Class c =new entity.Class();
+			team543.entity.Class c =new team543.entity.Class();
 			c.setC_id(rs.getString("c_id"));
 			c.setC_name(rs.getString("c_name"));
 			c.setC_classstate(rs.getString("c_classState"));

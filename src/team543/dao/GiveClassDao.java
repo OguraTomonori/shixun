@@ -13,8 +13,8 @@ import entity.GiveClass;
 
 public class GiveClassDao {
 	 /**
-	  * É¾³ýÊÚ¿ÎÐÅÏ¢
-	  *	 ´«Èë¿Î³Ìid£¬Á¬½Ó
+	  * É¾ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½Ï¢
+	  *	 ï¿½ï¿½ï¿½ï¿½Î³ï¿½idï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	  * @throws ReflectiveOperationException 
 	  *
 	  */
@@ -71,7 +71,7 @@ public class GiveClassDao {
 	}
 	
 	public List<GiveClass> getGiveClassById(String id) throws ReflectiveOperationException, SQLException{
-		//»ñÈ¡Êý¾Ý¿âÁ¬½Ó
+		//ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½
 		Connection connection = utils.DBUtils.getConnection();
 		
 		Statement statement = connection.createStatement();
@@ -96,7 +96,7 @@ public class GiveClassDao {
 	
 	
 	public List<GiveClass> getAllGiveClass() throws ReflectiveOperationException, SQLException{
-		//»ñÈ¡Êý¾Ý¿âÁ¬½Ó
+		//ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½
 		Connection connection = utils.DBUtils.getConnection();
 		
 		Statement statement = connection.createStatement();
