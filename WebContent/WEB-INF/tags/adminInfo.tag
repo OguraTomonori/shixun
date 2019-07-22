@@ -21,7 +21,7 @@
 	alert("du");
 	$.post({
 		"data":{"user_id": getCookie("userID")},
-		"url":"SearchAdminServlet",// TODO
+		"url":"Temp",// TODO
 		"success": function(response, status, xhr) {
 			alert("dasssss");
 			var obj = document.getElementById("admintable");
@@ -30,7 +30,6 @@
 				var target_str = "<tr><th class=\"text-center\">" + key + "</th><th class=\"text-center\">" + response[key]  + "</th></tr>";
 				obj.innerHTML += target_str;
 			}
-		},
-		"dataType":"json"
+		}
 	})
 </script>

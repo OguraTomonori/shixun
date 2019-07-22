@@ -52,6 +52,20 @@
  			<div class="col-md-2"></div>
  			<div class="col-md-8">
 		  		<tags:adminInfo/> 
+		  		<script>
+		  		$.post({
+		  			"data":{"user_id": getCookie("userID")},
+		  			"url":"Temp",// TODO
+		  			"success": function(response, status, xhr) {
+		  				alert("dasssss");
+		  				var obj = document.getElementById("admintable");
+		  				//response为一个json
+		  				for (var key in response) {
+		  					var target_str = "<tr><th class=\"text-center\">" + key + "</th><th class=\"text-center\">" + response[key]  + "</th></tr>";
+		  					obj.innerHTML += target_str;
+		  				}
+		  			}
+		  		})</script>
  			</div>
  		
  		</div>
