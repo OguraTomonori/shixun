@@ -2,12 +2,19 @@ package team543.dao;
 
 import team543.entity.Student;
 import team543.utils.DBUtils;
-import team543.entity.Student;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/*
+* getStudents 获取学生列表
+* getStudentById  由学号查询学生
+* addStudent 批量添加学生
+* deleteStudent  批量删除学生
+* updateStudent 批量修改学生
+* */
 
 public class StudentDao {
 
@@ -101,7 +108,7 @@ public class StudentDao {
             pst.setString (7, student.getEntertame ());
             pst.executeUpdate ();
         }
-        team543.utils.DBUtils.closeConn();
+        DBUtils.closeConn();
     }
 
 
