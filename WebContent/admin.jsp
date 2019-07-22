@@ -9,6 +9,7 @@
   ${pageContext.request.contextPath }/css/main.css"
   js="${pageContext.request.contextPath }/js/cookie.js"/>
  <body>
+ <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
  	<nav class="navbar navbar-default navbar-fixed-top" id="titlebar">
 	      <div class="container">
 	        <div class="navbar-header">
@@ -58,7 +59,7 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    
     <script src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
   </body>
 </html>
