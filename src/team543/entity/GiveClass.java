@@ -8,7 +8,7 @@ public class GiveClass {
 	//上课时间
 	private String c_time;
 	//上课地点
-	private String t_stite;
+	private String t_state;
 	public String getC_id() {
 		return c_id;
 	}
@@ -28,13 +28,13 @@ public class GiveClass {
 		this.c_time = c_time;
 	}
 	public String getT_state() {
-		return t_stite;
+		return t_state;
 	}
-	public void setT_state(String t_stite) {
-		this.t_stite = t_stite;
+	public void setT_state(String t_state) {
+		this.t_state = t_state;
 	}
 	@Override
 	public String toString() {
-		return "GiveClass [c_id=" + c_id + ", t_id=" + t_id + ", c_time=" + c_time + ", t_stite=" + t_stite + "]";
+		return "GiveClass [c_id=" + c_id + ", t_id=" + t_id + ", c_time=" + c_time + ", t_stite=" + t_state + "]";
 	}
 }
