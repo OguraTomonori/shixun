@@ -9,6 +9,7 @@
   ${pageContext.request.contextPath }/css/main.css"
   js="${pageContext.request.contextPath }/js/cookie.js"/>
  <body>
+ <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
  	<nav class="navbar navbar-default navbar-fixed-top" id="titlebar">
 	      <div class="container">
 	        <div class="navbar-header">
@@ -51,6 +52,20 @@
  			<div class="col-md-2"></div>
  			<div class="col-md-8">
 		  		<tags:adminInfo/> 
+		  		<script>
+		  		$.post({
+		  			"data":{"user_id": getCookie("userID")},
+		  			"url":"Temp",// TODO
+		  			"success": function(response, status, xhr) {
+		  				alert("dasssss");
+		  				var obj = document.getElementById("admintable");
+		  				//response为一个json
+		  				for (var key in response) {
+		  					var target_str = "<tr><th class=\"text-center\">" + key + "</th><th class=\"text-center\">" + response[key]  + "</th></tr>";
+		  					obj.innerHTML += target_str;
+		  				}
+		  			}
+		  		})</script>
  			</div>
  		
  		</div>
@@ -58,7 +73,7 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    
     <script src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
   </body>
 </html>

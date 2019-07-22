@@ -159,4 +159,14 @@
     <servlet-name>SearchStudentServlet</servlet-name>
     <url-pattern>/SearchStudentServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Temp</display-name>
+    <servlet-name>Temp</servlet-name>
+    <servlet-class>team543.servlet.Temp</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Temp</servlet-name>
+    <url-pattern>/Temp</url-pattern>
+  </servlet-mapping>
 </web-app>

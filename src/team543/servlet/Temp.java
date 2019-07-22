@@ -1,39 +1,31 @@
 package team543.servlet;
 
 import java.io.IOException;
-import java.util.*;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.alibaba.fastjson.*;
 
 /**
- * Servlet implementation class SearchAdminServlet
+ * Servlet implementation class Temp
  */
-public class SearchAdminServlet extends HttpServlet {
+public class Temp extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchAdminServlet() {
+    public Temp() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	/*
+	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Map<String, Object> params = team543.utils.ParamUtil.getRequestParameters(request);
-		JSONObject json = new JSONObject(params);
-		String res = json.toJSONString();
-		System.out.println("dasdfdsadsa");
-		System.out.println(res);
-		
-		response.getWriter().append("gasdlaskj;d;aslj");
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
