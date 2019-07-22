@@ -36,8 +36,7 @@ public class LoginService {
 					//密码正确
 					list.add(0);      
 					list.add(re.getString("user_root"));
-					String res = team543.utils.DBUtils.getSecretID() + userId;
-					list.add(team543.utils.MyMD5Util.encrypt(res));
+					list.add(team543.utils.MyMD5Util.encrypt(userId));
 				} else list.add(1);
 			} else list.add(2);
 			//关闭连接

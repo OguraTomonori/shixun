@@ -7,15 +7,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class SearchServlet
+ * Servlet implementation class SearchCourseServlet
  */
-public class SearchServlet extends HttpServlet {
+public class SearchCourseServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchServlet() {
+    public SearchCourseServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -25,7 +25,6 @@ public class SearchServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("Search");
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 

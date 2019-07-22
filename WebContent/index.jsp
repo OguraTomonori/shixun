@@ -15,7 +15,6 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script type="text/javascript">
 	    if (isLogined()) { 
-	    	//如果登录，则取消模糊，不再display登录界面
 	    	var permission = parseInt(getCookie("permission"));
 	    	var str = "${pageContext.request.contextPath }"
 	    	if (permission == 0) {
