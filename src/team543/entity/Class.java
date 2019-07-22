@@ -12,7 +12,7 @@ public class Class {
 	//开课院系
 	private String c_opendp;
 	//平时成绩占比
-	private String c_percentage;
+	private Integer c_percentage;
 	public String getC_id() {
 		return c_id;
 	}
@@ -43,10 +43,10 @@ public class Class {
 	public void setC_opendp(String c_opendp) {
 		this.c_opendp = c_opendp;
 	}
-	public String getC_percentage() {
+	public Integer getC_percentage() {
 		return c_percentage;
 	}
-	public void setC_percentage(String c_percentage) {
+	public void setC_percentage(Integer c_percentage) {
 		this.c_percentage = c_percentage;
 	}
 	@Override
