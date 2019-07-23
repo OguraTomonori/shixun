@@ -9,18 +9,18 @@ import java.util.ArrayList;
 public class GradeDao {
 
 /*
-* Ôö¼ÓÑ§Éú³É¼¨
+* ï¿½ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ï¿½É¼ï¿½
 *Grade[]>>>>>>>>
 *
 * */
     public void addGrade(Grade[] g) throws ReflectiveOperationException, SQLException{
-        //»ñÈ¡Êý¾Ý¿âÁ¬½Ó
+        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½
         Connection connection = DBUtils.getConnection();
-        //sqlÓï¾ä
+        //sqlï¿½ï¿½ï¿½
         for (Grade grade:g
         ) {
             String sql = "INSERT into  t_grade (s_id, c_id, g_OrdTimeGra, g_ExaPapGra, g_evaluate) VALUES (?,?,?,?,?)";
-            //´´½¨prepareStatement
+            //ï¿½ï¿½ï¿½ï¿½prepareStatement
             PreparedStatement pst = connection.prepareStatement (sql);
             pst.setString (1, grade.getS_id ());
             pst.setString (2, grade.getC_id ());
@@ -34,7 +34,7 @@ public class GradeDao {
 
 
     /*
-    * ¸üÐÂ³É¼¨ÐÅÏ¢
+    * ï¿½ï¿½ï¿½Â³É¼ï¿½ï¿½ï¿½Ï¢
     * Grade[]>>>>>>>
     *
     * */
@@ -44,7 +44,7 @@ public class GradeDao {
         for (Grade grade:g
         ) {
             String sql = "UPDATE t_grade SET g_OrdTimeGra=?,g_ExaPapGra=?,g_evaluate=? WHERE s_id=? and c_id=?";
-            //´´½¨prepareStatement
+            //ï¿½ï¿½ï¿½ï¿½prepareStatement
             PreparedStatement pst = connection.prepareStatement (sql);
             pst.setString (1, grade.getG_OrdTimGra ());
             pst.setString (2, grade.getG_ExaPopGra ());
@@ -54,7 +54,7 @@ public class GradeDao {
             pst.executeUpdate ();
         }
 
-        //sqlÓï¾ä
+        //sqlï¿½ï¿½ï¿½
         DBUtils.closeConn ();
     }
 
