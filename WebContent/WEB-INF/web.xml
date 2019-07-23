@@ -26,9 +26,7 @@
   </filter>
   <filter-mapping>
     <filter-name>CharacterEncodingFilter</filter-name>
-    <url-pattern>/LoginServlet</url-pattern>
-    <url-pattern>/SearchServlet</url-pattern>
-    <url-pattern>/UpdateServlet</url-pattern>
+    <url-pattern>/*</url-pattern>
   </filter-mapping>
   <filter>
     <filter-name>UserCheckFilter</filter-name>

@@ -27,13 +27,12 @@ public class SearchAdminServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("application/json; charset=utf-8");
 		Map<String, Object> params = team543.utils.ParamUtil.getRequestParameters(request);
 		JSONObject json = new JSONObject(params);
 		String res = json.toJSONString();
-		System.out.println("dasdfdsadsa");
 		System.out.println(res);
-		
-		response.getWriter().append("gasdlaskj;d;aslj");
+		response.getWriter().append(res);
 	}
 
 	/**
