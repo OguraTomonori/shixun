@@ -45,7 +45,7 @@ public class GiveClassDao {
 		PreparedStatement pst = connection.prepareStatement(sql);
 		pst.setString(1, gc.getT_id());
 		pst.setString(2, gc.getC_time());
-		pst.setString(3, gc.getT_state());
+		pst.setString(3, gc.getT_site());
 		pst.setString(4, gc.getC_id());
 		pst.executeUpdate();
 		DBUtils.closeConn();
@@ -64,7 +64,7 @@ public class GiveClassDao {
 		pst.setString(1, gc.getC_id());
 		pst.setString(2, gc.getT_id());
 		pst.setString(3, gc.getC_time());
-		pst.setString(4, gc.getT_state());
+		pst.setString(4, gc.getT_site());
 		pst.executeUpdate();
 		DBUtils.closeConn();
 	}
@@ -86,7 +86,7 @@ public class GiveClassDao {
 			gc.setC_id(rs.getString("c_id"));
 			gc.setT_id(rs.getString("t_id"));
 			gc.setC_time(rs.getString("c_time"));
-			gc.setT_state (rs.getString("t_state"));
+			gc.setT_site (rs.getString("t_site"));
 			giveclass.add(gc);
 		}
 		return giveclass;
@@ -106,7 +106,7 @@ public class GiveClassDao {
 			gc.setC_id(rs.getString("c_id"));
 			gc.setT_id(rs.getString("t_id"));
 			gc.setC_time(rs.getString("c_time"));
-			gc.setT_state (rs.getString("t_state"));
+			gc.setT_site (rs.getString("t_site"));
 			giveclass.add(gc);
 		}
 		return giveclass;
