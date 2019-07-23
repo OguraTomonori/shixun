@@ -1,11 +1,12 @@
 package team543.dao;
 
+import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
+import team543.entity.Class;
 
 public class ClassDao {
 	/**
@@ -80,7 +81,7 @@ public class ClassDao {
 			c.setC_classstate(rs.getString("c_classState"));
 			c.setC_source(rs.getString("c_source"));
 			c.setC_opendp(rs.getString("c_openDP"));
-			c.setC_percentage(rs.getInt("C_percentage"));
+			c.setC_percentage(rs.getInt("c_percentage"));
 			return c;
 		}
 		return c;

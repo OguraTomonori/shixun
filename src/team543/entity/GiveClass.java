@@ -8,13 +8,24 @@ public class GiveClass {
 	//上课时间
 	private String c_time;
 	//上课地点
-	private String t_state;
+	private String t_site;
+
+
 	public String getC_id() {
 		return c_id;
 	}
 	public void setC_id(String c_id) {
 		this.c_id = c_id;
 	}
+
+	public void setT_site (String t_site) {
+		this.t_site = t_site;
+	}
+
+	public String getT_site () {
+		return t_site;
+	}
+
 	public String getT_id() {
 		return t_id;
 	}
@@ -27,14 +38,14 @@ public class GiveClass {
 	public void setC_time(String c_time) {
 		this.c_time = c_time;
 	}
-	public String getT_state() {
-		return t_state;
-	}
-	public void setT_state(String t_state) {
-		this.t_state = t_state;
-	}
+
 	@Override
-	public String toString() {
-		return "GiveClass [c_id=" + c_id + ", t_id=" + t_id + ", c_time=" + c_time + ", t_stite=" + t_state + "]";
+	public String toString () {
+		return "GiveClass{" +
+				"c_id='" + c_id + '\'' +
+				", t_id='" + t_id + '\'' +
+				", c_time='" + c_time + '\'' +
+				", t_site='" + t_site + '\'' +
+				'}';
 	}
 }
