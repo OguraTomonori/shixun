@@ -18,6 +18,7 @@ public class CharacterEncodingFilter implements Filter {
 	public void doFilter(ServletRequest arg0, ServletResponse arg1, FilterChain arg2)
 			throws IOException, ServletException {
 		//处理中文乱码
+		System.out.println("encod");
 		arg0.setCharacterEncoding("UTF-8");	
 		arg2.doFilter(arg0, arg1);
 	}

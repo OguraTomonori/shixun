@@ -10,20 +10,11 @@ public class GiveClass {
 	//ио©н╣ь╣Ц
 	private String t_site;
 
-
 	public String getC_id() {
 		return c_id;
 	}
 	public void setC_id(String c_id) {
 		this.c_id = c_id;
-	}
-
-	public void setT_site (String t_site) {
-		this.t_site = t_site;
-	}
-
-	public String getT_site () {
-		return t_site;
 	}
 
 	public String getT_id() {
@@ -39,13 +30,21 @@ public class GiveClass {
 		this.c_time = c_time;
 	}
 
+	public String getT_site() {
+		return t_site;
+	}
+	public void setT_site(String t_site) {
+		this.t_site = t_site;
+	}
+	
 	@Override
-	public String toString () {
+	public String toString() {
 		return "GiveClass{" +
 				"c_id='" + c_id + '\'' +
 				", t_id='" + t_id + '\'' +
 				", c_time='" + c_time + '\'' +
 				", t_site='" + t_site + '\'' +
 				'}';
+
 	}
 }

@@ -47,7 +47,6 @@
 	      </div>
 	    </nav>
  	<div class="container-fluid" id="main">
-	  	<tags:search/>
 	  	<tags:content/>  	
  	</div>
     <!-- Bootstrap core JavaScript

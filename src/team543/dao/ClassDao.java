@@ -61,7 +61,7 @@ public class ClassDao {
 		pst.executeUpdate();
 	}
 	/**
-	 * ����γ�id�Ŀγ���Ϣ
+	 * 
 	 * @param id
 	 * @throws SQLException 
 	 * @throws ReflectiveOperationException 
@@ -79,7 +79,7 @@ public class ClassDao {
 			c.setC_id(rs.getString("c_id"));
 			c.setC_name(rs.getString("c_name"));
 			c.setC_classstate(rs.getString("c_classState"));
-			c.setC_source(rs.getString("c_source"));
+			c.setC_source(rs.getString("c_score"));
 			c.setC_opendp(rs.getString("c_openDP"));
 			c.setC_percentage(rs.getInt("c_percentage"));
 			return c;
@@ -87,7 +87,7 @@ public class ClassDao {
 		return c;
 	}
 	/**
-	 * @return List<entity.Class>����
+	 * @return List<entity.Class>
 	 * @throws SQLException
 	 * @throws ReflectiveOperationException
 	 */
@@ -105,9 +105,9 @@ public class ClassDao {
 			c.setC_id(rs.getString("c_id"));
 			c.setC_name(rs.getString("c_name"));
 			c.setC_classstate(rs.getString("c_classState"));
-			c.setC_source(rs.getString("c_source"));
+			c.setC_source(rs.getString("c_score"));
 			c.setC_opendp(rs.getString("c_openDP"));
-			c.setC_percentage(rs.getInt("C_percentage"));
+			c.setC_percentage(rs.getInt("c_percentage"));
 			cl.add(c);
 		}
 		return cl;
