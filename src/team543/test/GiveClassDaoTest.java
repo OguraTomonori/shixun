@@ -4,19 +4,17 @@ import java.util.List;
 
 import org.junit.Test;
 
-import team543.dao.*;
+import team543.dao.GiveClassDao;
 import team543.entity.GiveClass;
 
 public class GiveClassDaoTest {
-	
-		static GiveClassDao giveclass =new GiveClassDao();
-		
-		public static  void test() throws ReflectiveOperationException, SQLException {
-		
-		}
-		public static void main(String[] args) throws ReflectiveOperationException, SQLException {
-			List<team543.entity.GiveClass> gc = giveclass.getAllGiveClass();
-			System.out.println(gc);
+
+		GiveClassDao giveClass =new GiveClassDao();
+
+        @Test
+		public void testDeleteGiveClass() throws ReflectiveOperationException, SQLException {
+            String id="1";
+            giveClass.deleteGiveClass (id);
 		}
 
 }
