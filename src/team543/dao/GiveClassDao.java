@@ -68,14 +68,15 @@ public class GiveClassDao {
 		pst.executeUpdate();
 		DBUtils.closeConn();
 	}
-	
-	public List<GiveClass> getGiveClassById(String id) throws ReflectiveOperationException, SQLException{
+
+
+	public List<GiveClass> getGiveClassById(String teacherId) throws ReflectiveOperationException, SQLException{
 		//????????????
 		Connection connection = team543.utils.DBUtils.getConnection();
 		
 		Statement statement = connection.createStatement();
 		
-		String sql = "SELECT * FROM t_giveclass where t_id = '"+ id +"';";
+		String sql = "SELECT * FROM t_giveclass where t_id = '"+ teacherId +"';";
 		
 		ResultSet rs = statement.executeQuery(sql);
 		
