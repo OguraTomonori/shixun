@@ -26,7 +26,6 @@
 	            <li><a href="studInfoSearch.jsp">学生信息查询</a></li>
 	            <li><a href="teacInfoSearch.jsp">教师信息查询</a></li>
 	            <li class="active"><a href="courInfoSearch.jsp">课程信息查询</a></li>
-	            <li><a href="gradeInfoSearch.jsp">成绩信息查询</a></li>
 	            <li class="dropdown">
 	              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">其他 <span class="caret"></span></a>
 	              <ul class="dropdown-menu">
@@ -47,8 +46,50 @@
 	      </div>
 	    </nav>
  	<div class="container-fluid" id="main">
+		<div class="row content">
+		  	<div class="col-lg-3"></div>
+			 <div class="col-lg-6">
+			    <div class="input-group input-group-lg">
+			      <div class="input-group-btn">
+			        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">按姓名搜索 <span class="caret"></span></button>
+			        <ul class="dropdown-menu" id="search_option">
+			          <li><a href="#">按姓名搜索</a></li>
+			          <li><a href="#">按学号搜索</a></li>
+					  <li><a href="#">按班级搜索</a></li>
+			          <li><a href="#">按专业搜索</a></li>
+					  <li><a href="#">按系别搜索</a></li>
+			        </ul>
+			      </div><!-- /btn-group -->
+			      <input type="text" class="form-control" aria-label="...">
+			      <span class="input-group-btn">
+			        <button class="btn btn-default" type="button" id="search_btn">搜索</button>
+			      </span>
+			    </div><!-- /input-group -->
+			    
+			    blablabla
+			    
+			  </div><!-- /.col-lg-6 -->
+		</div><!-- row content -->
+		
+		<div class="row content">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<!-- 搜索结果 -->
+				<table class="table table-hover" id="result">
 
-	  	<tags:content/>  	
+				 	<tr>
+				 		<th>姓名</th>
+				 		<th>学号</th>
+				 		<th>班级</th>
+				 		<th>院系</th>
+				 		<th>专业</th>
+				 		<th></th>
+				 		<th></th>
+				 	</tr>
+				</table>
+			</div>
+		</div>
+		
  	</div>
     <!-- Bootstrap core JavaScript
     ================================================== -->

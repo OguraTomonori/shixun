@@ -14,7 +14,7 @@
 			var obj = document.getElementById("admintable");
 			//response为一个json
 			for (var key in response) {
-				var target_str = "<tr onclick=\"alert(" + value + ")\"><th class=\"text-center\">" + key + "</th><th class=\"text-center\">" + response[key]  + "</th></tr>";
+				var target_str = "<tr onclick=\"alert(\'rua\');\"><th class=\"text-center\">" + key + "</th><th class=\"text-center\">" + response[key]  + "</th></tr>";
 				obj.innerHTML += target_str;
 			}
 		},

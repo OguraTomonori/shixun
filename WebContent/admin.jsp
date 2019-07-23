@@ -53,7 +53,6 @@
  			<div class="col-md-8">
 		  		<tags:adminInfo/> 
  			</div>
- 		
  		</div>
  	</div>
     <!-- Bootstrap core JavaScript
