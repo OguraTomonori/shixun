@@ -1,0 +1,29 @@
+
+学生
+    查看个人信息  StudentDao
+    查看选课信息  v_student_class --------- 学生选课视图
+    查看成绩信息  v_student_grade ---------- 学生课程成绩视图
+
+教师
+    查看个人信息  TeacherDao
+    查看教授学生信息（选修自己课程学生） v_student_from_teacher ------ 老师授课学生视图
+    查看教授课程信息  v_class_from_teacher -------- 老师授课课程视图
+    查看教授学生成绩信息  v_grade_from_teacher --------- 老师授课课程学生成绩
+
+    修改授课信息  GiveClassDao
+    修改学生成绩信息  GradeDao
+
+管理员
+    查询学生信息  StudentDao
+    查询教师信息  TeacherDao
+    查询课程信息  ClassDao
+    查询成绩信息  v_student_grade ---------- 学生课程成绩视图
+
+    修改学生个人信息  StudentDao
+    修改教师信息  TeacherDao
+    修改选课信息  ElectiveclassDao
+    修改成绩信息  GradeDao
+    修改课程信息 ClassDao
+
+
+
