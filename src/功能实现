@@ -1,6 +1,10 @@
 
+未写视图的在数据库【表】中操作
+实现的功能注明到【方法】
+
 学生
-    查看个人信息  StudentDao
+    查看个人信息  StudentDao.getStudentById
+
     查看选课信息  v_student_class --------- 学生选课视图
     查看成绩信息  v_student_grade ---------- 学生课程成绩视图
 
@@ -14,16 +18,21 @@
     修改学生成绩信息  GradeDao
 
 管理员
-    查询学生信息  StudentDao
+    查询学生信息  StudentDao.getStudents
     查询教师信息  TeacherDao
     查询课程信息  ClassDao
     查询成绩信息  v_student_grade ---------- 学生课程成绩视图
 
-    修改学生个人信息  StudentDao
+    修改学生个人信息  StudentDao.updateStudent
     修改教师信息  TeacherDao
     修改选课信息  ElectiveclassDao
     修改成绩信息  GradeDao
     修改课程信息 ClassDao
+
+    增加学生信息 StudentDao.addStudent
+
+    删除学生 StudentDao.deleteStudent
+
 
 
 
