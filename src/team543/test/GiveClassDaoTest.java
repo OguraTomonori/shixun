@@ -4,8 +4,13 @@ import java.util.List;
 
 import org.junit.Test;
 
+<<<<<<< HEAD
 import dao.*;
 import entity.GiveClass;
+=======
+import team543.dao.*;
+import team543.entity.GiveClass;
+>>>>>>> 714e94c69eb11df8764314c862088b9c7c34a96e
 
 public class GiveClassDaoTest {
 	

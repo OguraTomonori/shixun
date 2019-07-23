@@ -1,11 +1,12 @@
 package team543.dao;
 
+import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
+import team543.entity.Class;
 
 public class ClassDao {
 	/**

@@ -22,7 +22,7 @@ public class StudentDaoTest {
 
     @Test
     public void testGetStudents () throws ReflectiveOperationException, SQLException {
-        List<Student> students = studentDao.getStudents ();
+        List<Student> students = studentDao.getStudents();
         for (int i = 0; i < students.size (); i++) {
 
             Student student = students.get (i);
