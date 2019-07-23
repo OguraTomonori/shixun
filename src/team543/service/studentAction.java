@@ -6,8 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import entity.Grade;
-import entity.Student;
+import team543.entity.*;
 
 public class studentAction {
 	/**
@@ -17,8 +16,8 @@ public class studentAction {
 	 * @throws ReflectiveOperationException 
 	 */
 	public static Student getStudentInfo(String id) throws ReflectiveOperationException, SQLException {
-		if(utils.Basic.isNumeric(id)) {
-			return dao.StudentDao.getStudentById(id);
+		if(team543.utils.Basic.isNumeric(id)) {
+			return team543.dao.StudentDao.getStudentById(Integer.valueOf(id));
 			//
 		}else {
 			return null;
@@ -32,13 +31,13 @@ public class studentAction {
 	 * @throws ReflectiveOperationException
 	 * @throws SQLException
 	 */
-	public static ArrayList<entity.Class> getStudentClass(String c_id) throws ReflectiveOperationException, SQLException{
+	public static ArrayList<team543.entity.Class> getStudentClass(String c_id) throws ReflectiveOperationException, SQLException{
 		String sql = "SELECT * FROM t_electiveclass WHERE s_id='"+c_id+"'";
-		Connection connection = utils.DBUtils.getConnection();
+		Connection connection = team543.utils.DBUtils.getConnection();
 		Statement statement = connection.createStatement();
 		ResultSet rs = statement.executeQuery(sql);
 		
-		ArrayList<entity.Class> cl = new ArrayList<entity.Class>();
+		ArrayList<team543.entity.Class> cl = new ArrayList<team543.entity.Class>();
 		
 		//rs该学生选课程的id
 		while(rs.next()) {
@@ -47,7 +46,7 @@ public class studentAction {
 			ResultSet rs1 = statement1.executeQuery(sql1);
 			//rs1根据课程id选出的课程信息
 			while (rs1.next()) {
-				entity.Class c = new entity.Class();
+				team543.entity.Class c = new team543.entity.Class();
 				c.setC_id(rs1.getString("c_id"));
 				c.setC_name(rs1.getString("c_name"));
 				c.setC_classstate(rs1.getString("c_classState"));
@@ -66,7 +65,7 @@ public class studentAction {
 	 * @param s_id
 	 * @return
 	 */
-	public ArrayList<Grade> getGrade(String s_id){
+	public ArrayList<team543.entity.Grade> getGrade(String s_id){
 		
 		return null;
 	}

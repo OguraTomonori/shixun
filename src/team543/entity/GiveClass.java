@@ -9,24 +9,12 @@ public class GiveClass {
 	private String c_time;
 	//ио©н╣ь╣Ц
 	private String t_site;
-<<<<<<< HEAD
-=======
 
-
->>>>>>> 714e94c69eb11df8764314c862088b9c7c34a96e
 	public String getC_id() {
 		return c_id;
 	}
 	public void setC_id(String c_id) {
 		this.c_id = c_id;
-	}
-
-	public void setT_site (String t_site) {
-		this.t_site = t_site;
-	}
-
-	public String getT_site () {
-		return t_site;
 	}
 
 	public String getT_id() {
@@ -41,26 +29,22 @@ public class GiveClass {
 	public void setC_time(String c_time) {
 		this.c_time = c_time;
 	}
-<<<<<<< HEAD
+
 	public String getT_site() {
 		return t_site;
 	}
 	public void setT_site(String t_site) {
 		this.t_site = t_site;
 	}
+	
 	@Override
 	public String toString() {
-		return "GiveClass [c_id=" + c_id + ", t_id=" + t_id + ", c_time=" + c_time + ", t_stite=" + t_site + "]";
-=======
-
-	@Override
-	public String toString () {
 		return "GiveClass{" +
 				"c_id='" + c_id + '\'' +
 				", t_id='" + t_id + '\'' +
 				", c_time='" + c_time + '\'' +
 				", t_site='" + t_site + '\'' +
 				'}';
->>>>>>> 714e94c69eb11df8764314c862088b9c7c34a96e
+
 	}
 }

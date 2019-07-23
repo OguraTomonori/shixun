@@ -11,8 +11,8 @@ package team543.service;
 
 import java.util.ArrayList;
 
-import entity.*;
-
+import team543.entity.*;
+import team543.entity.Class;
 public class AdminAction {
 	/**
 	 * 获取学生信息
@@ -36,7 +36,7 @@ public class AdminAction {
 	 * 获取课程信息
 	 * @return
 	 */
-	public ArrayList<entity.Class> getClassinfo(){
+	public ArrayList<Class> getClassinfo(){
 		return null;
 		
 	}

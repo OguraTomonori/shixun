@@ -2,9 +2,7 @@ package team543.service;
 
 import java.util.ArrayList;
 
-import entity.Student;
-import entity.Teacher;
-
+import team543.entity.*;
 public class TeacherAction {
 	/**
 	 * 获取教师信息
@@ -30,7 +28,7 @@ public class TeacherAction {
 	 * @param t_id
 	 * @return
 	 */
-	public ArrayList<entity.Class> getTeachClassinfo(String t_id){
+	public ArrayList<team543.entity.Class> getTeachClassinfo(String t_id){
 		return null;
 	}
 	
