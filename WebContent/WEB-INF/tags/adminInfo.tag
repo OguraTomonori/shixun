@@ -21,7 +21,7 @@
 	alert("du");
 	$.post({
 		"data":{"user_id": getCookie("userID")},
-		"url":"Temp",// TODO
+		"url":"SearchAdminServlet",// TODO
 		"success": function(response, status, xhr) {
 			alert("dasssss");
 			var obj = document.getElementById("admintable");
