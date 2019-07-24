@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags" %>
-
 <!DOCTYPE html>
 <html lang="zh-CN">
   <tags:head 
@@ -22,18 +21,20 @@
 	        </div>
 	        <div id="navbar" class="navbar-collapse collapse">
 	          <ul class="nav navbar-nav">
-	            <li><a href="student.jsp">个人信息</a></li>
-	            <li><a href="studentCourseInfo.jsp">选课信息</a></li>
-	            <li class="active"><a href="studentGradeInfo.jsp">成绩信息</a></li>
+	            <li><a href="${pageContext.request.contextPath }/teacher/teacher.jsp">个人信息</a></li>
+	            <li><a href="${pageContext.request.contextPath }/teacher/teacherCourseInfo.jsp">选课信息</a></li>
+	            <li class="active"><a href="${pageContext.request.contextPath }/teacher/teacherGradeInfo.jsp">成绩信息</a></li>
 	            <li class="dropdown">
 	              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">其他 <span class="caret"></span></a>
 	              <ul class="dropdown-menu">
-	                <li><a href="logout.jsp">登出</a></li>
+	                <li><a href="${pageContext.request.contextPath }/logout.jsp">登出</a></li>
+	                <li role="separator" class="divider"></li>
 	              </ul>
 	            </li>
 	          </ul>
 	          <ul class="nav navbar-nav navbar-right">
-	            <li id="name"><a href="#"><span id="username"></span>同学,你好</a></li>
+	            <li id="name"><a href="#"><span id="username"></span>老师,你好</a></li>
+	            <li class="active" id="updateList_btn"><a href="#">修改清单<span class="caret"></span></a></li>
 	          </ul>
 	        </div><!--/.nav-collapse -->
 	      </div>
