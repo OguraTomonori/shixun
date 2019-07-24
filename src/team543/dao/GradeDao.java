@@ -53,7 +53,6 @@ public class GradeDao {
             pst.setString (5, grade.getC_id ());
             pst.executeUpdate ();
         }
-
         //sql”Ôæ‰
         DBUtils.closeConn ();
     }
