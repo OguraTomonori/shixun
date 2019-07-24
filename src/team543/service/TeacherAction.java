@@ -2,14 +2,16 @@ package team543.service;
 
 import java.util.ArrayList;
 
-import team543.entity.*;
+import entity.Student;
+import entity.Teacher;
+
 public class TeacherAction {
 	/**
 	 * 获取教师信息
 	 * @param t_id
 	 * @return
 	 */
-	public Teacher getTeacherinfo(String t_id) {
+	public Teacher getTeacherInfo(String t_id) {
 		
 		return null;
 	}
@@ -18,7 +20,7 @@ public class TeacherAction {
 	 * 获取教授的学生信息
 	 * @return
 	 */
-	public ArrayList<Student> getTeachStudentinfo(String t_id) {
+	public ArrayList<Student> getTeachStudentInfo(String t_id) {
 		
 		return null;
 	}
@@ -28,7 +30,7 @@ public class TeacherAction {
 	 * @param t_id
 	 * @return
 	 */
-	public ArrayList<team543.entity.Class> getTeachClassinfo(String t_id){
+	public ArrayList<entity.Class> getTeachClassInfo(String t_id){
 		return null;
 	}
 	
@@ -36,7 +38,7 @@ public class TeacherAction {
 	 * 获取教授学生成绩信息1.学生id 2，学生姓名 3.学生成绩
 	 * @return
 	 */
-	public ArrayList getStudentGrade(String t_id) {
+	public ArrayList<?> getStudentGrade(String t_id) {
 		
 		return null;
 	}
@@ -45,7 +47,7 @@ public class TeacherAction {
 	 * 更新授课表操作
 	 * 
 	 */
-	public void updateGiveClassinfo() {
+	public void updateGiveClassInfo() {
 		
 	}
 	

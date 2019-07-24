@@ -1,24 +1,24 @@
 package team543.service;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
-import team543.entity.*;
+import dao.*;
+import entity.ElectiveClass;
+import entity.Student;
 
 public class studentAction {
+	StudentDao studentDao = new StudentDao();
 	/**
 	 * 获取学生信息
 	 * @return
-	 * @throws SQLException 
+	 * @throws SQLException
 	 * @throws ReflectiveOperationException 
 	 */
-	public static Student getStudentInfo(String id) throws ReflectiveOperationException, SQLException {
-		if(team543.utils.Basic.isNumeric(id)) {
-			return team543.dao.StudentDao.getStudentById(Integer.valueOf(id));
-			//
+	public  Student getStudentInfo(String id) throws ReflectiveOperationException, SQLException {
+		//判断id是否都为数字
+		if(utils.Basic.isNumeric(id)) {
+			return studentDao.getStudentById(id);
 		}else {
 			return null;
 		}
@@ -31,41 +31,43 @@ public class studentAction {
 	 * @throws ReflectiveOperationException
 	 * @throws SQLException
 	 */
-	public static ArrayList<team543.entity.Class> getStudentClass(String c_id) throws ReflectiveOperationException, SQLException{
-		String sql = "SELECT * FROM t_electiveclass WHERE s_id='"+c_id+"'";
-		Connection connection = team543.utils.DBUtils.getConnection();
-		Statement statement = connection.createStatement();
-		ResultSet rs = statement.executeQuery(sql);
+	public  ArrayList<entity.Class> getStudentClass(String c_id) throws ReflectiveOperationException, SQLException{
+		ElectiveClassDao electiveClassDao = new ElectiveClassDao();
+		ClassDao classDao = new ClassDao();
+		//创建保存学生选课的课程id的列表
+		ArrayList<String> list = new ArrayList<String>();
 		
-		ArrayList<team543.entity.Class> cl = new ArrayList<team543.entity.Class>();
+		ArrayList<ElectiveClass> ec = new ArrayList<ElectiveClass>();
 		
-		//rs该学生选课程的id
-		while(rs.next()) {
-			String sql1 = "SELECT * FROM t_class WHERE c_id='"+rs.getString("c_id")+"';";
-			Statement statement1 = connection.createStatement();
-			ResultSet rs1 = statement1.executeQuery(sql1);
-			//rs1根据课程id选出的课程信息
-			while (rs1.next()) {
-				team543.entity.Class c = new team543.entity.Class();
-				c.setC_id(rs1.getString("c_id"));
-				c.setC_name(rs1.getString("c_name"));
-				c.setC_classstate(rs1.getString("c_classState"));
-				c.setC_source(rs1.getString("c_score"));
-				c.setC_opendp(rs1.getString("c_openDP"));
-				c.setC_percentage(rs1.getInt("c_percentage"));
-				cl.add(c);
-			}
+		ec = electiveClassDao.getClassId(c_id);
+		//调用函数获取
+//		System.out.println(ec.get(0).getC_id());
+//		String str = "1" ; 
+		for(int i = 0 ; i < ec.size() ; i++) {
+
+			list.add(ec.get(i).getC_id());
+		
 		}
+		//创建保存课程信息的列表
+		ArrayList<entity.Class> cl = new ArrayList<entity.Class>();
 		
+//		System.out.println(list);
+		//该学生选课程的id
+		for(int i = 0 ; i<list.size();i++) {
+			//查询课程信息
+			cl.add(classDao.getClassById(list.get(i)));
+		}
 		return cl;
 	}
-	
+
 	/**
 	 * 获取学生成绩列表
 	 * @param s_id
 	 * @return
+	 * @throws SQLException 
+	 * @throws ReflectiveOperationException 
 	 */
-	public ArrayList<team543.entity.Grade> getGrade(String s_id){
+	public ArrayList<Student> getGrade(String s_id) throws ReflectiveOperationException, SQLException{
 		
 		return null;
 	}
