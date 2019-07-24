@@ -17,7 +17,7 @@
     <title>学生信息管理系统</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath }/css/bootstrap.min.css" rel="stylesheet">
     
     
     <!-- Custom styles -->

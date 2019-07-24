@@ -9,7 +9,7 @@
 <script>
 	$.post({
 		"data":{"user_id": getCookie("userID"), "asdd": "ASDsada", "你好":"suck"},
-		"url":"SearchAdminServlet",// TODO
+		"url":"${pageContext.request.contextPath }/SearchAdminServlet",// TODO
 		"success": function(response, status, xhr) {
 			var obj = document.getElementById("admintable");
 			//response为一个json

@@ -22,19 +22,19 @@
 	        </div>
 	        <div id="navbar" class="navbar-collapse collapse">
 	          <ul class="nav navbar-nav">
-	            <li><a href="admin.jsp">个人信息</a></li>
-	            <li><a href="studInfoSearch.jsp">学生信息查询</a></li>
-	            <li><a href="teacInfoSearch.jsp">教师信息查询</a></li>
-	            <li class="active"><a href="courInfoSearch.jsp">课程信息查询</a></li>
+	            <li><a href="${pageContext.request.contextPath }/admin/admin.jsp">个人信息</a></li>
+	            <li><a href="${pageContext.request.contextPath }/admin/studInfoSearch.jsp">学生信息查询</a></li>
+	            <li><a href="${pageContext.request.contextPath }/admin/teacInfoSearch.jsp">教师信息查询</a></li>
+	            <li class="active"><a href="${pageContext.request.contextPath }/admin/courInfoSearch.jsp">课程信息查询</a></li>
 	            <li class="dropdown">
 	              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">其他 <span class="caret"></span></a>
 	              <ul class="dropdown-menu">
-	              	<li><a href="addStudent.jsp">添加学生</a></li>
-	              	<li><a href="studInfoSearch.jsp">添加老师</a></li>
-	              	<li><a href="studInfoSearch.jsp">添加课程</a></li>
-	              	<li><a href="studInfoSearch.jsp">添加成绩</a></li>
+	              	<li><a href="${pageContext.request.contextPath }/admin/addStudent.jsp">添加学生</a></li>
+	              	<li><a href="${pageContext.request.contextPath }/admin/studInfoSearch.jsp">添加老师</a></li>
+	              	<li><a href="${pageContext.request.contextPath }/adminstudInfoSearch.jsp">添加课程</a></li>
+	              	<li><a href="${pageContext.request.contextPath }/adminstudInfoSearch.jsp">添加成绩</a></li>
 	              	<li role="separator" class="divider"></li>
-	                <li><a href="logout.jsp">登出</a></li>
+	                <li><a href="${pageContext.request.contextPath }/logout.jsp">登出</a></li>
 	              </ul>
 	            </li>
 	          </ul>
@@ -66,7 +66,28 @@
 			      </span>
 			    </div><!-- /input-group -->
 			    
-			    blablabla
+			    <div class="btn-group content" role="group">
+				    <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="more_option_btn">
+				      更多选项
+				      <span class="caret"></span>
+				    </button>
+				  </div>
+				<div class="content" id="more_option">
+					<div class="btn-group" role="group" aria-label="...">
+					  <button type="button" class="btn btn-default">全部</button>
+					  <button type="button" class="btn btn-default">男</button>
+					  <button type="button" class="btn btn-default">女</button>
+					</div>
+
+				    <div class="input-group">
+				      <input type="text" class="form-control" placeholder="从YYYY-MM-DD">
+				    </div><!-- /input-group -->
+				
+				    <div class="input-group">
+				      <input type="text" class="form-control" placeholder="到YYYY-MM-DD">
+				    </div>
+					
+				</div>
 			    
 			  </div><!-- /.col-lg-6 -->
 		</div><!-- row content -->
@@ -76,7 +97,6 @@
 			<div class="col-md-8">
 				<!-- 搜索结果 -->
 				<table class="table table-hover" id="result">
-
 				 	<tr>
 				 		<th>姓名</th>
 				 		<th>学号</th>
@@ -89,7 +109,6 @@
 				</table>
 			</div>
 		</div>
-		
  	</div>
     <!-- Bootstrap core JavaScript
     ================================================== -->

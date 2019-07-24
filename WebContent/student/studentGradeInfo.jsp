@@ -22,13 +22,13 @@
 	        </div>
 	        <div id="navbar" class="navbar-collapse collapse">
 	          <ul class="nav navbar-nav">
-	            <li><a href="student.jsp">个人信息</a></li>
-	            <li><a href="studentCourseInfo.jsp">选课信息</a></li>
-	            <li class="active"><a href="studentGradeInfo.jsp">成绩信息</a></li>
+	            <li><a href="${pageContext.request.contextPath }/student/student.jsp">个人信息</a></li>
+	            <li><a href="${pageContext.request.contextPath }/student/studentCourseInfo.jsp">选课信息</a></li>
+	            <li class="active"><a href="${pageContext.request.contextPath }/student/studentGradeInfo.jsp">成绩信息</a></li>
 	            <li class="dropdown">
 	              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">其他 <span class="caret"></span></a>
 	              <ul class="dropdown-menu">
-	                <li><a href="logout.jsp">登出</a></li>
+	                <li><a href="${pageContext.request.contextPath }/logout.jsp">登出</a></li>
 	              </ul>
 	            </li>
 	          </ul>

@@ -18,13 +18,13 @@
 	    	var permission = parseInt(getCookie("permission"));
 	    	var str = "${pageContext.request.contextPath }"
 	    	if (permission == 0) {
-	    		str += "/admin.jsp";
+	    		str += "/admin/admin.jsp";
 	    	}
 	    	else if (permission == 1) {
-	    		str += "/teacher.jsp";
+	    		str += "/teacher/teacher.jsp";
 	    	}
 	    	else {
-	    		str += "/student.jsp";
+	    		str += "/student/student.jsp";
 	    	}
 	    	document.location.href = str;
 	    }
