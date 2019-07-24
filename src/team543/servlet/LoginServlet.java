@@ -28,17 +28,19 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String username = request.getParameter("username");
+		String userid = request.getParameter("username");
 		String passwd = request.getParameter("passwd");
-		List res = team543.service.LoginService.login(username, passwd);
+		List res = team543.service.LoginService.login(userid, passwd);
 		
 		int status = (int) res.get(0);
 		if (status == 0) {
 			String permission = (String) res.get(1);
 			String sessionID = (String) res.get(2);
+			String username = (String) res.get(3);
 			response.addCookie(new Cookie("permission", permission));
 			response.addCookie(new Cookie("sessionID", sessionID));
-			response.addCookie(new Cookie("userID", username));
+			response.addCookie(new Cookie("userID", userid));
+			response.addCookie(new Cookie("username", username));
 		}
 		// TODO 使用username和passwd向后台交互
 		System.out.println("login");

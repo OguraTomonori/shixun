@@ -40,11 +40,17 @@
 	          </ul>
 	          <ul class="nav navbar-nav navbar-right">
 	            <li id="name"><a href="#">管理员<span id="username"></span>,你好</a></li>
-	            <li class="active" id="updateList_btn"><a href="#">修改清单<span class="caret"></span></a></li>
+	            
+	            <li class="dropdown active">
+	              <a href="${pageContext.request.contextPath }/admin/updateList.jsp">修改清单 </a>
+	            </li>
 	          </ul>
 	        </div><!--/.nav-collapse -->
 	      </div>
 	    </nav>
+	    <script>
+	    	document.getElementById("username").innerHTML = getCookie("username");
+	    </script>
 		<div class="container-fluid" id="main">
 		<div class="row content">
 		  	<div class="col-lg-3"></div>
@@ -101,7 +107,7 @@
 				 		<th>姓名</th>
 				 		<th>教师号</th>
 				 		<th>院系</th>
-				 		<th>专业</th>
+				 		<th></th>
 				 		<th></th>
 				 		<th></th>
 				 	</tr>
@@ -129,7 +135,7 @@
 
 			//根据option进行处理……
 			$.post({
-				"url":"${pageContext.request.contextPath }/SearchStudentServlet",
+				"url":"${pageContext.request.contextPath }/SearchTeacherServlet",
 				"data":{
 					"search_option": option,
 					"search_text": document.getElementById("search_text").value
@@ -152,8 +158,7 @@
 						{
 							"name"
 							"id"
-							"class"
-							
+							"dp"
 						}
 					*/
 					var res = response["data"];
@@ -162,23 +167,18 @@
 					for (var i = 0; i < res.length; i++) {
 						var id_ = res[i]["id"];
 						var name = res[i]["name"];
-						var class_ = res[i]["class"];
 						var dp = res[i]["dp"];
-						var sex = res[i]["sex"];
-						var major = res[i]["major"];
-						var entertime = res[i]["entertime"];
+
 						result.innerHTML = 
 							result.innerHTML + "<tr>" + 
 							"<td>" + name + "</td>" + 
 							"<td>" + id_ + "</td>" + 
-							"<td>" + class_ + "</td>" + 
 							"<td>" + dp + "</td>" + 
-							"<td>" + sex + "</td>" + 
-							"<td>" + major + "</td>" + 
-							"<td>" + entertime + "</td>" + 
-							"<td><a target='_blank' href='getStudentGrade.jsp?id=" +
-							id_ + "'>成绩</a></td>" +  
-							"<td><a target='_blank' href='updateStudent.jsp?id=" +
+							"<td><a target='_blank' href='teacherINFO.jsp?id=" +
+							id_ + "'>详情</a></td>" +  
+							"<td><a target='_blank' href='teacherCourINFO.jsp?id=" +
+							id_ + "'>课程</a></td>" +  
+							"<td><a target='_blank' href='updateTeacherINFO.jsp?id=" +
 							id_ + "'>更新</a></td></tr>";
 					}
 				}

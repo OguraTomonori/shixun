@@ -6,9 +6,11 @@
 <html lang="zh-CN">
   <tags:head 
   css="${pageContext.request.contextPath }/css/navbar.css,
-  ${pageContext.request.contextPath }/css/main.css"
+  ${pageContext.request.contextPath }/css/main.css,
+  ${pageContext.request.contextPath }/css/overlay.css"
   js="${pageContext.request.contextPath }/js/cookie.js"/>
  <body>
+ 	
  	<nav class="navbar navbar-default navbar-fixed-top" id="titlebar">
 	      <div class="container">
 	        <div class="navbar-header">
@@ -39,12 +41,19 @@
 	            </li>
 	          </ul>
 	          <ul class="nav navbar-nav navbar-right">
+	          	
 	            <li id="name"><a href="#">管理员<span id="username"></span>,你好</a></li>
-	            <li class="active" id="updateList_btn"><a href="#">修改清单<span class="caret"></span></a></li>
+	            
+	            <li class="dropdown active">
+	              <a href="${pageContext.request.contextPath }/admin/updateList.jsp">修改清单 </a>
+	            </li>
 	          </ul>
 	        </div><!--/.nav-collapse -->
 	      </div>
 	    </nav>
+	    <script>
+	    	document.getElementById("username").innerHTML = getCookie("username");
+	    </script>
  	<div class="container-fluid" id="main">
 		<div class="row content">
 		  	<div class="col-lg-3"></div>
@@ -106,21 +115,156 @@
 				 		<th></th>
 				 		<th></th>
 				 		<th></th>
-				 		<th></th>
 				 	</tr>
 				</table>
 			</div>
 		</div>
+
+
+		<!-- Modal -->
+		<div class="modal fade" id="student" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">详情</h4>
+					</div>
+					<div class="modal-body" id="student-content">
+						<table class="table">
+							
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="grade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">成绩</h4>
+					</div>
+					<div class="modal-body" id="grade-content">
+						...
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">更新</h4>
+					</div>
+					<div class="modal-body" id="update-content">
+						
+						  	
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">删除</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary">保存</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		
+
+
  	</div>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-    <script>
+	<script>
+		
+		/*
+			点击时调用，更新model
+		*/
+		function student(studentID) { 
+			var content = document.getElementById("student-content").getElementsByClassName("table")[0];
+			content.innerHTML = "";
+			$.post({
+				"url":"${pageContext.request.contextPath }/SearchStudentServlet",
+				"data":{
+					"s_id": studentID
+				},
+				"dataType":"json",
+				"success": function(response, status, xhr) {
+					response = response["data"][0];
+					var res = {
+							"姓名": response["name"],
+							"学号": response["id"],
+							"性别": response["sex"],
+							"班级": response["class"],
+							"院系": response["dp"],
+							"专业": response["major"],
+							"状态": response["state"],
+							"入学时间": response["entertime"]
+					};
+					
+					for (key in res) {
+						content.innerHTML = content.innerHTML +
+						"<tr><th>" + key + "</th><td>" + res[key] + "</td></tr>";
+					}
+				}});
+		}
+		function grade(studentID) { 
+			var content = document.getElementById("grade-content").getElementsByClassName("table")[0];
+			content.innerHTML = "<tr><th>课程名称</th><th>课程号</th><th>成绩</th><th>平时成绩</th><th>试卷成绩</th><th>评价</th></tr>";
+			$.post({
+				"url":"${pageContext.request.contextPath }/SearchGradeServlet",
+				"data":{
+					"s_id": studentID
+				},
+				"dataType":"json",
+				"success": function(response, status, xhr) {
+					var res = {
+						"课程名称": response["name"],
+						"课程号": response["id"],
+						"成绩": response["grade"],
+						"平时成绩": response["ordTimeGrade"],
+						"试卷成绩": response["examPaperGrade"],
+						"评价": response["eval"]
+					};
+					for (var key in res) {
+						content.innerHTML = content.innerHTML +
+						"<tr><th>" + key + "</th><td>" + res[key] + "</td></tr>";
+					}
+				}});
+
+
+		}
+		function update(studentID) { 
+			var content = document.getElementById("update-content").getElementsByClassName("table")[0];
+			content.innerHTML = "<tr><th>课程名称</th><th>课程号</th><th>成绩</th><th>平时成绩</th><th>试卷成绩</th><th>评价</th></tr>";
+			$.post({
+				"url":"${pageContext.request.contextPath }/UpdateStudentServlet",
+				"data":{
+					"s_id": studentID
+				},
+				"dataType":"json",
+				"success": function(response, status, xhr) {
+					
+				
+				}});
+		}
+		</script>
+		<script>
+		/*
+			查询
+		*/
 		var optionObj = document.getElementById("search_option").getElementsByTagName("a");
 		var option = 0;
-	
+		
 		for (var i = 0; i < optionObj.length; i++) {
 			let Obj = optionObj[i];
 			Obj.onclick = function() {
@@ -169,12 +313,12 @@
 							"<td>" + class_ + "</td>" + 
 							"<td>" + sex + "</td>" + 
 							"<td>" + dp + "</td>" + 
-							"<td><a target='_blank' href='studentINFO.jsp?id=" +
-							id_ + "'>详情</a></td>" + 
-							"<td><a target='_blank' href='studentGradeINFO.jsp?id=" +
-							id_ + "'>成绩</a></td>" +  
-							"<td><a target='_blank' href='updateStudentINFO.jsp?id=" +
-							id_ + "'>更新</a></td></tr>";
+							"<td><a href='#' data-toggle=\"modal\" data-target=\"#student\" onclick='student(\"" +
+							id_ + "\")'>详情</a></td>" + 
+							"<td><a href='#' data-toggle=\"modal\" data-target=\"#grade\" onclick='grade(\"" +
+							id_ + "\")'>成绩</a></td>" + 
+							"<td><a href='#' data-toggle=\"modal\" data-target=\"#update\" onclick='update(\"" +
+							id_ + "\")'>更新</a></td></tr>";
 					}
 				}
 			});
