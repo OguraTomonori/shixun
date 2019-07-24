@@ -25,6 +25,19 @@ public class SearchGradeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		/**
+		 * "s_name"
+		 * "s_id"
+		 * "c_name"
+		 * "c_id"
+		 * "ordTimeGra"
+		 * "exaPapGra"
+		 * "grade"
+		 * "eval"
+		 * 
+		 * 
+		 */
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 

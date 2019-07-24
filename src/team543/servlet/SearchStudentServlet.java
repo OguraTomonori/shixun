@@ -29,6 +29,18 @@ public class SearchStudentServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		/**
+		 *  "s_id":
+			"s_name":
+			"s_sex":
+			"s_dp":
+			"s_major":
+			"s_class":
+			"s_state":
+			"s_entertime":
+		 * 
+		 * 
+		*/
 		response.setContentType("application/json; charset=utf-8");
 		Map<String, Object> params = team543.utils.ParamUtil.getRequestParameters(request);
 		
@@ -36,7 +48,7 @@ public class SearchStudentServlet extends HttpServlet {
 		a.put("id", "dasfsfd");
 		a.put("name", "asdas");
 		a.put("class", "rua");
-		a.put("dp", "ÖÐÎç");
+		a.put("dp", "das");
 		a.put("sex", "sex");
 		a.put("major", "adsada");
 		a.put("entertime", "asdadas");
@@ -44,7 +56,7 @@ public class SearchStudentServlet extends HttpServlet {
 		b.put("id", "dasfsfd");
 		b.put("name", "asdas");
 		b.put("class", "rua");
-		b.put("dp", "ÖÐdasdsÎç");
+		b.put("dp", "dsad");
 		b.put("sex", "sex");
 		b.put("major", "adsada");
 		b.put("entertime", "asdadas");

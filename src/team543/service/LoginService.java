@@ -25,7 +25,7 @@ public class LoginService {
 		try {
 			Connection con = team543.utils.DBUtils.getConnection();
 			Statement createStatement = con.createStatement();
-			String sql = "select user_password,user_root from t_user where user_id ='"+userId+"';";
+			String sql = "select user_password,user_root,user_name from t_user where user_id ='"+userId+"';";
 			
 			//执行sql语句
 			ResultSet re = createStatement.executeQuery(sql);
@@ -37,6 +37,7 @@ public class LoginService {
 					list.add(0);      
 					list.add(re.getString("user_root"));
 					list.add(team543.utils.MyMD5Util.encrypt(userId));
+					list.add(re.getString("user_name"));
 				} else list.add(1);
 			} else list.add(2);
 			//关闭连接
