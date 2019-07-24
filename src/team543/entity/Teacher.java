@@ -87,5 +87,22 @@ public class Teacher {
 				+ ", t_salay=" + t_salay + ", t_phonenum=" + t_phonenum + ", t_email=" + t_email + ", t_office="
 				+ t_office + ", t_state=" + t_state + ", t_entertime=" + t_entertime + "]";
 	}
+	public Teacher(String t_id, String t_name, String t_dp, String t_jobtitle, String t_salay, String t_phonenum,
+			String t_email, String t_office, String t_state, String t_entertime) {
+		super();
+		this.t_id = t_id;
+		this.t_name = t_name;
+		this.t_dp = t_dp;
+		this.t_jobtitle = t_jobtitle;
+		this.t_salay = t_salay;
+		this.t_phonenum = t_phonenum;
+		this.t_email = t_email;
+		this.t_office = t_office;
+		this.t_state = t_state;
+		this.t_entertime = t_entertime;
+	}
 	
+	public Teacher() {
+		
+	}
 }

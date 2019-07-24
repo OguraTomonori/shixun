@@ -54,7 +54,19 @@ public class Class {
 		return "Class [c_id=" + c_id + ", c_name=" + c_name + ", c_classstate=" + c_classstate + ", c_source="
 				+ c_source + ", c_opendp=" + c_opendp + ", c_percentage=" + c_percentage + "]";
 	}
+	public Class(String c_id, String c_name, String c_classstate, String c_source, String c_opendp,
+			Integer c_percentage) {
+		super();
+		this.c_id = c_id;
+		this.c_name = c_name;
+		this.c_classstate = c_classstate;
+		this.c_source = c_source;
+		this.c_opendp = c_opendp;
+		this.c_percentage = c_percentage;
+	}
 	
-	
+	public Class() {
+		
+	}
 
 }

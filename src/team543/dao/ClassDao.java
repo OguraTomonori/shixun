@@ -1,12 +1,14 @@
 package team543.dao;
 
-import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import team543.entity.Class;
+import java.util.ArrayList;
+import java.util.List;
+
+import utils.DBUtils;
 
 public class ClassDao {
 	/**
@@ -15,11 +17,16 @@ public class ClassDao {
 	 * @throws SQLException
 	 */
 	public void deleteClass(String c_id) throws ReflectiveOperationException, SQLException {
+		//sql语句
 		String sql = "DELETE FROM t_class WHERE c_id=?";
-		Connection connection = team543.utils.DBUtils.getConnection();
+		//获取连接
+		Connection connection = utils.DBUtils.getConnection();
+		//预编译
 		PreparedStatement pst = connection.prepareStatement(sql);
 		pst.setString(1, c_id);
+		//执行
 		pst.executeUpdate();
+		DBUtils.closeConn();
 	}
 	
 	/**
@@ -27,9 +34,9 @@ public class ClassDao {
 	 * @throws SQLException
 	 * @throws ReflectiveOperationException
 	 */
-	public void updateClass(team543.entity.Class c) throws SQLException, ReflectiveOperationException {
+	public void updateClass(entity.Class c) throws SQLException, ReflectiveOperationException {
 		String sql = "UPDATE t_class SET c_name=? , c_classState=? , c_score = ?, c_openDP=? , c_percentage=?  WHERE c_id=?";
-		Connection connection = team543.utils.DBUtils.getConnection();
+		Connection connection = utils.DBUtils.getConnection();
 		PreparedStatement pst = connection.prepareStatement(sql);
 		pst.setString(1, c.getC_name());
 		pst.setString(2, c.getC_classstate());
@@ -38,7 +45,7 @@ public class ClassDao {
 		pst.setInt(5, c.getC_percentage());
 		pst.setString(6, c.getC_id());
 		pst.executeUpdate();
-		
+		DBUtils.closeConn();
 	}
 	
 	/**
@@ -46,10 +53,10 @@ public class ClassDao {
 	 * @throws ReflectiveOperationException
 	 * @throws SQLException
 	 */
-	public void addClass(team543.entity.Class c) throws ReflectiveOperationException, SQLException {
+	public void addClass(entity.Class c) throws ReflectiveOperationException, SQLException {
 		String sql="INSERT INTO t_giveclass(c_id,c_name,c_classState,c_score,c_openDP,c_percentage) VALUES(?,?,?,?,?,?)";
 		
-		Connection connection = team543.utils.DBUtils.getConnection();
+		Connection connection = utils.DBUtils.getConnection();
 		PreparedStatement pst = connection.prepareStatement(sql);
 		
 		pst.setString(1, c.getC_id());
@@ -59,21 +66,22 @@ public class ClassDao {
 		pst.setString(5, c.getC_opendp());
 		pst.setInt(6, c.getC_percentage());
 		pst.executeUpdate();
+		DBUtils.closeConn();
 	}
 	/**
-	 * 
+	 * 输出课程id的课程信息
 	 * @param id
 	 * @throws SQLException 
 	 * @throws ReflectiveOperationException 
 	 */
-	public team543.entity.Class getClassById(String id) throws ReflectiveOperationException, SQLException {
-		String sql = "SELECT * FROM t_class where t_id = '"+ id +"';";
-		
-		Connection connection = team543.utils.DBUtils.getConnection();
+	public entity.Class getClassById(String id) throws ReflectiveOperationException, SQLException {
+		String sql = "SELECT * FROM t_class where c_id = '"+ id +"';";
+		//获取连接
+		Connection connection = utils.DBUtils.getConnection();
 		Statement statement = connection.createStatement();
 		
 		ResultSet rs = statement.executeQuery(sql);
-		team543.entity.Class c = null;
+		entity.Class c = new entity.Class();
 		
 		if(rs.next()) {
 			c.setC_id(rs.getString("c_id"));
@@ -84,24 +92,27 @@ public class ClassDao {
 			c.setC_percentage(rs.getInt("c_percentage"));
 			return c;
 		}
+		//关闭连接
+		DBUtils.closeConn();
 		return c;
 	}
 	/**
-	 * @return List<entity.Class>
+	 * 输出所有课程列表
+	 * @return List<entity.Class>类型
 	 * @throws SQLException
 	 * @throws ReflectiveOperationException
 	 */
-	public List<team543.entity.Class> getAllClass() throws SQLException, ReflectiveOperationException{
+	public ArrayList<entity.Class> getAllClass() throws SQLException, ReflectiveOperationException{
 		String sql = "SELECT * FROM t_class ;";
 		
-		Connection connection = team543.utils.DBUtils.getConnection();
+		Connection connection = utils.DBUtils.getConnection();
 		Statement statement = connection.createStatement();
 		
 		ResultSet rs = statement.executeQuery(sql);
-		List<team543.entity.Class> cl = null;
+		ArrayList<entity.Class> cl = new ArrayList<entity.Class>();
 		
 		while(rs.next()) {
-			team543.entity.Class c =new team543.entity.Class();
+			entity.Class c =new entity.Class();
 			c.setC_id(rs.getString("c_id"));
 			c.setC_name(rs.getString("c_name"));
 			c.setC_classstate(rs.getString("c_classState"));
@@ -110,6 +121,7 @@ public class ClassDao {
 			c.setC_percentage(rs.getInt("c_percentage"));
 			cl.add(c);
 		}
+		DBUtils.closeConn();
 		return cl;
 	}
 }
