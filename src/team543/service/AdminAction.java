@@ -11,15 +11,20 @@ package team543.service;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import team543.dao.ClassDao;
+import team543.dao.ElectiveClassDao;
 import team543.dao.StudentDao;
+import team543.dao.StudentGradeDao;
 import team543.entity.*;
 
 public class AdminAction {
 	StudentDao studentDao = new StudentDao();
 	ClassDao classDao = new ClassDao();
 	StudentDao student = new StudentDao();
+	StudentGradeDao studentGradeDao = new StudentGradeDao();
+	ElectiveClassDao electiveClassDao = new ElectiveClassDao();
 	/**
 	 * 获取学生信息
 	 * @throws SQLException 
@@ -36,7 +41,6 @@ public class AdminAction {
 	 */
 	public ArrayList<Teacher> getTeacher() {
 		return null;
-		
 	}
 	
 	/**
@@ -51,11 +55,18 @@ public class AdminAction {
 	}
 	
 	/**
+	 * 
+	 * 1.sort by student
+	 * 2.sort by classGrade
+	 * 1.DESC 降序
+	 * 2.ASC 升序
 	 * 获取成绩信息
 	 * @return
+	 * @throws SQLException 
+	 * @throws ReflectiveOperationException 
 	 */
-	public ArrayList<Grade> getGrade(){
-		return null;
+	public ArrayList<StudentGrade> getGrade(int sort , int sequence) throws ReflectiveOperationException, SQLException{		
+		return studentGradeDao.getGrades(sort,sequence);
 	}
 	
 	/**
@@ -64,8 +75,8 @@ public class AdminAction {
 	 * @throws SQLException 
 	 * 
 	 */
-	public void updateStudent(Student[] StudentId) throws SQLException, ReflectiveOperationException {
-		student.updateStudent(StudentId);
+	public void updateStudent(ArrayList<Student> students) throws SQLException, ReflectiveOperationException {
+		student.updateStudent(students);
 	}
 	
 	/**
@@ -77,11 +88,13 @@ public class AdminAction {
 	}
 	
 	/**
-	 * 修改选课信息
+	 * 按选课id修改选课信息
+	 * @throws SQLException 
+	 * @throws ReflectiveOperationException 
 	 * 
 	 */
-	public void updateElectiveClass() {
-		
+	public void updateElectiveClass(String id ,String StudentId , String ClassId) throws ReflectiveOperationException, SQLException {
+		electiveClassDao.updateElectiveClass(id,StudentId, ClassId);
 	}
 	
 	/**

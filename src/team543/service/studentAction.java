@@ -6,9 +6,12 @@ import java.util.ArrayList;
 import team543.dao.*;
 import team543.entity.ElectiveClass;
 import team543.entity.Student;
+import team543.entity.StudentGrade;
 
 public class studentAction {
 	StudentDao studentDao = new StudentDao();
+	StudentGradeDao studentGradeDao = new StudentGradeDao();
+	ElectiveClassDao electiveClassDao = new ElectiveClassDao();
 	/**
 	 * 获取学生信息
 	 * @return
@@ -31,7 +34,7 @@ public class studentAction {
 	 * @throws ReflectiveOperationException
 	 * @throws SQLException
 	 */
-	public static ArrayList<team543.entity.Class> getStudentClass(String c_id) throws ReflectiveOperationException, SQLException{
+	public  ArrayList<team543.entity.Class> getStudentClass(String c_id) throws ReflectiveOperationException, SQLException{
 		ElectiveClassDao electiveClassDao = new ElectiveClassDao();
 		ClassDao classDao = new ClassDao();
 		//创建保存学生选课的课程id的列表
@@ -67,9 +70,12 @@ public class studentAction {
 	 * @throws SQLException 
 	 * @throws ReflectiveOperationException 
 	 */
-	public ArrayList<Student> getGrade(String s_id) throws ReflectiveOperationException, SQLException{
-		
-		return null;
+	public ArrayList<StudentGrade> getGrade(String s_id) throws ReflectiveOperationException, SQLException{
+		return studentGradeDao.getStudentGrade(s_id);
+	}
+	
+	public void studentElectiveClass(String studentId , String classId) throws ReflectiveOperationException, SQLException {
+		electiveClassDao.addElectiveClass(studentId, classId);
 	}
 
 }

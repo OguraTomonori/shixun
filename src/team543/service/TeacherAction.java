@@ -3,6 +3,7 @@ package team543.service;
 import java.util.ArrayList;
 
 import team543.entity.Student;
+import team543.entity.StudentGrade;
 import team543.entity.Teacher;
 
 public class TeacherAction {
@@ -35,10 +36,10 @@ public class TeacherAction {
 	}
 	
 	/**
-	 * 获取教授学生成绩信息 1.学生id 2，学生姓名 3.学生成绩
+	 * 获取教授学生成绩信息1.学生id 2，学生姓名 3.学生成绩
 	 * @return
 	 */
-	public ArrayList<?> getStudentGrade(String t_id) {
+	public ArrayList<StudentGrade> getStudentGrade(String t_id) {
 		
 		return null;
 	}
