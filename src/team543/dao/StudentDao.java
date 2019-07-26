@@ -1,7 +1,7 @@
 package team543.dao;
 
-import entity.Student;
-import utils.DBUtils;
+import team543.entity.Student;
+import team543.utils.DBUtils;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -115,7 +115,7 @@ public class StudentDao {
      * @throws SQLException
      * @throws ReflectiveOperationException
      */
-    public  void deleteStudent(int[] id) throws SQLException, ReflectiveOperationException {
+    public static void deleteStudent(int[] id) throws SQLException, ReflectiveOperationException {
         //获取数据库连接
         Connection connection = DBUtils.getConnection();
         for (int i=0;i<id.length;i++
@@ -139,7 +139,7 @@ public class StudentDao {
      * @throws SQLException
      * @throws ReflectiveOperationException
      */
-    public  void updateStudent (Student[] s) throws SQLException, ReflectiveOperationException {
+    public static void updateStudent (Student[] s) throws SQLException, ReflectiveOperationException {
         //获取数据库连接
         Connection connection = DBUtils.getConnection ();
 

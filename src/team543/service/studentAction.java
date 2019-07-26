@@ -3,9 +3,9 @@ package team543.service;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import dao.*;
-import entity.ElectiveClass;
-import entity.Student;
+import team543.dao.*;
+import team543.entity.ElectiveClass;
+import team543.entity.Student;
 
 public class studentAction {
 	StudentDao studentDao = new StudentDao();
@@ -17,7 +17,7 @@ public class studentAction {
 	 */
 	public  Student getStudentInfo(String id) throws ReflectiveOperationException, SQLException {
 		//判断id是否都为数字
-		if(utils.Basic.isNumeric(id)) {
+		if(team543.utils.Basic.isNumeric(id)) {
 			return studentDao.getStudentById(id);
 		}else {
 			return null;
@@ -31,7 +31,7 @@ public class studentAction {
 	 * @throws ReflectiveOperationException
 	 * @throws SQLException
 	 */
-	public  ArrayList<entity.Class> getStudentClass(String c_id) throws ReflectiveOperationException, SQLException{
+	public static ArrayList<team543.entity.Class> getStudentClass(String c_id) throws ReflectiveOperationException, SQLException{
 		ElectiveClassDao electiveClassDao = new ElectiveClassDao();
 		ClassDao classDao = new ClassDao();
 		//创建保存学生选课的课程id的列表
@@ -49,7 +49,7 @@ public class studentAction {
 		
 		}
 		//创建保存课程信息的列表
-		ArrayList<entity.Class> cl = new ArrayList<entity.Class>();
+		ArrayList<team543.entity.Class> cl = new ArrayList<team543.entity.Class>();
 		
 //		System.out.println(list);
 		//该学生选课程的id

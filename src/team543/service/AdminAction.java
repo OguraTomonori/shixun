@@ -12,9 +12,9 @@ package team543.service;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import dao.ClassDao;
-import dao.StudentDao;
-import entity.*;
+import team543.dao.ClassDao;
+import team543.dao.StudentDao;
+import team543.entity.*;
 
 public class AdminAction {
 	StudentDao studentDao = new StudentDao();
@@ -45,7 +45,7 @@ public class AdminAction {
 	 * @throws ReflectiveOperationException 
 	 * @throws SQLException 
 	 */
-	public ArrayList<entity.Class> getClassInfo() throws SQLException, ReflectiveOperationException{
+	public ArrayList<team543.entity.Class> getClassInfo() throws SQLException, ReflectiveOperationException{
 		return classDao.getAllClass();
 		
 	}

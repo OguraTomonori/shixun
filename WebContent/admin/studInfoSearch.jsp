@@ -148,7 +148,9 @@
 						<h4 class="modal-title" id="myModalLabel">成绩</h4>
 					</div>
 					<div class="modal-body" id="grade-content">
-						...
+						<table class="table">
+							
+						</table>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -164,14 +166,14 @@
 						<h4 class="modal-title" id="myModalLabel">更新</h4>
 					</div>
 					<div class="modal-body" id="update-content">
-						
-						  	
-
+						<table class="table">
+							
+						</table>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-danger" data-dismiss="modal">删除</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal" id="deleteStudent">删除</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<button type="button" class="btn btn-primary">保存</button>
+						<button type="button" class="btn btn-primary" data-dismiss="model" id="saveChange">保存</button>
 					</div>
 				</div>
 			</div>
@@ -185,10 +187,10 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 	<script>
-		
 		/*
 			点击时调用，更新model
 		*/
+		
 		function student(studentID) { 
 			var content = document.getElementById("student-content").getElementsByClassName("table")[0];
 			content.innerHTML = "";
@@ -244,8 +246,11 @@
 
 		}
 		function update(studentID) { 
+			
+			
 			var content = document.getElementById("update-content").getElementsByClassName("table")[0];
-			content.innerHTML = "<tr><th>课程名称</th><th>课程号</th><th>成绩</th><th>平时成绩</th><th>试卷成绩</th><th>评价</th></tr>";
+			content.innerHTML = "";
+			//首先获取信息，更新页面
 			$.post({
 				"url":"${pageContext.request.contextPath }/UpdateStudentServlet",
 				"data":{
@@ -253,9 +258,45 @@
 				},
 				"dataType":"json",
 				"success": function(response, status, xhr) {
+					response = response["data"][0];
+					var res = {
+							"姓名": response["name"],
+							"学号": response["id"],
+							"性别": response["sex"],
+							"班级": response["class"],
+							"院系": response["dp"],
+							"专业": response["major"],
+							"状态": response["state"],
+							"入学时间": response["entertime"]
+					};
+					for (key in res) {
+						content.innerHTML = content.innerHTML +
+						"<tr><th>" + key + "</th><td>" + 
+						  "<div class=\"input-group\"><input type=\"text\" class=\"form-control\" aria-describedby=\"basic-addon1\" value=\"" + 
+						  res[key] +
+						  "\"></div></td></tr>";
+					}
+					document.getElementById("deleteStudent").onclick = function() {
+						//删除学生
+						$.post({
+							"url":"${pageContext.request.contextPath }/UpdateStudentServlet",
+							"data": {
+								"opt":"delete",
+								"studentID": studentID
+							}
+							"success": function(response, status, xhr) {
+								alert("添加到清单");
+							}
+						});
+						
+					}
+					document.getElementById("saveChange").onclick = function() {
+						
+					}
 					
-				
-				}});
+					
+			}});
+			
 		}
 		</script>
 		<script>
@@ -307,7 +348,7 @@
 						var major = res[i]["major"];
 						var entertime = res[i]["entertime"];
 						result.innerHTML = 
-							result.innerHTML + "<tr>" + 
+							result.innerHTML + "<tr id='" + "student" + id_ + "'>" + 
 							"<td>" + name + "</td>" + 
 							"<td>" + id_ + "</td>" + 
 							"<td>" + class_ + "</td>" + 
@@ -320,6 +361,9 @@
 							"<td><a href='#' data-toggle=\"modal\" data-target=\"#update\" onclick='update(\"" +
 							id_ + "\")'>更新</a></td></tr>";
 					}
+					// TODO
+					//查询后根据localStorage来更新每一tr状态
+					
 				}
 			});
 		}
