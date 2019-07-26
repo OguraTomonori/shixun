@@ -1,20 +1,20 @@
 package team543.entity;
 
 /*
-选课表中无教师id
-* 学生选课无法找到老师
-*查询不到授课老师
-存在多值依赖
+选锟轿憋拷锟斤拷锟睫斤拷师id
+* 学锟斤拷选锟斤拷锟睫凤拷锟揭碉拷锟斤拷师
+*锟斤拷询锟斤拷锟斤拷锟节匡拷锟斤拷师
+锟斤拷锟节讹拷值锟斤拷锟斤拷
 * */
 
 public class StudentClass {
-//    学生ID
+//    学锟斤拷ID
     private String studentID;
-//    学生姓名
+//    学锟斤拷锟斤拷锟斤拷
     private String studentName;
-//    课程ID
+//    锟轿筹拷ID
     private String classId;
-//    课程名称
+//    锟轿筹拷锟斤拷锟斤拷
     private String className;
 
 }

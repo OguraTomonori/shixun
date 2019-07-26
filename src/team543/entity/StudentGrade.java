@@ -2,24 +2,24 @@ package team543.entity;
 
 
 /*
- * 学生成绩实体
+ * 学锟斤拷锟缴硷拷实锟斤拷
  *
  * */
 
 public class StudentGrade {
-    //学生ID
+    //学锟斤拷ID
     private String studentId;
-    //学生姓名
+    //学锟斤拷锟斤拷锟斤拷
     private String studentName;
-    //课程ID
+    //锟轿筹拷ID
     private String classId;
-    //课程名称
+    //锟轿筹拷锟斤拷锟斤拷
     private String className;
-    //平时分
+    //平时锟斤拷
     private String regularGrade;
-    //考试成绩
+    //锟斤拷锟皆成硷拷
     private String testGrade;
-    //总分
+    //锟杰凤拷
     private String totalMark;
 
     public String getStudentId () {

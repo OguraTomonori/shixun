@@ -51,6 +51,7 @@ public class SearchStudentServlet extends HttpServlet {
 		a.put("dp", "das");
 		a.put("sex", "sex");
 		a.put("major", "adsada");
+		a.put("state", "adsada");
 		a.put("entertime", "asdadas");
 		Map<String, Object> b = new HashMap();
 		b.put("id", "dasfsfd");
@@ -59,6 +60,7 @@ public class SearchStudentServlet extends HttpServlet {
 		b.put("dp", "dsad");
 		b.put("sex", "sex");
 		b.put("major", "adsada");
+		b.put("state", "adsaddsaddsaa");
 		b.put("entertime", "asdadas");
 		List t = new ArrayList();
 		t.add(a);

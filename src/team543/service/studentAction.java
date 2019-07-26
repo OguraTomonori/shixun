@@ -70,12 +70,18 @@ public class studentAction {
 	 * @throws SQLException 
 	 * @throws ReflectiveOperationException 
 	 */
+<<<<<<< HEAD
 	public ArrayList<StudentGrade> getGrade(String s_id) throws ReflectiveOperationException, SQLException{
 		return studentGradeDao.getStudentGrade(s_id);
 	}
 	
 	public void studentElectiveClass(String studentId , String classId) throws ReflectiveOperationException, SQLException {
 		electiveClassDao.addElectiveClass(studentId, classId);
+=======
+	public ArrayList<String> getGrade(String s_id) throws ReflectiveOperationException, SQLException{
+		
+		return null;
+>>>>>>> 2436d5599ddf92e7181c58371cf287e93d41f781
 	}
 
 }
