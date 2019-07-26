@@ -42,11 +42,17 @@
 	          </ul>
 	          <ul class="nav navbar-nav navbar-right">
 	            <li id="name"><a href="#">管理员<span id="username"></span>,你好</a></li>
-	            <li class="active" id="updateList_btn"><a href="#">修改清单<span class="caret"></span></a></li>
+	            
+	            <li class="dropdown active">
+	              <a href="${pageContext.request.contextPath }/admin/updateList.jsp">修改清单 </a>
+	            </li>
 	          </ul>
 	        </div><!--/.nav-collapse -->
 	      </div>
 	    </nav>
+	    <script>
+	    	document.getElementById("username").innerHTML = getCookie("username");
+	    </script>
  	<div class="container-fluid" id="main">
  		<div class="row content">
  			<div class="col-md-2"></div>
@@ -55,6 +61,7 @@
  			</div>
  		</div>
  	</div>
+ 	
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

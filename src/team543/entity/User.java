@@ -40,5 +40,16 @@ public class User {
 		return "user [user_id=" + user_id + ", user_password=" + user_password + ", user_name=" + user_name
 				+ ", user_root=" + user_root + "]";
 	}
+	public User(String user_id, String user_password, String user_name, String user_root) {
+		super();
+		this.user_id = user_id;
+		this.user_password = user_password;
+		this.user_name = user_name;
+		this.user_root = user_root;
+	}
+	
+	public User() {
+		
+	}
 
 }

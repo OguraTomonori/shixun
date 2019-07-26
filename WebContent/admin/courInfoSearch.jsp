@@ -45,6 +45,9 @@
 	        </div><!--/.nav-collapse -->
 	      </div>
 	    </nav>
+	    <script>
+	    	document.getElementById("username").innerHTML = getCookie("username");
+	    </script>
  	<div class="container-fluid" id="main">
 		<div class="row content">
 		  	<div class="col-lg-3"></div>
@@ -114,6 +117,71 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+		var optionObj = document.getElementById("search_option").getElementsByTagName("a");
+		var option = 0;
+	
+		for (var i = 0; i < optionObj.length; i++) {
+			let Obj = optionObj[i];
+			Obj.onclick = function() {
+				option = i;
+				document.getElementById("option_btn").innerHTML = Obj.innerHTML;
+			}
+		}
+    	document.getElementById("search_btn").onclick = function() {
+
+			//根据option进行处理……
+			$.post({
+				"url":"${pageContext.request.contextPath }/SearchCourseServlet",
+				"data":{
+					"search_option": option,
+					"search_text": document.getElementById("search_text").value
+				},
+				"dataType":"json",
+				"success": function(response, status, xhr) {
+					//response应该是一个json包装的字典的数组
+					//{"data":[ {} ... ]}
+					//字典结构
+					//{
+					//	"id":学号
+					//	"name"
+					//	"class"
+					//	"dp"
+					//	"sex"
+					//	"major"
+					//	"entertime"
+					//}
+					/**
+						{
+							"name"
+							"id"
+							"dp"
+						}
+					*/
+					var res = response["data"];
+					console.log(res);
+					var result = document.getElementById("result");
+					for (var i = 0; i < res.length; i++) {
+						var id_ = res[i]["id"];
+						var name = res[i]["name"];
+						var dp = res[i]["dp"];
+
+						result.innerHTML = 
+							result.innerHTML + "<tr>" + 
+							"<td>" + name + "</td>" + 
+							"<td>" + id_ + "</td>" + 
+							"<td>" + dp + "</td>" + 
+							"<td><a target='_blank' href='teacherINFO.jsp?id=" +
+							id_ + "'>详情</a></td>" +  
+							"<td><a target='_blank' href='teacherCourseINFO.jsp?id=" +
+							id_ + "'>课程</a></td>" +  
+							"<td><a target='_blank' href='updateTeacherINFO.jsp?id=" +
+							id_ + "'>更新</a></td></tr>";
+					}
+				}
+			});
+		}
+    </script>
     <script src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
   </body>
 </html>

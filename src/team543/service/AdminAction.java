@@ -9,18 +9,25 @@ package team543.service;
 //修改选课信息
 //修改成绩信息
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-import team543.entity.*;
-import team543.entity.Class;
+import dao.ClassDao;
+import dao.StudentDao;
+import entity.*;
+
 public class AdminAction {
+	StudentDao studentDao = new StudentDao();
+	ClassDao classDao = new ClassDao();
+	StudentDao student = new StudentDao();
 	/**
 	 * 获取学生信息
+	 * @throws SQLException 
+	 * @throws ReflectiveOperationException 
 	 * 
 	 */
-	public ArrayList<Student> getStudent() {
-		return null;
-		
+	public ArrayList<Student> getStudent() throws ReflectiveOperationException, SQLException {
+		return studentDao.getStudents();
 	}
 	
 	/**
@@ -35,9 +42,11 @@ public class AdminAction {
 	/**
 	 * 获取课程信息
 	 * @return
+	 * @throws ReflectiveOperationException 
+	 * @throws SQLException 
 	 */
-	public ArrayList<Class> getClassinfo(){
-		return null;
+	public ArrayList<entity.Class> getClassInfo() throws SQLException, ReflectiveOperationException{
+		return classDao.getAllClass();
 		
 	}
 	
@@ -51,10 +60,12 @@ public class AdminAction {
 	
 	/**
 	 * 修改学生信息
+	 * @throws ReflectiveOperationException 
+	 * @throws SQLException 
 	 * 
 	 */
-	public void updateStudent() {
-		
+	public void updateStudent(Student[] StudentId) throws SQLException, ReflectiveOperationException {
+		student.updateStudent(StudentId);
 	}
 	
 	/**
