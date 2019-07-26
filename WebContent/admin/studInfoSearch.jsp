@@ -8,7 +8,8 @@
   css="${pageContext.request.contextPath }/css/navbar.css,
   ${pageContext.request.contextPath }/css/main.css,
   ${pageContext.request.contextPath }/css/overlay.css"
-  js="${pageContext.request.contextPath }/js/cookie.js"/>
+  js="${pageContext.request.contextPath }/js/cookie.js,
+  ${pageContext.request.contextPath }/js/storage.js"/>
  <body>
  	
  	<nav class="navbar navbar-default navbar-fixed-top" id="titlebar">
@@ -173,7 +174,7 @@
 					<div class="modal-footer">
 						<button type="button" class="btn btn-danger" data-dismiss="modal" id="deleteStudent">删除</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<button type="button" class="btn btn-primary" data-dismiss="model" id="saveChange">保存</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal" id="saveChange">保存</button>
 					</div>
 				</div>
 			</div>
@@ -252,7 +253,7 @@
 			content.innerHTML = "";
 			//首先获取信息，更新页面
 			$.post({
-				"url":"${pageContext.request.contextPath }/UpdateStudentServlet",
+				"url":"${pageContext.request.contextPath }/SearchStudentServlet",
 				"data":{
 					"s_id": studentID
 				},
@@ -269,29 +270,28 @@
 							"状态": response["state"],
 							"入学时间": response["entertime"]
 					};
-					for (key in res) {
+					for (var key in res) {
+						var item = "<div class=\"input-group\"><input type=\"text\" key='" + key + "'class=\"form-control\" aria-describedby=\"basic-addon1\" value=\"" + res[key] + "\"/></div>";
+						if (key == "学号")
+							item = res[key];
 						content.innerHTML = content.innerHTML +
 						"<tr><th>" + key + "</th><td>" + 
-						  "<div class=\"input-group\"><input type=\"text\" class=\"form-control\" aria-describedby=\"basic-addon1\" value=\"" + 
-						  res[key] +
-						  "\"></div></td></tr>";
+						item + 
+						"</td></tr>";
 					}
 					document.getElementById("deleteStudent").onclick = function() {
-						//删除学生
-						$.post({
-							"url":"${pageContext.request.contextPath }/UpdateStudentServlet",
-							"data": {
-								"opt":"delete",
-								"studentID": studentID
-							}
-							"success": function(response, status, xhr) {
-								alert("添加到清单");
-							}
-						});
+						//删除学生操作添加到清单
+						stor.put("delete", "student", {"studentID": studentID});
 						
 					}
 					document.getElementById("saveChange").onclick = function() {
-						
+						//根据现在信息添加到清单
+						var inputs = content.getElementsByTagName("input");
+						for (var i = 0; i < inputs.length; i++)
+							res[inputs[i].getAttribute("key")] = inputs[i].value;
+						res["id"] = res["学号"];
+						stor.put("update", "student", res);
+						alert(JSON.stringify(stor.get("student")));
 					}
 					
 					

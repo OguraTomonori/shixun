@@ -1,10 +1,15 @@
 package team543.servlet;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.alibaba.fastjson.JSONObject;
 
 import team543.service.studentAction;
 
@@ -34,20 +39,25 @@ public class UpdateStudentServlet extends HttpServlet {
 		 * @return
 		 */
 		String opt = request.getParameter("opt");
-		switch (opt) {
-		
-		case "update":
-			//TODO
-			break;
-		
-		case "add":
-			//TODO
-			break;
-		case "delete":
-			//TODO
-			break;
+		if (opt == null) {
+			
+			
+			Map<String, Object> res = new HashMap();
+			JSONObject json = new JSONObject(res);
+			String dd = json.toJSONString();
+			response.getWriter().append(dd);
+			return;
 		}
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		if (opt.equals("add")) {
+			
+		}
+		else if (opt.equals("update")) {
+			
+		}
+		else if (opt.equals("delete")) {
+			
+		}
+		
 	}
 
 	/**

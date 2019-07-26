@@ -67,7 +67,7 @@ public class studentAction {
 	 * @throws SQLException 
 	 * @throws ReflectiveOperationException 
 	 */
-	public ArrayList<Student> getGrade(String s_id) throws ReflectiveOperationException, SQLException{
+	public ArrayList<String> getGrade(String s_id) throws ReflectiveOperationException, SQLException{
 		
 		return null;
 	}
