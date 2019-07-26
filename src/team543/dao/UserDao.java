@@ -7,27 +7,26 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import entity.Student;
-import entity.User;
-import utils.DBUtils;
+import team543.entity.User;
+import team543.utils.DBUtils;
 
 public class UserDao {
 	
 	/**
-	 * Êä³öËùÓĞµÄÓÃ»§
+	 * é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·æ¢°é”Ÿæ–¤æ‹·æ²¡é”Ÿï¿½
 	 * @return
 	 * @throws SQLException 
 	 * @throws ReflectiveOperationException 
 	 */
 	public ArrayList<User> getAllUser() throws ReflectiveOperationException, SQLException{
 		String sql = "SELECT * FROM t_user ;";
-		//»ñÈ¡Á¬½Ó
-		Connection connection = utils.DBUtils.getConnection();
+		//é”Ÿæ–¤æ‹·å–é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·
+		Connection connection = team543.utils.DBUtils.getConnection();
 		Statement statement = connection.createStatement();
-		//Ö´ĞĞsqlÓï¾ä
+		//æ‰§é”Ÿæ–¤æ‹·sqlé”Ÿæ–¤æ‹·é”Ÿï¿½
 		ResultSet rs = statement.executeQuery(sql);
 		ArrayList<User> users = new ArrayList<User>();
-		//½«»ñµÃµÄÊı¾İÊäÈëÁĞ±í
+		//é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·ç«é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·æ–œé”Ÿï¿½
 		while(rs.next()) {
 			User user = new User();
 			user.setUser_id(rs.getString("user_id"));
@@ -41,7 +40,7 @@ public class UserDao {
 	}
 	
 	/**
-	 * ¸ù¾İÓÃ»§id»ñµÃÓÃ»§Êı¾İ
+	 * é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”ŸçŸ«ä¼™æ‹·idé”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·æ²¡é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿï¿½
 	 * @param userId
 	 * @return
 	 * @throws SQLException
@@ -49,13 +48,13 @@ public class UserDao {
 	 */
 	public User getUserById(String userId) throws SQLException, ReflectiveOperationException {
 		String sql = "SELECT * FROM t_user WHERE user_id = '"+userId+"';";
-		Connection connection = utils.DBUtils.getConnection();
+		Connection connection = team543.utils.DBUtils.getConnection();
 		Statement statement = connection.createStatement();
 		
 		ResultSet rs = statement.executeQuery(sql);
 		
 		User user = new User();
-		//ÅĞ¶Ï½á¹û
+		//é”Ÿå«æ–­æ–¤æ‹·é”Ÿï¿½
 		if (rs.next()) {
 			user.setUser_id(rs.getString("user_id"));
 			user.setUser_name(rs.getString("user_name"));
@@ -67,21 +66,21 @@ public class UserDao {
 	
 	public void updataUserInfo(User user) throws ReflectiveOperationException, SQLException {
 		String sql = "UPDATE t_user SET user_name = ? , user_password = ? , user_root=?  WHERE user_id=?";
-		Connection connection = utils.DBUtils.getConnection();
+		Connection connection = team543.utils.DBUtils.getConnection();
 		PreparedStatement pst = connection.prepareStatement(sql);
 		
 		pst.setString(1, user.getUser_name());
 		pst.setString(2, user.getUser_password());
 		pst.setString(3, user.getUser_root());
 		pst.setString(4, user.getUser_root());
-		//Ìá½»
+		//é”Ÿç»“äº¤
 		pst.executeUpdate();
-		//¹Ø±ÕÁ¬½Ó
+		//é”Ÿæˆªæ†‹æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·
 		DBUtils.closeConn();
 	}
 	
 	/**
-	 * Ìí¼ÓÓÃ»§
+	 * é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·æ²¡é”Ÿï¿½
 	 * @param user
 	 * @throws SQLException 
 	 * @throws ReflectiveOperationException 
@@ -102,12 +101,12 @@ public class UserDao {
 //		Connection connection = DBUtils.getConnection();
 //		
 //		StudentDao studentDao = new StudentDao();
-//		//È¡ÏûÄ¬ÈÏÌá½»
+//		//å–é”Ÿæ–¤æ‹·é»˜é”Ÿæ–¤æ‹·é”Ÿç»“äº¤
 ////		connection.setAutoCommit(false);
 //		
 //		addUser(users, connection);
 //		studentDao.addStudent(student, connection);
-//		//Ìá½»
+//		//é”Ÿç»“äº¤
 ////		DBUtils.closeConn();
 //	}
 }

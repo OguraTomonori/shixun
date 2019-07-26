@@ -7,13 +7,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import entity.ElectiveClass;
-import utils.DBUtils;
+import team543.entity.ElectiveClass;
+import team543.utils.DBUtils;
 
 public class ElectiveClassDao {
 	
 	/**
-	 * ¸ù¾ÝÑ§ÉúId²éÑ¯¿Î³Ì
+	 * ï¿½ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½Idï¿½ï¿½Ñ¯ï¿½Î³ï¿½
 	 * @param StudentId
 	 * @return
 	 * @throws ReflectiveOperationException
@@ -22,7 +22,7 @@ public class ElectiveClassDao {
 	public ArrayList<ElectiveClass> getClassId(String StudentId) throws ReflectiveOperationException, SQLException{
 		String sql = "SELECT * FROM t_electiveclass WHERE s_id='"+StudentId+"'";
 		
-		Connection connection = utils.DBUtils.getConnection();
+		Connection connection = team543.utils.DBUtils.getConnection();
 		Statement statement = connection.createStatement();
 		ResultSet rs = statement.executeQuery(sql);
 		
@@ -40,20 +40,20 @@ public class ElectiveClassDao {
 	}
 	
 	/**
-	 * ¸üÐÂÑ¡¿ÎÐÅÏ¢
+	 * ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½Ï¢
 	 * @throws SQLException 
 	 * @throws ReflectiveOperationException 
 	 * 
 	 */
 	public void updateElectiveClass(String StudentId , String ClassId) throws ReflectiveOperationException, SQLException {
 		String sql = "UPDATE t_electiveclass SET c_id=? WHERE s_id = ?; ";
-		Connection connection = utils.DBUtils.getConnection();
-		//Ô¤±àÒë
+		Connection connection = team543.utils.DBUtils.getConnection();
+		//Ô¤ï¿½ï¿½ï¿½ï¿½
 		PreparedStatement pst = connection.prepareStatement(sql);
-		//ÉèÖÃ²ÎÊý
+		//ï¿½ï¿½ï¿½Ã²ï¿½ï¿½ï¿½
 		pst.setString(1, ClassId);
 		pst.setString(2, StudentId);
-		//Ö´ÐÐ
+		//Ö´ï¿½ï¿½
 		pst.executeUpdate();
 		DBUtils.closeConn();
 	}

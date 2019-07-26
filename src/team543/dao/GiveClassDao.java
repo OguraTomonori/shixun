@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import entity.GiveClass;
-import utils.DBUtils;
+import team543.entity.GiveClass;
+import team543.utils.DBUtils;
 
 
 public class GiveClassDao {
@@ -25,7 +25,7 @@ public class GiveClassDao {
 		 */
 	public void deleteGiveClass(String c_id) throws SQLException, ReflectiveOperationException {
 		String sql = "DELETE FROM t_giveclass WHERE c_id=?";
-		Connection connection = utils.DBUtils.getConnection();
+		Connection connection = DBUtils.getConnection();
 		PreparedStatement pst = connection.prepareStatement(sql);
 		pst.setString(1, c_id);
 		pst.executeUpdate();
@@ -39,7 +39,7 @@ public class GiveClassDao {
 	 */
 	public void updateGiveClass(GiveClass gc) throws ReflectiveOperationException, SQLException {
 		String sql="UPDATE t_giveclass SET t_id=?,c_time=?, t_site=? WHERE c_id=?";
-		Connection connection = utils.DBUtils.getConnection();
+		Connection connection = DBUtils.getConnection();
 		
 		PreparedStatement pst = connection.prepareStatement(sql);
 		
@@ -58,7 +58,7 @@ public class GiveClassDao {
 	 */
 	public void addGiveClass(GiveClass gc) throws ReflectiveOperationException, SQLException {
 		String sql="INSERT INTO t_giveclass(c_id,t_id,c_time,t_site) VALUES(?,?,?,?)";
-		Connection connection = utils.DBUtils.getConnection();
+		Connection connection = team543.utils.DBUtils.getConnection();
 		
 		PreparedStatement pst = connection.prepareStatement(sql);
 		
@@ -73,7 +73,7 @@ public class GiveClassDao {
 	
 	public ArrayList<GiveClass> getGiveClassById(String id) throws ReflectiveOperationException, SQLException{
 		//获取数据库连接
-		Connection connection = utils.DBUtils.getConnection();
+		Connection connection = team543.utils.DBUtils.getConnection();
 		
 		Statement statement = connection.createStatement();
 		
@@ -100,7 +100,7 @@ public class GiveClassDao {
 	
 	public ArrayList<GiveClass> getAllGiveClass() throws ReflectiveOperationException, SQLException{
 		//获取数据库连接
-		Connection connection = utils.DBUtils.getConnection();
+		Connection connection = team543.utils.DBUtils.getConnection();
 		
 		Statement statement = connection.createStatement();
 		String sql = "SELECT * FROM t_giveclass;";

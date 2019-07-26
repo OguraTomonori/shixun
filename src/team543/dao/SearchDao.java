@@ -7,13 +7,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
-import entity.Student;
-import utils.DBUtils;
+import team543.entity.Student;
+import team543.utils.DBUtils;
 
  /**
- * 1.Ñ§ºÅÆ¥Åä£¬2.°´ĞÕÃûÆ¥Åä£¬3.°´Ïµ±ğÆ¥Åä£¬4.°´°à¼¶Æ¥Åä
- *	 @author ¹«×ÓĞ¡°×
- * 	 @date 2019Äê7ÔÂ24ÈÕÉÏÎç10:38:40
+ * 1.å­¦é”Ÿæ–¤æ‹·åŒ¹é”Ÿæˆ’ï¼Œ2.é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·åŒ¹é”Ÿæˆ’ï¼Œ3.é”Ÿæ–¤æ‹·ç³»é”Ÿæ–¤æ‹·åŒ¹é”Ÿæˆ’ï¼Œ4.é”Ÿæ–¤æ‹·é”Ÿæ´çº§åŒ¹é”Ÿæ–¤æ‹·
+ *	 @author é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·å°é”Ÿæ–¤æ‹·
+ * 	 @date 2019é”Ÿæ–¤æ‹·7é”Ÿæ–¤æ‹·24é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·10:38:40
  *
  */
 public class SearchDao {
@@ -35,18 +35,18 @@ public class SearchDao {
 			break;
 		}
 		
-        //»ñÈ¡Êı¾İ¿âÁ¬½Ó
+        //é”Ÿæ–¤æ‹·å–é”Ÿæ–¤æ‹·é”Ÿæ·åŒ¡æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·
         Connection connection = DBUtils.getConnection();
-        //´´½¨Statement
+        //é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·Statement
         Statement statement = connection.createStatement();
-        //Ö´ĞĞsqlÓï¾ä
+        //æ‰§é”Ÿæ–¤æ‹·sqlé”Ÿæ–¤æ‹·é”Ÿï¿½
         ResultSet rs = statement.executeQuery(sql);
-        //´´½¨±£´æÑ§ÉúµÄÁĞ±í
+        //é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·å­¦é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿå«æ†‹æ‹·
         ArrayList<Student> arrayList = new ArrayList<Student>();
         
         while(rs.next()) {
         	Student student = new Student();
-        	//¸³Öµ
+        	//é”Ÿæ–¤æ‹·å€¼
             student.setS_id (rs.getString ("s_id"));
             student.setS_name (rs.getString("s_name"));
             student.setS_sex (rs.getString("s_sex"));
@@ -64,30 +64,30 @@ public class SearchDao {
 	}
 	
 	/**
-	 * °´²¿·Ö¿Î³ÌÃû³Æ²éÑ¯¿Î³ÌĞÅÏ¢
+	 * é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿè¡—è¯¾ç­¹æ‹·é”Ÿæ–¤æ‹·é”Ÿç‹¡è¯§æ‹·è¯¢é”Ÿè½¿ç­¹æ‹·é”Ÿæ–¤æ‹·æ¯
 	 * @param className
 	 * @return
 	 * @throws ReflectiveOperationException
 	 * @throws SQLException
 	 */
-	public ArrayList<entity.Class> searchClassByClassName(String className) throws ReflectiveOperationException, SQLException{
+	public ArrayList<team543.entity.Class> searchClassByClassName(String className) throws ReflectiveOperationException, SQLException{
 		
 		className = "%"+className+"%";
 		
 		String sql =  "SELECT * FROM t_class WHERE c_name like '"+className+"';";
 		
-        //»ñÈ¡Êı¾İ¿âÁ¬½Ó
+        //é”Ÿæ–¤æ‹·å–é”Ÿæ–¤æ‹·é”Ÿæ·åŒ¡æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·
         Connection connection = DBUtils.getConnection();
-        //´´½¨Statement
+        //é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·Statement
         Statement statement = connection.createStatement();
-        //Ö´ĞĞsqlÓï¾ä
+        //æ‰§é”Ÿæ–¤æ‹·sqlé”Ÿæ–¤æ‹·é”Ÿï¿½
         ResultSet rs = statement.executeQuery(sql);
-        //´´½¨±£´æÑ§ÉúµÄÁĞ±í
+        //é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·å­¦é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿå«æ†‹æ‹·
         
-        ArrayList<entity.Class> cls = new ArrayList<entity.Class>();
+        ArrayList<team543.entity.Class> cls = new ArrayList<team543.entity.Class>();
         
         while(rs.next()) {
-        	entity.Class c = new entity.Class();
+        	team543.entity.Class c = new team543.entity.Class();
         	c.setC_id(rs.getString("c_id"));
 			c.setC_name(rs.getString("c_name"));
 			c.setC_classstate(rs.getString("c_classState"));
@@ -103,7 +103,7 @@ public class SearchDao {
 	}
 	
 	/**
-	 * °´¸÷ÖÖÌõ¼ş²éÑ¯
+	 * é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·è¯¢
 	 * @param student
 	 * @return
 	 * @throws SQLException 
@@ -115,7 +115,7 @@ public class SearchDao {
 		String sql = "SELECT * FROM t_student WHERE ";
 		
 		String sql2 = "";
-		//¸ù¾İstudentÄÚÈİ²é¿´
+		//é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·studenté”Ÿæ–¤æ‹·é”Ÿæ·æŸ¥çœ‹
 		if(null!=student.getS_id()) {
 			sql2 += "AND s_id LIKE '%"+student.getS_id()+"%' ";
 		}
@@ -147,24 +147,24 @@ public class SearchDao {
 		if(null!=student.getEntertime()) {
 			sql2+= "AND s_entertime BETWEEN '"+firstDate.toString()+"' AND '"+SecondDate.toString()+"'";
 		}
-		//Ìæ»»µÚÒ»¸öAND
+		//é”ŸèŠ¥æ¢é”Ÿæ–¤æ‹·ä¸€é”Ÿæ–¤æ‹·AND
 		sql2 = sql2.replaceFirst("AND","");
 		
-		//¼ÓÉÏ½áÊøµÄ;
+		//é”Ÿæ–¤æ‹·é”Ÿè¾ƒæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·;
 		sql =sql+sql2+";";
 		System.out.println(sql);
-        //»ñÈ¡Êı¾İ¿âÁ¬½Ó
+        //é”Ÿæ–¤æ‹·å–é”Ÿæ–¤æ‹·é”Ÿæ·åŒ¡æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·
         Connection connection = DBUtils.getConnection();
-        //´´½¨Statement
+        //é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·Statement
         Statement statement = connection.createStatement();
-        //Ö´ĞĞsqlÓï¾ä
+        //æ‰§é”Ÿæ–¤æ‹·sqlé”Ÿæ–¤æ‹·é”Ÿï¿½
         ResultSet rs = statement.executeQuery(sql);
-        //´´½¨±£´æÑ§ÉúµÄÁĞ±í
+        //é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·å­¦é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿå«æ†‹æ‹·
         ArrayList<Student> arrayList = new ArrayList<Student>();
         
         while(rs.next()) {
         	Student s = new Student();
-        	//¸³Öµ
+        	//é”Ÿæ–¤æ‹·å€¼
             s.setS_id (rs.getString ("s_id"));
             s.setS_name (rs.getString("s_name"));
             s.setS_sex (rs.getString("s_sex"));
