@@ -1,26 +1,26 @@
 package team543.dao;
 
-import team543.entity.GiveClass;
 import team543.entity.Grade;
 import team543.utils.DBUtils;
-import java.sql.*;
-import java.util.List;
-import java.util.ArrayList;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 public class GradeDao {
 
 /*
-* ����ѧ���ɼ�
+* ??????????
 *Grade[]>>>>>>>>
 *
 * */
     public void addGrade(Grade[] g) throws ReflectiveOperationException, SQLException{
-        //��ȡ���ݿ�����
+        //????????????
         Connection connection = DBUtils.getConnection();
-        //sql���
+        //sql???
         for (Grade grade:g
         ) {
             String sql = "INSERT into  t_grade (s_id, c_id, g_OrdTimeGra, g_ExaPapGra, g_evaluate) VALUES (?,?,?,?,?)";
-            //����prepareStatement
+            //????prepareStatement
             PreparedStatement pst = connection.prepareStatement (sql);
             pst.setString (1, grade.getS_id ());
             pst.setString (2, grade.getC_id ());
@@ -34,7 +34,7 @@ public class GradeDao {
 
 
     /*
-    * ���³ɼ���Ϣ
+    * ?????????
     * Grade[]>>>>>>>
     *
     * */
@@ -44,7 +44,7 @@ public class GradeDao {
         for (Grade grade:g
         ) {
             String sql = "UPDATE t_grade SET g_OrdTimeGra=?,g_ExaPapGra=?,g_evaluate=? WHERE s_id=? and c_id=?";
-            //����prepareStatement
+            //????prepareStatement
             PreparedStatement pst = connection.prepareStatement (sql);
             pst.setString (1, grade.getG_OrdTimGra ());
             pst.setString (2, grade.getG_ExaPopGra ());
@@ -54,7 +54,7 @@ public class GradeDao {
             pst.executeUpdate ();
         }
 
-        //sql���
+        //sql???
         DBUtils.closeConn ();
     }
 
