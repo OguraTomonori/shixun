@@ -5,7 +5,7 @@ import java.sql.SQLException;
 public class StudentActionTest {
 	public void main(String[] args) throws ReflectiveOperationException, SQLException {
 		
-		System.out.println(team543.service.studentAction.getStudentClass("1"));
+		System.out.println(new team543.service.StudentAction().getStudentClass("1"));
 	}
 
 }
