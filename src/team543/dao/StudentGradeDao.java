@@ -2,6 +2,7 @@ package team543.dao;
 
 import team543.entity.StudentGrade;
 import team543.utils.DBUtils;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,30 +10,33 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 /*
-* ï¿½ï¿½Ñ¯Ñ§ï¿½ï¿½ï¿½Î³Ì³É¼ï¿½
-* ï¿½ï¿½v_student_gradeï¿½ï¿½Í¼ï¿½Ä²ï¿½ï¿½ï¿½
+* ²éÑ¯Ñ§Éú¿Î³Ì³É¼¨
+* ¶Ôv_student_gradeÊÓÍ¼µÄ²Ù×÷
 * */
 
 
 public class StudentGradeDao {
 
     /*
-    * ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ï¿½É¼ï¿½
+    * ²éÑ¯µ¥¸öÑ§Éú³É¼¨
     *  studentId>>>>>StudentGrade(class)
     * */
 
-    public static StudentGrade getStudentGrade(String studentId)throws SQLException, ReflectiveOperationException{
+    public ArrayList<StudentGrade>  getStudentGrade(String studentId)throws SQLException, ReflectiveOperationException{
 
-        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½
+        //»ñÈ¡Êý¾Ý¿âÁ¬½Ó
         Connection connection = DBUtils.getConnection();
-        //ï¿½ï¿½ï¿½ï¿½Statement
+        //´´½¨Statement
         Statement statement = connection.createStatement();
-        //sqlï¿½ï¿½ï¿½
-        String sql="SELECT * FROM v_student_grade WHERE s_id="+studentId;
-        //Ö´ï¿½ï¿½sqlï¿½ï¿½ï¿½
+        //sqlÓï¾ä
+        String sql="SELECT * FROM v_student_grade WHERE s_id='"+studentId+"'";
+        //Ö´ÐÐsqlÓï¾ä
         ResultSet rs = statement.executeQuery(sql);
-        if(rs.next()) {
+        
+        ArrayList<StudentGrade> studentGrades = new ArrayList<StudentGrade>();
+        while(rs.next()) {
             StudentGrade studentGrade = new StudentGrade();
+            
             studentGrade.setStudentId (rs.getString ("s_id"));
             studentGrade.setStudentName (rs.getString("s_name"));
             studentGrade.setClassId (rs.getString("c_id"));
@@ -40,33 +44,42 @@ public class StudentGradeDao {
             studentGrade.setRegularGrade (rs.getString("g_OrdTimeGra"));
             studentGrade.setTestGrade (rs.getString  ("g_ExaPapGra"));
             studentGrade.setTotalMark (rs.getString("g_evaluate"));
-            return studentGrade;
+            studentGrades.add(studentGrade);
         }
-        return null;
+        return studentGrades;
     }
 
     /*
-    * ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½Ð³É¼ï¿½
+    * ²éÑ¯ËùÓÐ³É¼¨
     * 0>>>>>> list studentGrades
     * 1>>>>>> list classGrades
     * */
 
-    public static List<StudentGrade> getGrades(int i) throws ReflectiveOperationException, SQLException{
-        String sql;
-        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½
+    public ArrayList<StudentGrade> getGrades(int i,int sequence) throws ReflectiveOperationException, SQLException{
+        //»ñÈ¡Êý¾Ý¿âÁ¬½Ó
         Connection connection = DBUtils.getConnection();
-        //ï¿½ï¿½ï¿½ï¿½Statement
+        //´´½¨Statement
         Statement statement = connection.createStatement();
-        //sqlï¿½ï¿½ï¿½
+        
+        String sql = "SELECT * FROM v_student_grade ORDER BY ";
+        
+        //sqlÓï¾ä
         if (i == 0) {
-            sql = "SELECT * FROM v_student_grade ORDER BY s_id";
+            sql += " s_id ";
 
-        }else {
-            sql = "SELECT * FROM v_student_grade ORDER BY c_id";
+        }else if(i==1){
+            sql += " c_id ";
         }
-        //Ö´ï¿½ï¿½sqlï¿½ï¿½ï¿½
+        
+        if(sequence==1) {
+        	sql+=" DESC ;";
+        } else {
+        	sql+=" ; ";
+        }
+//        System.out.println(sql);
+        //Ö´ÐÐsqlÓï¾ä
         ResultSet rs = statement.executeQuery(sql);
-        List<StudentGrade> studentGrades = new ArrayList<> ();
+        ArrayList<StudentGrade> studentGrades = new ArrayList<> ();
         while(rs.next()) {
             StudentGrade studentGrade = new StudentGrade();
             studentGrade.setStudentId (rs.getString ("s_id"));
@@ -83,19 +96,19 @@ public class StudentGradeDao {
     }
 
     /*
-    * ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½Î³Ì³É¼ï¿½
+    * ²éÑ¯µ¥¸ö¿Î³Ì³É¼¨
     * classID>>>>>>>
     * */
 
-    public static StudentGrade getClassGrade(String classId)throws SQLException, ReflectiveOperationException{
+    public StudentGrade getClassGrade(String classId)throws SQLException, ReflectiveOperationException{
 
-        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½
+        //»ñÈ¡Êý¾Ý¿âÁ¬½Ó
         Connection connection = DBUtils.getConnection();
-        //ï¿½ï¿½ï¿½ï¿½Statement
+        //´´½¨Statement
         Statement statement = connection.createStatement();
-        //sqlï¿½ï¿½ï¿½
+        //sqlÓï¾ä
         String sql="SELECT * FROM v_student_grade WHERE s_id="+classId;
-        //Ö´ï¿½ï¿½sqlï¿½ï¿½ï¿½
+        //Ö´ÐÐsqlÓï¾ä
         ResultSet rs = statement.executeQuery(sql);
         if(rs.next()) {
             StudentGrade studentGrade = new StudentGrade();
@@ -110,4 +123,6 @@ public class StudentGradeDao {
         }
         return null;
     }
+    
+
 }
