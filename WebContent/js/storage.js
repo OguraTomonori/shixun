@@ -1,5 +1,6 @@
 /*
 window.localStorage的内容
+	inited:
 	student:{
 		add:[
 			{id:studentID,...}
@@ -46,6 +47,9 @@ function Stor() {
 		window.localStorage[string] = JSON.stringify(dict);
 	}
 	this.init = function() {
+		if (window.localStorage["init"] != null)
+			return;
+		window.localStorage["init"] = "1";
 		function _() {
 			return JSON.stringify({
 				"add":[],
@@ -110,6 +114,7 @@ function Stor() {
 		
 	}
 	this.show = function() {
+		console.log(window.localStorage["init"]);
 		console.log(window.localStorage["student"]);
 		console.log(window.localStorage["grade"]);
 		console.log(window.localStorage["teacher"]);
@@ -119,7 +124,4 @@ function Stor() {
 	this.init();
 }
 var stor = new Stor();
-window.onbeforeunload = function(){	
-	if (stor.notEmpty())
-		return '您的修改还没有提交，退出会丢失修改'; 
-};
+

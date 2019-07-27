@@ -1,6 +1,7 @@
 package team543.servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.*;
 
 import javax.servlet.ServletException;
@@ -9,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSONObject;
+
+import team543.entity.Student;
+import team543.service.*;
 
 /**
  * Servlet implementation class SearchStudentServlet
@@ -40,33 +44,22 @@ public class SearchStudentServlet extends HttpServlet {
 			"s_entertime":
 		 * 
 		 * 
+		 * 给前端返回数组
 		*/
 		response.setContentType("application/json; charset=utf-8");
 		Map<String, Object> params = team543.utils.ParamUtil.getRequestParameters(request);
+		String studentID = (String) params.get("s_id");
+		Student [] resp = new Student[1];
 		
-		Map<String, Object> a = new HashMap();
-		a.put("id", "dasfsfd");
-		a.put("name", "asdas");
-		a.put("class", "rua");
-		a.put("dp", "das");
-		a.put("sex", "sex");
-		a.put("major", "adsada");
-		a.put("state", "adsada");
-		a.put("entertime", "asdadas");
-		Map<String, Object> b = new HashMap();
-		b.put("id", "dasfsfd");
-		b.put("name", "asdas");
-		b.put("class", "rua");
-		b.put("dp", "dsad");
-		b.put("sex", "sex");
-		b.put("major", "adsada");
-		b.put("state", "adsaddsaddsaa");
-		b.put("entertime", "asdadas");
-		List t = new ArrayList();
-		t.add(a);
-		t.add(b);
+		studentAction action = new studentAction();
+		try {
+			resp[0] = action.getStudentInfo(studentID);
+		} catch (ReflectiveOperationException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Map<String, Object> res = new HashMap();
-		res.put("data", t);
+		res.put("data", resp);
 		JSONObject json = new JSONObject(res);
 		String dd = json.toJSONString();
 		System.out.println(dd);
