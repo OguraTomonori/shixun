@@ -24,5 +24,12 @@ public class Admin {
 	public String toString() {
 		return "admin [admin_id=" + admin_id + ", admin_name=" + admin_name + "]";
 	}
-
+	public Admin(String admin_id, String admin_name) {
+		super();
+		this.admin_id = admin_id;
+		this.admin_name = admin_name;
+	}
+	public Admin() {
+		
+	}
 }

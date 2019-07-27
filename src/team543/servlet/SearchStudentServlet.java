@@ -1,10 +1,14 @@
 package team543.servlet;
 
 import java.io.IOException;
+import java.util.*;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * Servlet implementation class SearchStudentServlet
@@ -25,7 +29,48 @@ public class SearchStudentServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		/**
+		 *  "s_id":
+			"s_name":
+			"s_sex":
+			"s_dp":
+			"s_major":
+			"s_class":
+			"s_state":
+			"s_entertime":
+		 * 
+		 * 
+		*/
+		response.setContentType("application/json; charset=utf-8");
+		Map<String, Object> params = team543.utils.ParamUtil.getRequestParameters(request);
+		
+		Map<String, Object> a = new HashMap();
+		a.put("id", "dasfsfd");
+		a.put("name", "asdas");
+		a.put("class", "rua");
+		a.put("dp", "das");
+		a.put("sex", "sex");
+		a.put("major", "adsada");
+		a.put("state", "adsada");
+		a.put("entertime", "asdadas");
+		Map<String, Object> b = new HashMap();
+		b.put("id", "dasfsfd");
+		b.put("name", "asdas");
+		b.put("class", "rua");
+		b.put("dp", "dsad");
+		b.put("sex", "sex");
+		b.put("major", "adsada");
+		b.put("state", "adsaddsaddsaa");
+		b.put("entertime", "asdadas");
+		List t = new ArrayList();
+		t.add(a);
+		t.add(b);
+		Map<String, Object> res = new HashMap();
+		res.put("data", t);
+		JSONObject json = new JSONObject(res);
+		String dd = json.toJSONString();
+		System.out.println(dd);
+		response.getWriter().append(dd);
 	}
 
 	/**

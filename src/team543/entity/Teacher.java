@@ -1,5 +1,7 @@
 package team543.entity;
 
+import java.util.Date;
+
 public class Teacher {
 	//教师id
 	private String t_id;
@@ -20,7 +22,7 @@ public class Teacher {
 	//教师状态
 	private String t_state;
 	//教师入职时间
-	private String t_entertime;
+	private Date t_entertime;
 	public String getT_id() {
 		return t_id;
 	}
@@ -75,10 +77,10 @@ public class Teacher {
 	public void setT_state(String t_state) {
 		this.t_state = t_state;
 	}
-	public String getT_entertime() {
+	public Date getT_entertime() {
 		return t_entertime;
 	}
-	public void setT_entertime(String t_entertime) {
+	public void setT_entertime(Date t_entertime) {
 		this.t_entertime = t_entertime;
 	}
 	@Override
@@ -87,5 +89,22 @@ public class Teacher {
 				+ ", t_salay=" + t_salay + ", t_phonenum=" + t_phonenum + ", t_email=" + t_email + ", t_office="
 				+ t_office + ", t_state=" + t_state + ", t_entertime=" + t_entertime + "]";
 	}
+	public Teacher(String t_id, String t_name, String t_dp, String t_jobtitle, String t_salay, String t_phonenum,
+			String t_email, String t_office, String t_state, Date t_entertime) {
+		super();
+		this.t_id = t_id;
+		this.t_name = t_name;
+		this.t_dp = t_dp;
+		this.t_jobtitle = t_jobtitle;
+		this.t_salay = t_salay;
+		this.t_phonenum = t_phonenum;
+		this.t_email = t_email;
+		this.t_office = t_office;
+		this.t_state = t_state;
+		this.t_entertime = t_entertime;
+	}
 	
+	public Teacher() {
+		
+	}
 }

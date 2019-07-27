@@ -5,7 +5,6 @@ import team543.utils.DBUtils;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 
 /*
@@ -24,7 +23,7 @@ public class StudentDao {
      * @throws ReflectiveOperationException
      * @throws SQLException
      */
-    public static List<Student> getStudents() throws ReflectiveOperationException, SQLException{
+    public  ArrayList<Student> getStudents() throws ReflectiveOperationException, SQLException{
         //获取数据库连接
         Connection connection = DBUtils.getConnection();
         //创建Statement
@@ -33,7 +32,7 @@ public class StudentDao {
         String sql="SELECT * FROM t_student";
         //执行sql语句
         ResultSet rs = statement.executeQuery(sql);
-        List<Student> students = new ArrayList<Student> ();
+        ArrayList<Student> students = new ArrayList<Student> ();
         while(rs.next()) {
             Student student = new Student();
             student.setS_id (rs.getString ("s_id"));
@@ -43,7 +42,7 @@ public class StudentDao {
             student.setS_major (rs.getString("s_major"));
             student.setS_class (rs.getString ("s_class"));
             student.setS_state (rs.getString("s_state"));
-            student.setEntertame (rs.getString("s_entertime"));
+            student.setEntertime (rs.getString("s_entertime"));
             students.add(student);
         }
         DBUtils.closeConn();
@@ -58,7 +57,7 @@ public class StudentDao {
      * @throws ReflectiveOperationException
      * @throws SQLException
      */
-    public static Student getStudentById (Integer studentId) throws ReflectiveOperationException, SQLException {
+    public  Student getStudentById (String studentId) throws ReflectiveOperationException, SQLException {
         //获取数据库连接
         Connection connection = DBUtils.getConnection();
         //创建Statement
@@ -76,7 +75,7 @@ public class StudentDao {
             student.setS_major (rs.getString("s_major"));
             student.setS_class (rs.getString  ("s_class"));
             student.setS_state (rs.getString("s_state"));
-            student.setEntertame (rs.getString("s_entertime"));
+            student.setEntertime (rs.getString("s_entertime"));
             return student;
         }
         return null;
@@ -90,12 +89,15 @@ public class StudentDao {
      * @throws SQLException
      * @throws ReflectiveOperationException
      */
-    public static void addStudent(Student[] s) throws SQLException, ReflectiveOperationException {
-        //获取数据库连接
-        Connection connection = DBUtils.getConnection();
+    public  void addStudent(ArrayList<Student> s,Connection connection) throws SQLException, ReflectiveOperationException {
         //sql语句
         for (Student student:s
+<<<<<<< HEAD
         ) {  String sql = "INSERT into  t_student (s_id, s_name, s_sex, s_dp, s_class, s_state, s_entertime) VALUES (?,?,?,?,?,?,?)";
+=======
+        ) {
+            String sql = "INSERT into  t_student (s_id, s_name, s_sex, s_dp, s_class, s_state, s_entertime) VALUES (?,?,?,?,?,?,now())";
+>>>>>>> d0c0f999e0272ab26dec4ef3bda76dc874fcbf8c
             //创建prepareStatement
             PreparedStatement pst = connection.prepareStatement (sql);
             pst.setString (1, student.getS_id ());
@@ -104,10 +106,9 @@ public class StudentDao {
             pst.setString (4, student.getS_dp ());
             pst.setString (5, student.getS_class ());
             pst.setString (6, student.getS_state ());
-            pst.setString (7, student.getEntertame ());
+//            pst.setString (7, student.getEntertime ());
             pst.executeUpdate ();
         }
-        DBUtils.closeConn();
     }
 
 
@@ -157,7 +158,7 @@ public class StudentDao {
             pst.setString (4, student.getS_major ());
             pst.setString (5, student.getS_class ());
             pst.setString (6, student.getS_state ());
-            pst.setString (7, student.getEntertame ());
+            pst.setString (7, student.getEntertime ());
             pst.setString (8, student.getS_id ());
             pst.executeUpdate ();
         }

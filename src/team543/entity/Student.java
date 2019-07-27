@@ -1,5 +1,7 @@
 package team543.entity;
 
+import java.util.Date;
+
 public class Student {
 	//学生id
 	private String s_id;
@@ -16,7 +18,7 @@ public class Student {
 	//学生状态
 	private String s_state;
 	//入学时间
-	private String entertame;
+	private Date Entertime;
 	public String getS_id() {
 		return s_id;
 	}
@@ -59,16 +61,31 @@ public class Student {
 	public void setS_state(String s_state) {
 		this.s_state = s_state;
 	}
-	public String getEntertame() {
-		return entertame;
+	public Date getEntertime() {
+		return Entertime;
 	}
-	public void setEntertame(String entertame) {
-		this.entertame = entertame;
+	public void setEntertime(Date Entertime) {
+		this.Entertime = Entertime;
 	}
 	@Override
 	public String toString() {
 		return "student [s_id=" + s_id + ", s_name=" + s_name + ", s_sex=" + s_sex + ", s_dp=" + s_dp + ", s_major="
-				+ s_major + ", s_class=" + s_class + ", s_state=" + s_state + ", entertame=" + entertame + "]";
+				+ s_major + ", s_class=" + s_class + ", s_state=" + s_state + ", Entertime=" + Entertime + "]";
 	}
-
+	
+	public Student(String s_id, String s_name, String s_sex, String s_dp, String s_major, String s_class,
+			String s_state, Date entertime) {
+		this.s_id = s_id;
+		this.s_name = s_name;
+		this.s_sex = s_sex;
+		this.s_dp = s_dp;
+		this.s_major = s_major;
+		this.s_class = s_class;
+		this.s_state = s_state;
+		Entertime = entertime;
+	}
+	
+	public Student() {
+		
+	}
 }

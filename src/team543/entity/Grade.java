@@ -46,5 +46,16 @@ public class Grade {
 		return "Grade [s_id=" + s_id + ", c_id=" + c_id + ", g_OrdTimGra=" + g_OrdTimGra + ", g_ExaPopGra="
 				+ g_ExaPopGra + ", g_evaluate=" + g_evaluate + "]";
 	}
+	public Grade(String s_id, String c_id, String g_OrdTimGra, String g_ExaPopGra, String g_evaluate) {
+		super();
+		this.s_id = s_id;
+		this.c_id = c_id;
+		this.g_OrdTimGra = g_OrdTimGra;
+		this.g_ExaPopGra = g_ExaPopGra;
+		this.g_evaluate = g_evaluate;
+	}
 	
+	public Grade() {
+		
+	}
 }
