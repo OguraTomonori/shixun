@@ -30,11 +30,7 @@
 	            <li class="dropdown">
 	              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">其他 <span class="caret"></span></a>
 	              <ul class="dropdown-menu">
-	              	<li><a href="${pageContext.request.contextPath }/admin/addStudent.jsp">添加学生</a></li>
-	              	<li><a href="${pageContext.request.contextPath }/admin/studInfoSearch.jsp">添加老师</a></li>
-	              	<li><a href="${pageContext.request.contextPath }/admin/studInfoSearch.jsp">添加课程</a></li>
-	              	<li><a href="${pageContext.request.contextPath }/admin/studInfoSearch.jsp">添加成绩</a></li>
-	              	<li role="separator" class="divider"></li>
+
 	                <li><a href="${pageContext.request.contextPath }/logout.jsp">登出</a></li>
 	              </ul>
 	            </li>
@@ -97,7 +93,9 @@
 							    
 			  </div><!-- /.col-lg-6 -->
 		</div><!-- row content -->
-		
+		<div class="btn-group" role="group" aria-label="...">
+			<a class="btn btn-default" href='#' data-toggle="modal" data-target="#add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+		</div>
 		<div class="row content">
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
@@ -113,6 +111,84 @@
 				 		<th></th>
 				 	</tr>
 				</table>
+			</div>
+		</div>
+		<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">添加</h4>
+					</div>
+					<div class="modal-body" id="teacher-content">
+						<table class="table">
+							<tr>
+								<th>姓名</th>
+								<td><div class="input-group">
+									<input type="text" key="姓名" class="form-control" aria-describedby="basic-addon1" >
+								</div></td>
+							</tr>
+							<tr>
+								<th>工号</th>
+								<td><div class="input-group">
+									<input type="text" key="工号" class="form-control" aria-describedby="basic-addon1" >
+								</div></td>
+							</tr>
+							<tr>
+								<th>性别</th>
+								<td><div class="input-group">
+									<input type="text" key="性别" class="form-control" aria-describedby="basic-addon1" >
+								</div></td>
+							</tr>
+							<tr>
+								<th>院系</th>
+								<td><div class="input-group">
+									<input type="text" key="院系" class="form-control" aria-describedby="basic-addon1" >
+								</div></td>
+							</tr>
+							<tr>
+								<th>职位</th>
+								<td><div class="input-group">
+									<input type="text" key="职位" class="form-control" aria-describedby="basic-addon1" >
+								</div></td>
+							</tr>
+							<tr>
+								<th>薪水</th>
+								<td><div class="input-group">
+									<input type="text" key="薪水" class="form-control" aria-describedby="basic-addon1" >
+								</div></td>
+							</tr>
+							<tr>
+								<th>状态</th>
+								<td><div class="input-group">
+									<input type="text" key="状态" class="form-control" aria-describedby="basic-addon1" >
+								</div></td>
+							</tr>
+							<tr>
+								<th>入学时间</th>
+								<td><div class="input-group">
+									<input type="text" key="入学时间" class="form-control" aria-describedby="basic-addon1" >
+								</div></td>
+							</tr>
+							<tr>
+								<th>办公室</th>
+								<td><div class="input-group">
+									<input type="text" key="办公室" class="form-control" aria-describedby="basic-addon1" >
+								</div></td>
+							</tr>
+							<tr>
+								<th>email</th>
+								<td><div class="input-group">
+									<input type="text" key="email" class="form-control" aria-describedby="basic-addon1" >
+								</div></td>
+							</tr>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal" id="saveAdd">保存</button>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="modal fade" id="teacher" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -166,7 +242,7 @@
 					<div class="modal-footer">
 						<button type="button" class="btn btn-danger" data-dismiss="modal" id="deleteTeacher">删除</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<button type="button" class="btn btn-primary" data-dismiss="modal" id="saveChange">保存</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal" id="saveUpdate">保存</button>
 					</div>
 				</div>
 			</div>
@@ -275,18 +351,17 @@
 						"</td></tr>";
 					}
 					document.getElementById("deleteTeacher").onclick = function() {
-						//删除学生操作添加到清单
-						stor.put("delete", "student", {"studentID": studentID});
+						stor.put("delete", "teacher", {"teacherID": teacherID});
 						
 					}
-					document.getElementById("saveChange").onclick = function() {
+					document.getElementById("saveUpdate").onclick = function() {
 						//根据现在信息添加到清单
 						var inputs = content.getElementsByTagName("input");
 						for (var i = 0; i < inputs.length; i++)
 							res[inputs[i].getAttribute("key")] = inputs[i].value;
-						res["id"] = res["学号"];
-						stor.put("update", "student", res);
-						alert(JSON.stringify(stor.get("student")));
+						res["id"] = res["工号"];
+						stor.put("update", "teacher", res);
+						alert(JSON.stringify(stor.get("teacher")));
 					}
 					
 				}
@@ -359,5 +434,7 @@
 		}
     </script>
     <script src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
+  	<script>
+  	</script>
   </body>
 </html>
