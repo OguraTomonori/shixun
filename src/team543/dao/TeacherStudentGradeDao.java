@@ -27,7 +27,7 @@ public class TeacherStudentGradeDao {
         String sql="SELECT * FROM v_grade_from_teacher WHERE t_id="+teacherId;
         //???sql???
         ResultSet rs = statement.executeQuery(sql);
-        List<TeacherStudentGrade> teacherStudentGrades = new ArrayList<>();
+        ArrayList<TeacherStudentGrade> teacherStudentGrades = new ArrayList<>();
         while(rs.next()) {
             TeacherStudentGrade teacherStudentGrade = new TeacherStudentGrade ();
             teacherStudentGrade.setTeacherId (rs.getString ("t_id"));
@@ -59,7 +59,7 @@ public class TeacherStudentGradeDao {
         String sql="SELECT * FROM v_grade_from_teacher";
         //???sql???
         ResultSet rs = statement.executeQuery(sql);
-        List<TeacherStudentGrade> teacherStudentGrades = new ArrayList<>();
+        ArrayList<TeacherStudentGrade> teacherStudentGrades = new ArrayList<>();
         while(rs.next()) {
             TeacherStudentGrade teacherStudentGrade = new TeacherStudentGrade ();
             teacherStudentGrade.setTeacherId (rs.getString ("t_id"));
