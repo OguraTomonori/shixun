@@ -95,8 +95,7 @@ public class StudentDao {
         Connection connection = DBUtils.getConnection();
         //sql”Ôæ‰
         for (Student student:s
-        ) {
-            String sql = "INSERT into  t_student (s_id, s_name, s_sex, s_dp, s_class, s_state, s_entertime) VALUES (?,?,?,?,?,?,?)";
+        ) {  String sql = "INSERT into  t_student (s_id, s_name, s_sex, s_dp, s_class, s_state, s_entertime) VALUES (?,?,?,?,?,?,?)";
             //¥¥Ω®prepareStatement
             PreparedStatement pst = connection.prepareStatement (sql);
             pst.setString (1, student.getS_id ());
