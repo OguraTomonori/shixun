@@ -8,7 +8,7 @@ import team543.entity.ElectiveClass;
 import team543.entity.Student;
 import team543.entity.StudentGrade;
 
-public class studentAction {
+public class StudentAction {
 	StudentDao studentDao = new StudentDao();
 	StudentGradeDao studentGradeDao = new StudentGradeDao();
 	ElectiveClassDao electiveClassDao = new ElectiveClassDao();
