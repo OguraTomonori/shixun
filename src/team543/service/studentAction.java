@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import team543.dao.*;
+import team543.entity.Class;
 import team543.entity.ElectiveClass;
 import team543.entity.Student;
 import team543.entity.StudentGrade;
@@ -12,13 +13,14 @@ public class StudentAction {
 	StudentDao studentDao = new StudentDao();
 	StudentGradeDao studentGradeDao = new StudentGradeDao();
 	ElectiveClassDao electiveClassDao = new ElectiveClassDao();
+	ClassDao  classDao =new ClassDao();
 	/**
 	 * 获取学生信息
 	 * @return
 	 * @throws SQLException
 	 * @throws ReflectiveOperationException 
 	 */
-	public  Student getStudentInfo(String id) throws ReflectiveOperationException, SQLException {
+	public Student getStudentInfo(String id) throws ReflectiveOperationException, SQLException {
 		//判断id是否都为数字
 		if(team543.utils.Basic.isNumeric(id)) {
 			return studentDao.getStudentById(id);
@@ -34,7 +36,7 @@ public class StudentAction {
 	 * @throws ReflectiveOperationException
 	 * @throws SQLException
 	 */
-	public  ArrayList<team543.entity.Class> getStudentClass(String c_id) throws ReflectiveOperationException, SQLException{
+	public  ArrayList<team543.entity.Class> getStudentClass(String studentId) throws ReflectiveOperationException, SQLException{
 		ElectiveClassDao electiveClassDao = new ElectiveClassDao();
 		ClassDao classDao = new ClassDao();
 		//创建保存学生选课的课程id的列表
@@ -42,7 +44,7 @@ public class StudentAction {
 		
 		ArrayList<ElectiveClass> ec = new ArrayList<ElectiveClass>();
 		
-		ec = electiveClassDao.getClassId(c_id);
+		ec = electiveClassDao.getClassId(studentId);
 		//调用函数获取
 //		System.out.println(ec.get(0).getC_id());
 //		String str = "1" ; 
@@ -70,12 +72,29 @@ public class StudentAction {
 	 * @throws SQLException 
 	 * @throws ReflectiveOperationException 
 	 */
-	public ArrayList<StudentGrade> getGrade(String s_id) throws ReflectiveOperationException, SQLException{
-		return studentGradeDao.getStudentGrade(s_id);
+	public ArrayList<StudentGrade> getGrade(String studentId) throws ReflectiveOperationException, SQLException{
+		return studentGradeDao.getStudentGrade(studentId);
 	}
 	
+	/**
+	 * 学生选课
+	 * @param studentId
+	 * @param classId
+	 * @throws ReflectiveOperationException
+	 * @throws SQLException
+	 */
 	public void studentElectiveClass(String studentId , String classId) throws ReflectiveOperationException, SQLException {
 		electiveClassDao.addElectiveClass(studentId, classId);
+	}
+	
+	/**
+	 * 获取所有课程信息
+	 * @return
+	 * @throws SQLException
+	 * @throws ReflectiveOperationException
+	 */
+	public ArrayList<Class> getAllClass() throws SQLException, ReflectiveOperationException {
+		return classDao.getAllClass();
 	}
 
 }

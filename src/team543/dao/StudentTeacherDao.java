@@ -1,5 +1,6 @@
 package team543.dao;
 
+
 import team543.entity.StudentTeacher;
 import team543.utils.DBUtils;
 
@@ -15,7 +16,7 @@ public class StudentTeacherDao {
     /*
     * 根据教师ID查询老师所教学生
     * */
-    public List<StudentTeacher> getStudentByTeacherId(String teacherId) throws ReflectiveOperationException, SQLException{
+    public ArrayList<StudentTeacher> getStudentByTeacherId(String teacherId) throws ReflectiveOperationException, SQLException{
         //????????????
         Connection connection = DBUtils.getConnection();
         //????Statement
@@ -23,7 +24,7 @@ public class StudentTeacherDao {
         String sql="SELECT * FROM v_student_from_teacher WHERE t_id="+teacherId;
         //???sql???
         ResultSet rs = statement.executeQuery(sql);
-        List<StudentTeacher> studentTeachers = new ArrayList<> ();
+        ArrayList<StudentTeacher> studentTeachers = new ArrayList<> ();
         while(rs.next()) {
             StudentTeacher studentTeacher = new StudentTeacher ();
             studentTeacher.setTeacherId (rs.getString ("t_id"));
@@ -46,7 +47,7 @@ public class StudentTeacherDao {
     /*
      * 查询所有老师所教学生
      * */
-    public List<StudentTeacher> getStudentByTeachers() throws ReflectiveOperationException, SQLException{
+    public ArrayList<StudentTeacher> getStudentByTeachers() throws ReflectiveOperationException, SQLException{
         //????????????
         Connection connection = DBUtils.getConnection();
         //????Statement
@@ -54,7 +55,7 @@ public class StudentTeacherDao {
         String sql="SELECT * FROM v_student_from_teacher";
         //???sql???
         ResultSet rs = statement.executeQuery(sql);
-        List<StudentTeacher> studentTeachers = new ArrayList<> ();
+        ArrayList<StudentTeacher> studentTeachers = new ArrayList<> ();
         while(rs.next()) {
             StudentTeacher studentTeacher = new StudentTeacher ();
             studentTeacher.setTeacherId (rs.getString ("t_id"));

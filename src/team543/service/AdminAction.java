@@ -10,13 +10,17 @@ package team543.service;
 //修改成绩信息
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import team543.dao.ClassDao;
 import team543.dao.ElectiveClassDao;
+import team543.dao.SearchDao;
 import team543.dao.StudentDao;
 import team543.dao.StudentGradeDao;
+import team543.dao.TeacherDao;
 import team543.entity.*;
 
 public class AdminAction {
@@ -25,6 +29,8 @@ public class AdminAction {
 	StudentDao student = new StudentDao();
 	StudentGradeDao studentGradeDao = new StudentGradeDao();
 	ElectiveClassDao electiveClassDao = new ElectiveClassDao();
+	TeacherDao teacherDao = new TeacherDao();
+	SearchDao searchDao = new SearchDao();
 	/**
 	 * 获取学生信息
 	 * @throws SQLException 
@@ -38,9 +44,11 @@ public class AdminAction {
 	/**
 	 * 获取教师信息
 	 * @return
+	 * @throws SQLException 
+	 * @throws ReflectiveOperationException 
 	 */
-	public ArrayList<Teacher> getTeacher() {
-		return null;
+	public ArrayList<Teacher> getTeacher() throws ReflectiveOperationException, SQLException {
+		return teacherDao.getTeachers();
 	}
 	
 	/**
@@ -51,7 +59,6 @@ public class AdminAction {
 	 */
 	public ArrayList<team543.entity.Class> getClassInfo() throws SQLException, ReflectiveOperationException{
 		return classDao.getAllClass();
-		
 	}
 	
 	/**
@@ -73,18 +80,21 @@ public class AdminAction {
 	 * 修改学生信息
 	 * @throws ReflectiveOperationException 
 	 * @throws SQLException 
+	 * @throws ParseException 
 	 * 
 	 */
-	public void updateStudent(ArrayList<Student> students) throws SQLException, ReflectiveOperationException {
+	public void updateStudent(ArrayList<Student> students) throws SQLException, ReflectiveOperationException, ParseException {
 		student.updateStudent(students);
 	}
 	
 	/**
 	 * 更新教师信息
+	 * @throws SQLException 
+	 * @throws ReflectiveOperationException 
 	 * 
 	 */
-	public void updateTeacher() {
-		
+	public void updateTeacher(Teacher teacher) throws ReflectiveOperationException, SQLException {
+		teacherDao.updateTeacher(teacher);
 	}
 	
 	/**
@@ -103,6 +113,10 @@ public class AdminAction {
 	 */
 	public void updateGrade() {
 		
+	}
+	
+	public ArrayList<Student> srarchStudent(Student student,Date firstDate,Date secondDate) throws ReflectiveOperationException, SQLException{
+		return searchDao.searchStudent(student, firstDate, secondDate);
 	}
 
 }

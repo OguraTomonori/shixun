@@ -1,5 +1,6 @@
 package team543.dao;
 
+import team543.entity.GiveClass;
 import team543.entity.StudentGrade;
 import team543.utils.DBUtils;
 
@@ -18,7 +19,7 @@ import java.util.List;
 public class StudentGradeDao {
 
     /*
-    * 查询单个学生成绩
+    * 
     *  studentId>>>>>StudentGrade(class)
     * */
 
@@ -124,5 +125,44 @@ public class StudentGradeDao {
         return null;
     }
     
-
+    /**
+     * 通过教师id获取教授学生的成绩
+     * @param teacherId
+     * @return
+     * @throws ReflectiveOperationException
+     * @throws SQLException
+     */
+    public ArrayList<StudentGrade> getStudentGradeByTeacher(String teacherId) throws ReflectiveOperationException, SQLException{
+    	GiveClassDao giveClassDao = new GiveClassDao();
+    	
+    	ArrayList<GiveClass> giveClassById = giveClassDao.getGiveClassById(teacherId);
+    	ArrayList<StudentGrade> studentGrades = new ArrayList<StudentGrade>();
+    	
+    	for( GiveClass classId :giveClassById ) {
+    		 //获取数据库连接
+            Connection connection = DBUtils.getConnection();
+            //创建Statement
+            Statement statement = connection.createStatement();
+            //sql语句
+            String sql="SELECT * FROM v_student_grade WHERE c_id='"+classId.getC_id()+"' ORDER BY c_id";
+            //执行sql语句
+            ResultSet rs = statement.executeQuery(sql);
+           
+            while(rs.next()) {
+                StudentGrade studentGrade = new StudentGrade();
+                
+                studentGrade.setStudentId (rs.getString ("s_id"));
+                studentGrade.setStudentName (rs.getString("s_name"));
+                studentGrade.setClassId (rs.getString("c_id"));
+                studentGrade.setClassName (rs.getString ("c_name"));
+                studentGrade.setRegularGrade (rs.getString("g_OrdTimeGra"));
+                studentGrade.setTestGrade (rs.getString  ("g_ExaPapGra"));
+                studentGrade.setTotalMark (rs.getString("g_evaluate"));
+                studentGrades.add(studentGrade);
+            }
+    		
+    	}
+    	
+		return studentGrades;
+    }
 }
