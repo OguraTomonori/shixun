@@ -2,7 +2,11 @@ package team543.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.*;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,27 +16,27 @@ import javax.servlet.http.HttpServletResponse;
 import com.alibaba.fastjson.JSONObject;
 
 import team543.entity.Student;
-import team543.service.*;
+import team543.service.TeacherAction;
+import team543.utils.Basic;
 
 /**
- * Servlet implementation class SearchStudentServlet
+ * Servlet implementation class AdminSearchStudentServlet
  */
-public class SearchStudentServlet extends HttpServlet {
+public class AdminSearchStudentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchStudentServlet() {
+    public AdminSearchStudentServlet() {
         super();
-
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//  Auto-generated method stub
 		/**
 		 * 这里是根据
 		 *  "s_id":
@@ -49,6 +53,7 @@ public class SearchStudentServlet extends HttpServlet {
 		 * 
 		 * 给前端返回数组
 		*/
+		
 		response.setContentType("application/json; charset=utf-8");
 		Map<String, Object> params = team543.utils.ParamUtil.getRequestParameters(request);
 		String studentID = (String) params.get("s_id");
@@ -58,15 +63,30 @@ public class SearchStudentServlet extends HttpServlet {
 		String major = (String) params.get("s_major");
 		String class_ = (String) params.get("s_class");
 		String state = (String) params.get("s_state");
-		
-		Date starttime = new Date((String) params.get("starttime"));
-		Date endtime = new Date((String) params.get("endtime"));
+		String ST = (String) params.get("startTime");
+		String ET = (String) params.get("endTime");
+		Date startTime = null;
+		try {
+			if (ST != null)
+				startTime = Basic.StringToDate(ST);
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		Date endTime = null;
+		try {
+			if (ET != null)
+				endTime = Basic.StringToDate(ET);
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		ArrayList<Student> resp = null;
 		try {
 			resp = new TeacherAction().searchStudent(
 				new Student(studentID, name, sex, dp, major, class_, state, null)
-				, starttime, endtime);
+				, startTime, endTime);
 		} catch (ReflectiveOperationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -86,7 +106,8 @@ public class SearchStudentServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
+
 }

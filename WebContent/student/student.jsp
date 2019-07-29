@@ -40,13 +40,51 @@
 	        </div><!--/.nav-collapse -->
 	      </div>
 	    </nav>
- 	<div class="container-fluid" id="main">
-	  	<!-- 展示用户信息 -->
+	    <script>
+	    	document.getElementById("username").innerHTML = getCookie("username");
+	    </script>
+ 	<div class="container" id="main">
+	  	<div class="row content">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<table class="table" id="table">
+
+				</table>
+			</div>
+		  </div>
  	</div>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+		$.post({
+			"url":"${pageContext.request.contextPath }/SearchStudentServlet",
+			"data": {
+				"s_id": getCookie("userID")
+			},
+			"dataType":"json",
+			"success": function(response, status, xhr) {
+				var res = response["data"][0];
+				console.log(res);
+				var info = $("#table")[0];
+				var dict = {
+					"姓名": res["s_name"],
+					"学号": res["s_id"],
+					"性别": res["s_sex"],
+					"班级": res["s_class"],
+					"院系": res["s_dp"],
+					"专业": res["s_major"],
+					"状态": res["state"],
+					"入学时间": res["entertime"]
+				}
+				for (var key in dict) {
+					info.innerHTML = info.innerHTML + 
+					"<tr><th>" + key + "</th><td>" + dict[key] + "</td></tr>";
+				}
+			}
+		});
+    </script>
     <script src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
   </body>
 </html>
