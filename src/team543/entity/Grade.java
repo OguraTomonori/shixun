@@ -1,6 +1,9 @@
 package team543.entity;
 
+import team543.dao.ClassDao;
+
 public class Grade {
+    ClassDao classDao = new ClassDao();
 	//学生id
 	private String s_id;
 	//课程id
@@ -11,6 +14,9 @@ public class Grade {
 	private String g_ExaPopGra;
 	//成绩评价
 	private String g_evaluate;
+	//最终成绩
+	private String totalMark =  String.valueOf(Integer.valueOf(g_ExaPopGra).intValue()*(Integer.valueOf(g_OrdTimGra).intValue()*Integer.valueOf(classDao.getClassById(s_id).getC_percentage()).intValue()*0.01));
+	
 	public String getS_id() {
 		return s_id;
 	}
@@ -41,10 +47,16 @@ public class Grade {
 	public void setG_evaluate(String g_evaluate) {
 		this.g_evaluate = g_evaluate;
 	}
+	public String getTotalMark() {
+		return totalMark;
+	}
+	public void setTotalMark(String totalMark) {
+		this.totalMark = totalMark;
+	}
 	@Override
 	public String toString() {
 		return "Grade [s_id=" + s_id + ", c_id=" + c_id + ", g_OrdTimGra=" + g_OrdTimGra + ", g_ExaPopGra="
-				+ g_ExaPopGra + ", g_evaluate=" + g_evaluate + "]";
+				+ g_ExaPopGra + ", g_evaluate=" + g_evaluate + ", totalMark=" + totalMark + "]";
 	}
 	public Grade(String s_id, String c_id, String g_OrdTimGra, String g_ExaPopGra, String g_evaluate) {
 		super();
@@ -55,6 +67,16 @@ public class Grade {
 		this.g_evaluate = g_evaluate;
 	}
 	
+	public Grade(String s_id, String c_id, String g_OrdTimGra, String g_ExaPopGra, String g_evaluate,
+			String totalMark) {
+		super();
+		this.s_id = s_id;
+		this.c_id = c_id;
+		this.g_OrdTimGra = g_OrdTimGra;
+		this.g_ExaPopGra = g_ExaPopGra;
+		this.g_evaluate = g_evaluate;
+		this.totalMark = totalMark;
+	}
 	public Grade() {
 		
 	}

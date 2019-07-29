@@ -1,25 +1,23 @@
 package team543.dao;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
 import team543.entity.TeacherStudentGrade;
 import team543.utils.DBUtils;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Connection;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-
-/*
-* 教师角度查询学生成绩等信息
-* */
 public class TeacherStudentGradeDao {
-
-    /*
-    * 根据teacherID查询教师授课的成绩
-    * String teacherId>>>>>>>>arrayList<TeacherStudentGrade.
-    * */
-    public List<TeacherStudentGrade> gradeByTaecherId(String teacherId)throws ReflectiveOperationException, SQLException{
+	/**
+	 * 查询教师授课成绩
+	 * @param teacherId
+	 * @return
+	 * @throws ReflectiveOperationException
+	 * @throws SQLException
+	 */
+	public ArrayList<TeacherStudentGrade> gradeByTaecherId(String teacherId)throws ReflectiveOperationException, SQLException{
         //????????????
         Connection connection = DBUtils.getConnection();
         //????Statement
@@ -45,13 +43,13 @@ public class TeacherStudentGradeDao {
         return teacherStudentGrades;
 
     }
-
-
-    /*
-    * 查询所有教师的课程及选课学生成绩
-    * >>>>>>arrayList<TeacherStudentGrade>
-    * */
-    public List<TeacherStudentGrade> gradeByTaechers()throws ReflectiveOperationException, SQLException{
+	/**
+	 * 查询所有教师的课程及选课学生成绩
+	 * @return
+	 * @throws ReflectiveOperationException
+	 * @throws SQLException
+	 */
+	public ArrayList<TeacherStudentGrade> gradeByTaechers()throws ReflectiveOperationException, SQLException{
         //????????????
         Connection connection = DBUtils.getConnection();
         //????Statement
@@ -77,6 +75,5 @@ public class TeacherStudentGradeDao {
         return teacherStudentGrades;
 
     }
-
 
 }

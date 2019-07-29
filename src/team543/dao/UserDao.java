@@ -7,26 +7,27 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import team543.entity.Student;
 import team543.entity.User;
 import team543.utils.DBUtils;
 
 public class UserDao {
 	
 	/**
-	 * é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·æ¢°é”Ÿæ–¤æ‹·æ²¡é”Ÿï¿½
+	 * Êä³öËùÓĞµÄÓÃ»§
 	 * @return
 	 * @throws SQLException 
 	 * @throws ReflectiveOperationException 
 	 */
 	public ArrayList<User> getAllUser() throws ReflectiveOperationException, SQLException{
 		String sql = "SELECT * FROM t_user ;";
-		//é”Ÿæ–¤æ‹·å–é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·
+		//»ñÈ¡Á¬½Ó
 		Connection connection = team543.utils.DBUtils.getConnection();
 		Statement statement = connection.createStatement();
-		//æ‰§é”Ÿæ–¤æ‹·sqlé”Ÿæ–¤æ‹·é”Ÿï¿½
+		//Ö´ĞĞsqlÓï¾ä
 		ResultSet rs = statement.executeQuery(sql);
 		ArrayList<User> users = new ArrayList<User>();
-		//é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·ç«é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·æ–œé”Ÿï¿½
+		//½«»ñµÃµÄÊı¾İÊäÈëÁĞ±í
 		while(rs.next()) {
 			User user = new User();
 			user.setUser_id(rs.getString("user_id"));
@@ -40,7 +41,7 @@ public class UserDao {
 	}
 	
 	/**
-	 * é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”ŸçŸ«ä¼™æ‹·idé”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·æ²¡é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿï¿½
+	 * ¸ù¾İÓÃ»§id»ñµÃÓÃ»§Êı¾İ
 	 * @param userId
 	 * @return
 	 * @throws SQLException
@@ -54,7 +55,7 @@ public class UserDao {
 		ResultSet rs = statement.executeQuery(sql);
 		
 		User user = new User();
-		//é”Ÿå«æ–­æ–¤æ‹·é”Ÿï¿½
+		//ÅĞ¶Ï½á¹û
 		if (rs.next()) {
 			user.setUser_id(rs.getString("user_id"));
 			user.setUser_name(rs.getString("user_name"));
@@ -73,21 +74,21 @@ public class UserDao {
 		pst.setString(2, user.getUser_password());
 		pst.setString(3, user.getUser_root());
 		pst.setString(4, user.getUser_root());
-		//é”Ÿç»“äº¤
+		//Ìá½»
 		pst.executeUpdate();
-		//é”Ÿæˆªæ†‹æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·
+		//¹Ø±ÕÁ¬½Ó
 		DBUtils.closeConn();
 	}
 	
 	/**
-	 * é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·æ²¡é”Ÿï¿½
+	 * Ìí¼ÓÓÃ»§
 	 * @param user
 	 * @throws SQLException 
 	 * @throws ReflectiveOperationException 
 	 */
 	public void addUser(ArrayList<User> users,Connection connection) throws ReflectiveOperationException, SQLException {
 		for(User user:users) {
-			String sql = "INSERT into  t_student(user_id,user_name,user_password,user_root) VALUES (?,?,?,?,?,?,?);";
+			String sql = "INSERT into  t_user (user_id,user_name,user_password,user_root) VALUES (?,?,?,?,?,?,?);";
 		PreparedStatement pst = connection.prepareStatement (sql);
 		pst.setString(1, user.getUser_id());
 		pst.setString(2, user.getUser_name());
@@ -101,12 +102,12 @@ public class UserDao {
 //		Connection connection = DBUtils.getConnection();
 //		
 //		StudentDao studentDao = new StudentDao();
-//		//å–é”Ÿæ–¤æ‹·é»˜é”Ÿæ–¤æ‹·é”Ÿç»“äº¤
+//		//È¡ÏûÄ¬ÈÏÌá½»
 ////		connection.setAutoCommit(false);
 //		
 //		addUser(users, connection);
 //		studentDao.addStudent(student, connection);
-//		//é”Ÿç»“äº¤
+//		//Ìá½»
 ////		DBUtils.closeConn();
 //	}
 }

@@ -18,7 +18,6 @@ public class DBUtils {
 	private static String url="";
 	private static String user="";
 	private static String password="";
-	private static String secretID="";
 	private static Connection conn = null;
 	static {
 		try {
@@ -29,7 +28,6 @@ public class DBUtils {
 			url = p.getProperty("jdbc.url");
 			user = p.getProperty("jdbc.user");
 			password = p.getProperty("jdbc.password");
-			secretID = p.getProperty("secretID");
 			/*System.out.println(url);
 			System.out.println(user);
 			System.out.println(password);*/
@@ -52,9 +50,6 @@ public class DBUtils {
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		conn = DriverManager.getConnection(url, user, password);
 		return conn;
-	}
-	public static String getSecretID() {
-		return secretID;
 	}
 	/**
 	 * 关闭数据库连接

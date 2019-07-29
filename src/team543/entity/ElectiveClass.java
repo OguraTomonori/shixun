@@ -1,11 +1,11 @@
 package team543.entity;
 
 public class ElectiveClass {
-	//Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½
+	//Ñ¡¿ÎÐòºÅ
 	private String e_id;
-	//Ñ¡ï¿½ï¿½Ñ§ï¿½ï¿½
+	//Ñ¡¿ÎÑ§Éú
 	private String s_id;
-	//Ñ¡ï¿½Î¿Î³ï¿½id
+	//Ñ¡¿Î¿Î³Ìid
 	private String c_id;
 
 	public String getE_id() {

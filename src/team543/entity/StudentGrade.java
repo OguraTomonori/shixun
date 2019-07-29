@@ -2,25 +2,25 @@ package team543.entity;
 
 
 /*
- * Ñ§ï¿½ï¿½ï¿½É¼ï¿½Êµï¿½ï¿½
+ * Ñ§Éú³É¼¨ÊµÌå
  *
  * */
 
 public class StudentGrade {
-    //Ñ§ï¿½ï¿½ID
+    //Ñ§ÉúID
     private String studentId;
-    //Ñ§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    //Ñ§ÉúÐÕÃû
     private String studentName;
-    //ï¿½Î³ï¿½ID
+    //¿Î³ÌID
     private String classId;
-    //ï¿½Î³ï¿½ï¿½ï¿½ï¿½ï¿½
+    //¿Î³ÌÃû³Æ
     private String className;
-    //Æ½Ê±ï¿½ï¿½
+    //Æ½Ê±·Ö
     private String regularGrade;
-    //ï¿½ï¿½ï¿½Ô³É¼ï¿½
+    //¿¼ÊÔ³É¼¨
     private String testGrade;
-    //ï¿½Ü·ï¿½
-    private String totalMark;
+    //×Ü·Ö
+    private String totalMark = String.valueOf(Integer.valueOf(g_ExaPopGra).intValue()*(Integer.valueOf(g_OrdTimGra).intValue()*Integer.valueOf(classDao.getClassById(s_id).getC_percentage()).intValue()*0.01));;
 
     public String getStudentId () {
         return studentId;

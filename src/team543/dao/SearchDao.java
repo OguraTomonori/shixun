@@ -78,7 +78,7 @@ public class SearchDao {
 		String sql =  "SELECT * FROM t_class WHERE c_name like '"+className+"';";
 		
         //获取数据库连接
-        Connection connection = DBUtils.getConnection();
+        Connection connection = DBUtils.getConnection();	
         //创建Statement
         Statement statement = connection.createStatement();
         //执行sql语句

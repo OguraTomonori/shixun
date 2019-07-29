@@ -25,7 +25,7 @@ public class GiveClassDao {
 		 */
 	public void deleteGiveClass(String c_id) throws SQLException, ReflectiveOperationException {
 		String sql = "DELETE FROM t_giveclass WHERE c_id=?";
-		Connection connection = DBUtils.getConnection();
+		Connection connection = team543.utils.DBUtils.getConnection();
 		PreparedStatement pst = connection.prepareStatement(sql);
 		pst.setString(1, c_id);
 		pst.executeUpdate();
@@ -39,7 +39,7 @@ public class GiveClassDao {
 	 */
 	public void updateGiveClass(GiveClass gc) throws ReflectiveOperationException, SQLException {
 		String sql="UPDATE t_giveclass SET t_id=?,c_time=?, t_site=? WHERE c_id=?";
-		Connection connection = DBUtils.getConnection();
+		Connection connection = team543.utils.DBUtils.getConnection();
 		
 		PreparedStatement pst = connection.prepareStatement(sql);
 		
@@ -71,13 +71,19 @@ public class GiveClassDao {
 		DBUtils.closeConn();
 	}
 	
-	public ArrayList<GiveClass> getGiveClassById(String id) throws ReflectiveOperationException, SQLException{
+	/**
+	 * @param id
+	 * @return
+	 * @throws ReflectiveOperationException
+	 * @throws SQLException
+	 */
+	public ArrayList<GiveClass> getGiveClassById(String teacherId) throws ReflectiveOperationException, SQLException{
 		//获取数据库连接
 		Connection connection = team543.utils.DBUtils.getConnection();
 		
 		Statement statement = connection.createStatement();
 		
-		String sql = "SELECT * FROM t_giveclass where t_id = '"+ id +"';";
+		String sql = "SELECT * FROM t_giveclass where t_id = '"+ teacherId +"';";
 		
 		ResultSet rs = statement.executeQuery(sql);
 		

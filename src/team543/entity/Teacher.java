@@ -77,8 +77,8 @@ public class Teacher {
 	public void setT_state(String t_state) {
 		this.t_state = t_state;
 	}
-	public Date getT_entertime() {
-		return t_entertime;
+	public String getT_entertime() {
+		return team543.dao.SearchDao.timeFormat(t_entertime) ;
 	}
 	public void setT_entertime(Date t_entertime) {
 		this.t_entertime = t_entertime;

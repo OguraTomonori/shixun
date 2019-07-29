@@ -8,7 +8,7 @@ public class Class {
 	//课程状态
 	private String c_classstate;
 	//课程学分
-	private String c_source;
+	private String c_score;
 	//开课院系
 	private String c_opendp;
 	//平时成绩占比
@@ -31,11 +31,11 @@ public class Class {
 	public void setC_classstate(String c_classstate) {
 		this.c_classstate = c_classstate;
 	}
-	public String getC_source() {
-		return c_source;
+	public String getC_score() {
+		return c_score;
 	}
-	public void setC_source(String c_source) {
-		this.c_source = c_source;
+	public void setC_score(String c_score) {
+		this.c_score = c_score;
 	}
 	public String getC_opendp() {
 		return c_opendp;
@@ -51,16 +51,16 @@ public class Class {
 	}
 	@Override
 	public String toString() {
-		return "Class [c_id=" + c_id + ", c_name=" + c_name + ", c_classstate=" + c_classstate + ", c_source="
-				+ c_source + ", c_opendp=" + c_opendp + ", c_percentage=" + c_percentage + "]";
+		return "Class [c_id=" + c_id + ", c_name=" + c_name + ", c_classstate=" + c_classstate + ", c_score="
+				+ c_score + ", c_opendp=" + c_opendp + ", c_percentage=" + c_percentage + "]";
 	}
-	public Class(String c_id, String c_name, String c_classstate, String c_source, String c_opendp,
+	public Class(String c_id, String c_name, String c_classstate, String c_score, String c_opendp,
 			Integer c_percentage) {
 		super();
 		this.c_id = c_id;
 		this.c_name = c_name;
 		this.c_classstate = c_classstate;
-		this.c_source = c_source;
+		this.c_score = c_score;
 		this.c_opendp = c_opendp;
 		this.c_percentage = c_percentage;
 	}

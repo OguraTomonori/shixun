@@ -9,7 +9,7 @@ import java.security.MessageDigest;
  */
 public class MyMD5Util {
 	//—Œ£¨”√”⁄ªÏΩªmd5
-	private static final String slat = team543.utils.DBUtils.getSecretID();
+	private static final String slat = "34243wqeweqwe";
 	public static String encrypt(String dataStr) {
 		try {
 			dataStr = dataStr + slat;

@@ -6,6 +6,7 @@ import team543.utils.DBUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 public class GradeDao {
 
 /*
@@ -13,11 +14,11 @@ public class GradeDao {
 *Grade[]>>>>>>>>
 *
 * */
-    public void addGrade(Grade[] g) throws ReflectiveOperationException, SQLException{
+    public void addGrade(ArrayList<Grade> grades) throws ReflectiveOperationException, SQLException{
         //????????????
         Connection connection = DBUtils.getConnection();
         //sql???
-        for (Grade grade:g
+        for (Grade grade:grades
         ) {
             String sql = "INSERT into  t_grade (s_id, c_id, g_OrdTimeGra, g_ExaPapGra, g_evaluate) VALUES (?,?,?,?,?)";
             //????prepareStatement
@@ -38,10 +39,10 @@ public class GradeDao {
     * Grade[]>>>>>>>
     *
     * */
-    public void updateGrade(Grade[] g)throws ReflectiveOperationException, SQLException{
+    public void updateGrade(ArrayList<Grade> grades)throws ReflectiveOperationException, SQLException{
         Connection connection = DBUtils.getConnection ();
 
-        for (Grade grade:g
+        for (Grade grade:grades
         ) {
             String sql = "UPDATE t_grade SET g_OrdTimeGra=?,g_ExaPapGra=?,g_evaluate=? WHERE s_id=? and c_id=?";
             //????prepareStatement

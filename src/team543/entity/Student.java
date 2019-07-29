@@ -61,8 +61,8 @@ public class Student {
 	public void setS_state(String s_state) {
 		this.s_state = s_state;
 	}
-	public Date getEntertime() {
-		return Entertime;
+	public String getEntertime() {
+		return team543.dao.SearchDao.timeFormat(Entertime);
 	}
 	public void setEntertime(Date Entertime) {
 		this.Entertime = Entertime;
