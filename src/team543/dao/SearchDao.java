@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -11,9 +12,9 @@ import team543.entity.Student;
 import team543.utils.DBUtils;
 
  /**
- * 1.å­¦é”Ÿæ–¤æ‹·åŒ¹é”Ÿæˆ’ï¼Œ2.é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·åŒ¹é”Ÿæˆ’ï¼Œ3.é”Ÿæ–¤æ‹·ç³»é”Ÿæ–¤æ‹·åŒ¹é”Ÿæˆ’ï¼Œ4.é”Ÿæ–¤æ‹·é”Ÿæ´çº§åŒ¹é”Ÿæ–¤æ‹·
- *	 @author é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·å°é”Ÿæ–¤æ‹·
- * 	 @date 2019é”Ÿæ–¤æ‹·7é”Ÿæ–¤æ‹·24é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·10:38:40
+ * 1.Ñ§ºÅÆ¥Åä£¬2.°´ĞÕÃûÆ¥Åä£¬3.°´Ïµ±ğÆ¥Åä£¬4.°´°à¼¶Æ¥Åä
+ *	 @author ¹«×ÓĞ¡°×
+ * 	 @date 2019Äê7ÔÂ24ÈÕÉÏÎç10:38:40
  *
  */
 public class SearchDao {
@@ -35,18 +36,18 @@ public class SearchDao {
 			break;
 		}
 		
-        //é”Ÿæ–¤æ‹·å–é”Ÿæ–¤æ‹·é”Ÿæ·åŒ¡æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·
+        //»ñÈ¡Êı¾İ¿âÁ¬½Ó
         Connection connection = DBUtils.getConnection();
-        //é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·Statement
+        //´´½¨Statement
         Statement statement = connection.createStatement();
-        //æ‰§é”Ÿæ–¤æ‹·sqlé”Ÿæ–¤æ‹·é”Ÿï¿½
+        //Ö´ĞĞsqlÓï¾ä
         ResultSet rs = statement.executeQuery(sql);
-        //é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·å­¦é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿå«æ†‹æ‹·
+        //´´½¨±£´æÑ§ÉúµÄÁĞ±í
         ArrayList<Student> arrayList = new ArrayList<Student>();
         
         while(rs.next()) {
         	Student student = new Student();
-        	//é”Ÿæ–¤æ‹·å€¼
+        	//¸³Öµ
             student.setS_id (rs.getString ("s_id"));
             student.setS_name (rs.getString("s_name"));
             student.setS_sex (rs.getString("s_sex"));
@@ -54,7 +55,7 @@ public class SearchDao {
             student.setS_major (rs.getString("s_major"));
             student.setS_class (rs.getString  ("s_class"));
             student.setS_state (rs.getString("s_state"));
-            student.setEntertime (rs.getString("s_entertime"));
+            student.setEntertime (rs.getDate("s_entertime"));
             
             arrayList.add(student);
         	
@@ -64,7 +65,7 @@ public class SearchDao {
 	}
 	
 	/**
-	 * é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿè¡—è¯¾ç­¹æ‹·é”Ÿæ–¤æ‹·é”Ÿç‹¡è¯§æ‹·è¯¢é”Ÿè½¿ç­¹æ‹·é”Ÿæ–¤æ‹·æ¯
+	 * °´²¿·Ö¿Î³ÌÃû³Æ²éÑ¯¿Î³ÌĞÅÏ¢
 	 * @param className
 	 * @return
 	 * @throws ReflectiveOperationException
@@ -76,13 +77,13 @@ public class SearchDao {
 		
 		String sql =  "SELECT * FROM t_class WHERE c_name like '"+className+"';";
 		
-        //é”Ÿæ–¤æ‹·å–é”Ÿæ–¤æ‹·é”Ÿæ·åŒ¡æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·
+        //»ñÈ¡Êı¾İ¿âÁ¬½Ó
         Connection connection = DBUtils.getConnection();
-        //é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·Statement
+        //´´½¨Statement
         Statement statement = connection.createStatement();
-        //æ‰§é”Ÿæ–¤æ‹·sqlé”Ÿæ–¤æ‹·é”Ÿï¿½
+        //Ö´ĞĞsqlÓï¾ä
         ResultSet rs = statement.executeQuery(sql);
-        //é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·å­¦é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿå«æ†‹æ‹·
+        //´´½¨±£´æÑ§ÉúµÄÁĞ±í
         
         ArrayList<team543.entity.Class> cls = new ArrayList<team543.entity.Class>();
         
@@ -91,7 +92,7 @@ public class SearchDao {
         	c.setC_id(rs.getString("c_id"));
 			c.setC_name(rs.getString("c_name"));
 			c.setC_classstate(rs.getString("c_classState"));
-			c.setC_source(rs.getString("c_score"));
+			c.setC_score(rs.getString("c_score"));
 			c.setC_opendp(rs.getString("c_openDP"));
 			c.setC_percentage(rs.getInt("c_percentage"));
 			
@@ -99,23 +100,22 @@ public class SearchDao {
         }
 		
 		return cls;
-		
 	}
 	
 	/**
-	 * é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·è¯¢
+	 * °´¸÷ÖÖÌõ¼ş²éÑ¯£¬²»ÄÜÈ«Îª¿Õ
 	 * @param student
 	 * @return
 	 * @throws SQLException 
 	 * @throws ReflectiveOperationException 
 	 */
-	public ArrayList<Student> searchStudent(Student student,Date firstDate,Date SecondDate) throws ReflectiveOperationException, SQLException{
+	public ArrayList<Student> searchStudent(Student student,Date firstDate,Date secondDate) throws ReflectiveOperationException, SQLException{
 		
 		
 		String sql = "SELECT * FROM t_student WHERE ";
 		
 		String sql2 = "";
-		//é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·studenté”Ÿæ–¤æ‹·é”Ÿæ·æŸ¥çœ‹
+		//¸ù¾İstudentÄÚÈİ²é¿´
 		if(null!=student.getS_id()) {
 			sql2 += "AND s_id LIKE '%"+student.getS_id()+"%' ";
 		}
@@ -144,27 +144,27 @@ public class SearchDao {
 			sql2+="AND s_major LIKE '%"+student.getS_major()+"%' ";
 		}
 		
-		if(null!=student.getEntertime()) {
-			sql2+= "AND s_entertime BETWEEN '"+firstDate.toString()+"' AND '"+SecondDate.toString()+"'";
+		if(null!=firstDate&&null!=secondDate) {
+			sql2+= "AND s_entertime BETWEEN '"+timeFormat(firstDate)+"' AND '"+timeFormat(secondDate)+"'";
 		}
-		//é”ŸèŠ¥æ¢é”Ÿæ–¤æ‹·ä¸€é”Ÿæ–¤æ‹·AND
+		//Ìæ»»µÚÒ»¸öAND
 		sql2 = sql2.replaceFirst("AND","");
 		
-		//é”Ÿæ–¤æ‹·é”Ÿè¾ƒæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·;
+		//¼ÓÉÏ½áÊøµÄ;
 		sql =sql+sql2+";";
-		System.out.println(sql);
-        //é”Ÿæ–¤æ‹·å–é”Ÿæ–¤æ‹·é”Ÿæ·åŒ¡æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·
+//		System.out.println(sql);
+        //»ñÈ¡Êı¾İ¿âÁ¬½Ó
         Connection connection = DBUtils.getConnection();
-        //é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·Statement
+        //´´½¨Statement
         Statement statement = connection.createStatement();
-        //æ‰§é”Ÿæ–¤æ‹·sqlé”Ÿæ–¤æ‹·é”Ÿï¿½
+        //Ö´ĞĞsqlÓï¾ä
         ResultSet rs = statement.executeQuery(sql);
-        //é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·å­¦é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿå«æ†‹æ‹·
+        //´´½¨±£´æÑ§ÉúµÄÁĞ±í
         ArrayList<Student> arrayList = new ArrayList<Student>();
         
         while(rs.next()) {
         	Student s = new Student();
-        	//é”Ÿæ–¤æ‹·å€¼
+        	//¸³Öµ
             s.setS_id (rs.getString ("s_id"));
             s.setS_name (rs.getString("s_name"));
             s.setS_sex (rs.getString("s_sex"));
@@ -172,14 +172,33 @@ public class SearchDao {
             s.setS_major (rs.getString("s_major"));
             s.setS_class (rs.getString  ("s_class"));
             s.setS_state (rs.getString("s_state"));
-            s.setEntertime (rs.getString("s_entertime"));
+            
+            java.util.Date utilDate = new java.util.Date (rs.getDate("s_entertime").getTime());
+            
+//            System.out.println(utilDate);
+            
+            s.setEntertime (utilDate);
+            
+//            s.setEntertime (rs.getDate("s_entertime"));
             
             arrayList.add(s);
         	
         }
 		
-		
 		return arrayList;
 	}
+	
+	/**
+	 * ·µ»Ø¸ñÊ½»¯ºóµÄÊ±¼ä
+	 * @param date
+	 * @return
+	 */
 
+	public static String  timeFormat(Date date){
+		return DateFormat.getDateInstance(DateFormat.MEDIUM).format(date);
+	}
+//	public static void main(String[] args) {
+//		String timeFormat = timeFormat(new Date());
+//		System.out.println(timeFormat);
+//	}
 }

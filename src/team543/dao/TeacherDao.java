@@ -25,7 +25,7 @@ public class TeacherDao {
 	 * @throws ReflectiveOperationException
 	 * @throws SQLException
 	 */
-    public static List<Teacher> getTeachers() throws ReflectiveOperationException,SQLException{
+    public ArrayList<Teacher> getTeachers() throws ReflectiveOperationException,SQLException{
     	//获取数据库连接
     	Connection connection = DBUtils.getConnection();
     	//创建Statement
@@ -34,7 +34,7 @@ public class TeacherDao {
     	String sql="SELECT * FROM t_teacher";
     	//执行sql语句
     	ResultSet rs = statement.executeQuery(sql);
-    	List<Teacher> teachers = new ArrayList<Teacher>();
+    	ArrayList<Teacher> teachers = new ArrayList<Teacher>();
     	while(rs.next()) {
     		Teacher teacher = new Teacher();
     		teacher.setT_id(rs.getString("t_id"));
@@ -46,7 +46,7 @@ public class TeacherDao {
     		teacher.setT_email(rs.getString("t_email"));
     		teacher.setT_office(rs.getString("t_office"));
     		teacher.setT_state(rs.getString("t_state"));
-    		teacher.setT_entertime(rs.getString("t_entertime"));
+    		teacher.setT_entertime(rs.getDate("t_entertime"));
     		teachers.add(teacher);
         }
     	DBUtils.closeConn();
@@ -60,13 +60,13 @@ public class TeacherDao {
       * @throws ReflectiveOperationException
       * @throws SQLException
       */
-     public static Teacher getTeacherById (Integer teacherId) throws ReflectiveOperationException,SQLException{
+     public Teacher getTeacherById (String teacherId) throws ReflectiveOperationException,SQLException{
     	 //获取数据库连接
     	 Connection connection = DBUtils.getConnection();
     	 //创建Statement
     	 Statement statement = connection.createStatement();
     	 //sql语句
-    	 String sql="SELECT * FROM t_teacher WHERE t_id="+teacherId;
+    	 String sql="SELECT * FROM t_teacher WHERE t_id= '"+teacherId+"' ";
     	 //执行sql语句
     	 ResultSet rs = statement.executeQuery(sql);
     	 if(rs.next()) {
@@ -80,7 +80,7 @@ public class TeacherDao {
      		 teacher.setT_email(rs.getString("t_email"));
      		 teacher.setT_office(rs.getString("t_office"));
      		 teacher.setT_state(rs.getString("t_state"));
-     		 teacher.setT_entertime(rs.getString("t_entertime"));
+     		 teacher.setT_entertime(rs.getDate("t_entertime"));
      		 return teacher;
      }
      return null;
@@ -93,7 +93,7 @@ public class TeacherDao {
     * @throws SQLException
     * @throws ReflectiveOperationException
     */
-    public static void addTeacher(Teacher teacher) throws ReflectiveOperationException,SQLException{
+    public void addTeacher(Teacher teacher) throws ReflectiveOperationException,SQLException{
     	//获得数据库连接
     	Connection connection = DBUtils.getConnection();
     	//sql语句
@@ -120,7 +120,7 @@ public class TeacherDao {
      * @throws SQLException
      * @throws ReflectiveOperationException
      */
-    public static void deleteTeacher(Integer teacherId) throws ReflectiveOperationException,SQLException{
+    public void deleteTeacher(Integer teacherId) throws ReflectiveOperationException,SQLException{
     	//获取数据库连接
     	Connection connection = DBUtils.getConnection();
     	//sql语句
@@ -139,11 +139,11 @@ public class TeacherDao {
      * @throws SQLException
      * @throws ReflectiveOperationException
      */
-    public static void updateTeacher(Teacher teacher) throws ReflectiveOperationException,SQLException{
+    public void updateTeacher(Teacher teacher) throws ReflectiveOperationException,SQLException{
     	//获取数据库连接
     	Connection connection = DBUtils.getConnection();
     	//sql语句
-    	String sql="UPDATE t_teacher SET t_name=?,t_dp=?,t_jobtitle=?,t_salay=?,t_phonenum=?,t_email=?,t_office=?,t_state=?,t_entertime=? WHERE t_id=?";
+    	String sql="UPDATE t_teacher SET t_name=?,t_dp=?,t_jobtitle=?,t_salary=?,t_phonenum=?,t_email=?,t_office=?,t_state=?,t_entertime=? WHERE t_id=?";
     	//创建prepeareStatement
     	PreparedStatement pst = connection.prepareStatement(sql);
     	pst.setString(1, teacher.getT_name());
