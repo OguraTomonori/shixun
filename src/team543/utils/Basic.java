@@ -1,5 +1,9 @@
 package team543.utils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Basic {
 	/**
 	 * @param str
@@ -14,5 +18,8 @@ public class Basic {
 		  return true;
 		}
 	
-	
+	public static Date StringToDate(String date) throws ParseException {
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+		return dateformat.parse(date);
+	}
 }
