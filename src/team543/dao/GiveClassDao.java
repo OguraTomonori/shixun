@@ -70,7 +70,25 @@ public class GiveClassDao {
 		pst.executeUpdate();
 		DBUtils.closeConn();
 	}
-	
+	public GiveClass getGiveClassByClassId(String ClassId) throws ReflectiveOperationException, SQLException {
+		//获取数据库连接
+		Connection connection = team543.utils.DBUtils.getConnection();
+		
+		Statement statement = connection.createStatement();
+		
+		String sql = "SELECT * FROM t_giveclass where c_id = '"+ ClassId +"';";
+		
+		ResultSet rs = statement.executeQuery(sql);
+		GiveClass gc = new GiveClass();
+		if(rs.next()) {
+			gc.setC_id(rs.getString("c_id"));
+			gc.setT_id(rs.getString("t_id"));
+			gc.setC_time(rs.getString("c_time"));
+			gc.setT_site(rs.getString("t_site"));
+		}
+		DBUtils.closeConn();
+		return gc;
+	}
 	/**
 	 * @param id
 	 * @return

@@ -13,7 +13,7 @@ import team543.utils.DBUtils;
 public class ElectiveClassDao {
 	
 	/**
-	 * ï¿½ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½Idï¿½ï¿½Ñ¯ï¿½Î³ï¿½
+	 * ¸ù¾ÝÑ§ÉúId²éÑ¯¿Î³Ì
 	 * @param StudentId
 	 * @return
 	 * @throws ReflectiveOperationException
@@ -40,21 +40,44 @@ public class ElectiveClassDao {
 	}
 	
 	/**
-	 * ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½Ï¢
+	 * ¸üÐÂÑ¡¿ÎÐÅÏ¢
 	 * @throws SQLException 
 	 * @throws ReflectiveOperationException 
 	 * 
 	 */
-	public void updateElectiveClass(String StudentId , String ClassId) throws ReflectiveOperationException, SQLException {
-		String sql = "UPDATE t_electiveclass SET c_id=? WHERE s_id = ?; ";
+	public void updateElectiveClass(String id , String studentId , String classId) throws ReflectiveOperationException, SQLException {
+		String sql = "UPDATE t_electiveclass SET c_id=? , s_id = ? WHERE e_id = ?; ";
 		Connection connection = team543.utils.DBUtils.getConnection();
-		//Ô¤ï¿½ï¿½ï¿½ï¿½
+		//Ô¤±àÒë
 		PreparedStatement pst = connection.prepareStatement(sql);
-		//ï¿½ï¿½ï¿½Ã²ï¿½ï¿½ï¿½
-		pst.setString(1, ClassId);
-		pst.setString(2, StudentId);
-		//Ö´ï¿½ï¿½
+		//ÉèÖÃ²ÎÊý
+		pst.setString(1, classId);
+		pst.setString(2, studentId);
+		pst.setString(3, id);
+		//Ö´ÐÐ
+//		System.out.println(pst.toString());
 		pst.executeUpdate();
 		DBUtils.closeConn();
 	}
+	
+	/**
+	 * ²åÈëÑ¡¿Î
+	 * @param studentId
+	 * @param classId
+	 * @throws ReflectiveOperationException
+	 * @throws SQLException
+	 */
+	public void addElectiveClass(String studentId , String classId) throws ReflectiveOperationException, SQLException {
+		String sql = "INSERT INTO t_electiveclass(s_id , c_id) VALUES(?,?); ";
+		Connection connection = team543.utils.DBUtils.getConnection();
+		
+		PreparedStatement pst = connection.prepareStatement(sql);
+		
+		pst.setString(1, studentId);
+		pst.setString(2, classId);
+		
+		pst.executeUpdate();
+		DBUtils.closeConn();
+	}
+	
 }

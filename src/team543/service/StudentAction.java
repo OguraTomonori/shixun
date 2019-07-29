@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import team543.dao.*;
 import team543.entity.Class;
 import team543.entity.ElectiveClass;
+import team543.entity.GiveClass;
 import team543.entity.Student;
 import team543.entity.StudentGrade;
+import team543.entity.Teacher;
 
 public class StudentAction {
 	StudentDao studentDao = new StudentDao();
@@ -95,6 +97,16 @@ public class StudentAction {
 	 */
 	public ArrayList<Class> getAllClass() throws SQLException, ReflectiveOperationException {
 		return classDao.getAllClass();
+	}
+	
+	public Teacher getTeacherByClassId(String ClassId) throws ReflectiveOperationException, SQLException {
+		GiveClassDao giveClassDao = new GiveClassDao();
+		TeacherDao teacherDao = new TeacherDao();
+		GiveClass giveClass = new GiveClass();
+		//根据课程id获取授课
+		giveClass = giveClassDao.getGiveClassByClassId(ClassId);
+		//根据授课获得教师信息
+		return teacherDao.getTeacherById(giveClass.getT_id());
 	}
 
 }
