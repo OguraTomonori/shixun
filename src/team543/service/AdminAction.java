@@ -13,7 +13,6 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import team543.dao.ClassDao;
 import team543.dao.ElectiveClassDao;
@@ -115,8 +114,30 @@ public class AdminAction {
 		
 	}
 	
+	/**
+	 * 搜索学生
+	 * @param student
+	 * @param firstDate
+	 * @param secondDate
+	 * @return
+	 * @throws ReflectiveOperationException
+	 * @throws SQLException
+	 */
 	public ArrayList<Student> srarchStudent(Student student,Date firstDate,Date secondDate) throws ReflectiveOperationException, SQLException{
 		return searchDao.searchStudent(student, firstDate, secondDate);
 	}
-
+	
+	/**
+	 * 搜索教师
+	 * @param student
+	 * @param firstDate
+	 * @param secondDate
+	 * @return
+	 * @throws ReflectiveOperationException 
+	 * @throws SQLException 
+	 */
+	public ArrayList<Teacher> searchTeacher(Teacher teacher,Date firstDate,Date secondDate) throws SQLException, ReflectiveOperationException{
+		return searchDao.searchTeacher(teacher, firstDate, secondDate);
+	}
+	
 }

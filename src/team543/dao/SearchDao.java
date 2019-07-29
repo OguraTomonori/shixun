@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import team543.entity.Student;
+import team543.entity.Teacher;
 import team543.utils.DBUtils;
 
  /**
@@ -192,7 +193,139 @@ public class SearchDao {
 	 * 返回格式化后的时间
 	 * @param date
 	 * @return
+	 * @throws SQLException 
+	 * @throws ReflectiveOperationException 
 	 */
+	
+	public ArrayList<Teacher> searchTeacher(Teacher teacher , Date firstDate,Date secondDate) throws SQLException, ReflectiveOperationException{
+
+		String sql = "SELECT * FROM t_teacher WHERE ";
+		
+		String sql2 = "";
+		//根据student内容查看
+		if(null!=teacher.getT_id()) {
+			sql2 += "AND t_id LIKE '%"+teacher.getT_id()+"%' ";
+		}
+		
+		if (null!=teacher.getT_name()) {
+			sql2+="AND t_name LIKE '%"+teacher.getT_name()+"%' ";
+		}
+		
+		if(null!=teacher.getT_dp()) {
+			sql2+="AND t_dp LIKE  '%"+teacher.getT_dp()+"%' ";
+		}
+		
+		if(null!=teacher.getT_jobtitle()) {
+			sql2+="AND t_jobtitle  LIKE '%"+teacher.getT_jobtitle()+"%' ";
+		}
+		
+		if(null!=teacher.getT_office()) {
+			sql2+="AND t_office LIKE '%"+teacher.getT_office()+"%' ";
+		}
+		
+		if(null!=teacher.getT_state()) {
+			sql2+="AND t_state LIKE   '%"+teacher.getT_state()+"%' ";
+		}
+		
+		if(null!=firstDate&&null!=secondDate) {
+			sql2+= "AND t_entertime BETWEEN '"+timeFormat(firstDate)+"' AND '"+timeFormat(secondDate)+"'";
+		}
+		//替换第一个AND
+		sql2 = sql2.replaceFirst("AND","");
+		//加上结束的;
+		sql =sql+sql2+";";
+//		System.out.println(sql);
+        //获取数据库连接
+        Connection connection = DBUtils.getConnection();
+        //创建Statement
+        Statement statement = connection.createStatement();
+        //执行sql语句
+        ResultSet rs = statement.executeQuery(sql);
+        //创建保存学生的列表
+        ArrayList<Teacher> arrayList = new ArrayList<Teacher>();
+        
+        while(rs.next()) {
+        	Teacher t = new Teacher();
+        	//赋值
+            t.setT_id(rs.getString ("t_id"));
+            t.setT_name(rs.getString("t_name"));
+            t.setT_dp(rs.getString("t_jobtitle"));
+            t.setT_salary(rs.getString("t_salary"));
+            t.setT_phonenum(rs.getString("t_phonenum"));
+            t.setT_email(rs.getString("t_email"));
+            t.setT_office(rs.getString("t_office"));
+            t.setT_state(rs.getString("t_state"));
+            t.setT_entertime(rs.getDate("t_entertime"));
+//            java.util.Date utilDate = new java.util.Date (rs.getDate("s_entertime").getTime());
+//            
+////            System.out.println(utilDate);
+//            
+//            s.setEntertime (utilDate);
+            
+//            s.setEntertime (rs.getDate("s_entertime"));
+            arrayList.add(t);
+        }
+		return arrayList;
+	}
+	
+	public ArrayList<team543.entity.Class> searchClass(team543.entity.Class cl) throws ReflectiveOperationException, SQLException{
+		String sql = "SELECT * FROM t_class WHERE ";
+		
+		String sql2 = "";
+		//根据student内容查看
+		if(null!=cl.getC_id()) {
+			sql2 += "AND c_id LIKE '%"+cl.getC_id()+"%' ";
+		}
+		
+		if (null!=cl.getC_name()) {
+			sql2+="AND c_name LIKE '%"+cl.getC_name()+"%' ";
+		}
+		
+		if(null!=cl.getC_classstate()) {
+			sql2+="AND c_classstate LIKE  '%"+cl.getC_classstate()+"%' ";
+		}
+		
+		if(null!=cl.getC_score()) {
+			sql2+="AND c_score  LIKE '%"+cl.getC_score()+"%' ";
+		}
+		
+		if(null!=cl.getC_opendp()) {
+			sql2+="AND c_opendp LIKE '%"+cl.getC_opendp()+"%' ";
+		}
+		//替换第一个AND
+		sql2 = sql2.replaceFirst("AND","");
+		//加上结束的;
+		sql =sql+sql2+";";
+//		System.out.println(sql);
+        //获取数据库连接
+        Connection connection = DBUtils.getConnection();
+        //创建Statement
+        Statement statement = connection.createStatement();
+        //执行sql语句
+        ResultSet rs = statement.executeQuery(sql);
+        //创建保存学生的列表
+        ArrayList<team543.entity.Class> arrayList = new ArrayList<team543.entity.Class>();
+        
+        while(rs.next()) {
+        	team543.entity.Class  c = new team543.entity.Class ();
+        	//赋值
+            c.setC_id(rs.getString("c_id"));
+            c.setC_name(rs.getString("c_name"));
+            c.setC_classstate(rs.getString("c_classState"));
+            c.setC_opendp(rs.getString("c_opendp"));
+            c.setC_score(rs.getString("c_score"));
+            c.setC_percentage(Integer.valueOf(rs.getString("c_percentage")).intValue());
+//            java.util.Date utilDate = new java.util.Date (rs.getDate("s_entertime").getTime());
+//            
+////            System.out.println(utilDate);
+//            
+//            s.setEntertime (utilDate);
+            
+//            s.setEntertime (rs.getDate("s_entertime"));
+            arrayList.add(c);
+        }
+		return arrayList;
+	}
 
 	public static String  timeFormat(Date date){
 		return DateFormat.getDateInstance(DateFormat.MEDIUM).format(date);

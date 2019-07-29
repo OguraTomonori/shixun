@@ -5,7 +5,6 @@ import team543.utils.DBUtils;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 /*
  * getTeachers 获取老师列表
@@ -41,7 +40,7 @@ public class TeacherDao {
     		teacher.setT_name(rs.getString("t_name"));
     		teacher.setT_dp(rs.getString("t_dp"));
     		teacher.setT_jobtitle(rs.getString("t_jobtitle"));
-    		teacher.setT_salay(rs.getString("t_salary"));
+    		teacher.setT_salary(rs.getString("t_salary"));
     		teacher.setT_phonenum(rs.getString("t_phonenum"));
     		teacher.setT_email(rs.getString("t_email"));
     		teacher.setT_office(rs.getString("t_office"));
@@ -75,7 +74,7 @@ public class TeacherDao {
              teacher.setT_name(rs.getString("t_name"));
      		 teacher.setT_dp(rs.getString("t_dp"));
      		 teacher.setT_jobtitle(rs.getString("t_jobtitle"));
-     		 teacher.setT_salay(rs.getString("t_salary"));
+     		 teacher.setT_salary(rs.getString("t_salary"));
      		 teacher.setT_phonenum(rs.getString("t_phonenum"));
      		 teacher.setT_email(rs.getString("t_email"));
      		 teacher.setT_office(rs.getString("t_office"));
@@ -104,7 +103,7 @@ public class TeacherDao {
     	pst.setString(2, teacher.getT_name());
     	pst.setString(3, teacher.getT_dp());
     	pst.setString(4, teacher.getT_jobtitle());
-    	pst.setString(5, teacher.getT_salay());
+    	pst.setString(5, teacher.getT_salary());
     	pst.setString(6, teacher.getT_phonenum());
     	pst.setString(7, teacher.getT_email());
     	pst.setString(8, teacher.getT_office());
@@ -149,7 +148,7 @@ public class TeacherDao {
     	pst.setString(1, teacher.getT_name());
     	pst.setString(2, teacher.getT_dp());
     	pst.setString(3, teacher.getT_jobtitle());
-    	pst.setString(4, teacher.getT_salay());
+    	pst.setString(4, teacher.getT_salary());
     	pst.setString(5, teacher.getT_phonenum());
     	pst.setString(6, teacher.getT_email());
     	pst.setString(7, teacher.getT_office());

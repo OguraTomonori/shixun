@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import team543.entity.Student;
 import team543.entity.User;
 import team543.utils.DBUtils;
 

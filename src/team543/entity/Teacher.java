@@ -12,7 +12,7 @@ public class Teacher {
 	//教师职称
 	private String t_jobtitle;
 	//教师薪水
-	private String t_salay;
+	private String t_salary;
 	//教师电话号码
 	private String t_phonenum;
 	//教师电子邮箱
@@ -47,11 +47,11 @@ public class Teacher {
 	public void setT_jobtitle(String t_jobtitle) {
 		this.t_jobtitle = t_jobtitle;
 	}
-	public String getT_salay() {
-		return t_salay;
+	public String getT_salary() {
+		return t_salary;
 	}
-	public void setT_salay(String t_salay) {
-		this.t_salay = t_salay;
+	public void setT_salary(String t_salary) {
+		this.t_salary = t_salary;
 	}
 	public String getT_phonenum() {
 		return t_phonenum;
@@ -86,17 +86,17 @@ public class Teacher {
 	@Override
 	public String toString() {
 		return "teacher [t_id=" + t_id + ", t_name=" + t_name + ", t_dp=" + t_dp + ", t_jobtitle=" + t_jobtitle
-				+ ", t_salay=" + t_salay + ", t_phonenum=" + t_phonenum + ", t_email=" + t_email + ", t_office="
+				+ ", t_salary=" + t_salary + ", t_phonenum=" + t_phonenum + ", t_email=" + t_email + ", t_office="
 				+ t_office + ", t_state=" + t_state + ", t_entertime=" + t_entertime + "]";
 	}
-	public Teacher(String t_id, String t_name, String t_dp, String t_jobtitle, String t_salay, String t_phonenum,
+	public Teacher(String t_id, String t_name, String t_dp, String t_jobtitle, String t_salary, String t_phonenum,
 			String t_email, String t_office, String t_state, Date t_entertime) {
 		super();
 		this.t_id = t_id;
 		this.t_name = t_name;
 		this.t_dp = t_dp;
 		this.t_jobtitle = t_jobtitle;
-		this.t_salay = t_salay;
+		this.t_salary = t_salary;
 		this.t_phonenum = t_phonenum;
 		this.t_email = t_email;
 		this.t_office = t_office;
