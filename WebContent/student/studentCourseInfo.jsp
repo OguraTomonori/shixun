@@ -38,14 +38,32 @@
 	          </ul>
 	        </div><!--/.nav-collapse -->
 	      </div>
-	    </nav>
- 	<div class="container-fluid" id="main">
-	  	<tags:content/>  	
+		</nav>
+		<script>
+	    	document.getElementById("username").innerHTML = getCookie("username");
+	    </script>
+ 	<div class="container" id="main">
+ 		<div class="content">
+		  	<table class="table table-hover content" id="table">
+					 	<tr>
+					 		<th>名称</th>
+					 		<th>课程号</th>
+					 		<th>院系</th>
+					 		<th>学分</th>
+					 		<th>占比</th>
+					 		<th>教师</th>
+					 		<th></th>
+					 	</tr>
+					</table>
+ 		</div>
  	</div>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+	<script>
+		
+	</script>
     <script src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
   </body>
 </html>
