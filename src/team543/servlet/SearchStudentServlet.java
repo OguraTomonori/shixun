@@ -51,7 +51,7 @@ public class SearchStudentServlet extends HttpServlet {
 		String studentID = (String) params.get("s_id");
 		Student [] resp = new Student[1];
 		
-		studentAction action = new studentAction();
+		StudentAction action = new StudentAction();
 		try {
 			resp[0] = action.getStudentInfo(studentID);
 		} catch (ReflectiveOperationException | SQLException e) {
