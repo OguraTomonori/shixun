@@ -1,5 +1,6 @@
 package team543.entity;
 
+import team543.dao.ClassDao;
 
 /*
  * 学生成绩实体
@@ -7,6 +8,7 @@ package team543.entity;
  * */
 
 public class StudentGrade {
+	ClassDao classDao = new ClassDao();
     //学生ID
     private String studentId;
     //学生姓名
@@ -20,7 +22,7 @@ public class StudentGrade {
     //考试成绩
     private String testGrade;
     //总分
-    private String totalMark = String.valueOf(Integer.valueOf(g_ExaPopGra).intValue()*(Integer.valueOf(g_OrdTimGra).intValue()*Integer.valueOf(classDao.getClassById(s_id).getC_percentage()).intValue()*0.01));;
+    private String totalMark = String.valueOf(Integer.valueOf(testGrade).intValue()*(Integer.valueOf(regularGrade).intValue()*Integer.valueOf(classDao.getClassById(classId).getC_percentage()).intValue()*0.01));
 
     public String getStudentId () {
         return studentId;
