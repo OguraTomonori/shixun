@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSONObject;
 
-import team543.service.studentAction;
+import team543.service.StudentAction;
 
 /**
  * Servlet implementation class UpdateStudentServlet

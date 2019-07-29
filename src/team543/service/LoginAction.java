@@ -15,7 +15,7 @@ import java.util.List;
  *  登陆失败返回 1：用户密码错误
  *  		 2：没有此用户
  */
-public class Login {
+public class LoginAction {
 
 	
 	public static List login(String userId, String password) {
@@ -23,7 +23,7 @@ public class Login {
 		try {
 			Connection con = team543.utils.DBUtils.getConnection();
 			Statement createStatement = con.createStatement();
-			String sql = "select user_password,user_root from t_user where user_id ='"+userId+"';";
+			String sql = "select user_password,user_root, user_name from t_user where user_id ='"+userId+"';";
 			
 			//执行sql语句
 			ResultSet re = createStatement.executeQuery(sql);

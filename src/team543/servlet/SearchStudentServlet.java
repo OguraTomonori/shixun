@@ -25,15 +25,16 @@ public class SearchStudentServlet extends HttpServlet {
      */
     public SearchStudentServlet() {
         super();
-        // TODO Auto-generated constructor stub
+
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		//  Auto-generated method stub
 		/**
+		 * 这里是根据
 		 *  "s_id":
 			"s_name":
 			"s_sex":
@@ -41,7 +42,9 @@ public class SearchStudentServlet extends HttpServlet {
 			"s_major":
 			"s_class":
 			"s_state":
-			"s_entertime":
+			
+			"starttime"
+			"endtime":
 		 * 
 		 * 
 		 * 给前端返回数组
@@ -49,28 +52,41 @@ public class SearchStudentServlet extends HttpServlet {
 		response.setContentType("application/json; charset=utf-8");
 		Map<String, Object> params = team543.utils.ParamUtil.getRequestParameters(request);
 		String studentID = (String) params.get("s_id");
-		Student [] resp = new Student[1];
+		String name = (String) params.get("s_name");
+		String sex = (String) params.get("s_sex");
+		String dp = (String) params.get("s_dp");
+		String major = (String) params.get("s_major");
+		String class_ = (String) params.get("s_class");
+		String state = (String) params.get("s_state");
 		
-		StudentAction action = new StudentAction();
+		Date starttime = new Date((String) params.get("starttime"));
+		Date endtime = new Date((String) params.get("endtime"));
+		
+		ArrayList<Student> resp = null;
 		try {
-			resp[0] = action.getStudentInfo(studentID);
-		} catch (ReflectiveOperationException | SQLException e) {
+			resp = new TeacherAction().searchStudent(
+				new Student(studentID, name, sex, dp, major, class_, state, null)
+				, starttime, endtime);
+		} catch (ReflectiveOperationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Map<String, Object> res = new HashMap();
 		res.put("data", resp);
-		JSONObject json = new JSONObject(res);
-		String dd = json.toJSONString();
-		System.out.println(dd);
-		response.getWriter().append(dd);
+		JSONObject jsonObj = new JSONObject(res);
+		String json = jsonObj.toJSONString();
+		System.out.println(json);
+		response.getWriter().append(json);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
 		doGet(request, response);
 	}
 }

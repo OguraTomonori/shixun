@@ -58,11 +58,9 @@
 			      <div class="input-group-btn">
 			        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="option_btn">按姓名搜索 <span class="caret"></span></button>
 			        <ul class="dropdown-menu" id="search_option">
-			          <li><a href="#">按姓名搜索</a></li>
-			          <li><a href="#">按学号搜索</a></li>
-					  <li><a href="#">按班级搜索</a></li>
-			          <li><a href="#">按专业搜索</a></li>
-					  <li><a href="#">按系别搜索</a></li>
+			          <li><a href="#">姓名</a></li>
+			          <li><a href="#">学号</a></li>
+					  <li><a href="#">班级</a></li>
 			        </ul>
 			      </div><!-- /btn-group -->
 			      <input type="text" class="form-control" aria-label="..." id="search_text">
@@ -72,24 +70,29 @@
 			    </div><!-- /input-group -->
 			    
 			    <div class="btn-group content" role="group">
-				    <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="more_option_btn">
+				    <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="more_option-btn">
 				      更多选项
 				      <span class="caret"></span>
 				    </button>
 				  </div>
-				<div class="content" id="more_option">
+				<div class="content" id="more-option">
 					<div class="btn-group" role="group" aria-label="...">
-					  <button type="button" class="btn btn-default">全部</button>
-					  <button type="button" class="btn btn-default">男</button>
-					  <button type="button" class="btn btn-default">女</button>
+					  <button type="button" class="btn btn-default" id="search-sex-all">全部</button>
+					  <button type="button" class="btn btn-default" id="search-sex-male">男</button>
+					  <button type="button" class="btn btn-default active" id="search-sex-female">女</button>
 					</div>
-
-				    <div class="input-group">
-				      <input type="text" class="form-control" placeholder="从YYYY-MM-DD">
+					
+					<div class="input-group">
+				      <input type="text" class="form-control" placeholder="专业" id="search-major">
 				    </div><!-- /input-group -->
-				
 				    <div class="input-group">
-				      <input type="text" class="form-control" placeholder="到YYYY-MM-DD">
+				      <input type="text" class="form-control" placeholder="系别" id="search-dp">
+				    </div><!-- /input-group -->
+				    <div class="input-group">
+				      <input type="text" class="form-control" placeholder="从YYYY-MM-DD" id="search-starttime">
+				    </div><!-- /input-group -->
+				    <div class="input-group">
+				      <input type="text" class="form-control" placeholder="到YYYY-MM-DD" id="search-endtime">
 				    </div>
 					
 				</div>

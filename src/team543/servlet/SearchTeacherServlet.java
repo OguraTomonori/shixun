@@ -31,32 +31,15 @@ public class SearchTeacherServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		Map<String, Object> a = new HashMap();
-		a.put("id", "dasfsfd");
-		a.put("name", "asdas");
-		a.put("class", "rua");
-		a.put("dp", "das");
-		a.put("sex", "sex");
-		a.put("major", "adsada");
-		a.put("entertime", "asdadas");
-		Map<String, Object> b = new HashMap();
-		b.put("id", "dasfsfd");
-		b.put("name", "asdas");
-		b.put("class", "rua");
-		b.put("dp", "dsad");
-		b.put("sex", "sex");
-		b.put("major", "adsada");
-		b.put("entertime", "asdadas");
-		List t = new ArrayList();
-		t.add(a);
-		t.add(b);
+		
+		
+		
 		Map<String, Object> res = new HashMap();
-		res.put("data", t);
-		JSONObject json = new JSONObject(res);
-		String dd = json.toJSONString();
-		System.out.println(dd);
-		response.getWriter().append(dd);
+		res.put("data", );
+		JSONObject jsonObj = new JSONObject(res);
+		String json = jsonObj.toJSONString();
+		System.out.println(json);
+		response.getWriter().append(json);
 	}
 
 	/**

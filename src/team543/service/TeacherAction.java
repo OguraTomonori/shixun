@@ -111,8 +111,7 @@ public class TeacherAction {
 	 * @throws ReflectiveOperationException
 	 * @throws SQLException
 	 */
-	public ArrayList<Student> srarchStudent(Student student,Date firstDate,Date secondDate) throws ReflectiveOperationException, SQLException{
+	public ArrayList<Student> searchStudent(Student student,Date firstDate,Date secondDate) throws ReflectiveOperationException, SQLException{
 		return searchDao.searchStudent(student, firstDate, secondDate);
 	}
-
 }

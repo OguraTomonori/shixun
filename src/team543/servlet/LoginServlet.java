@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String userid = request.getParameter("username");
 		String passwd = request.getParameter("passwd");
-		List res = team543.service.LoginService.login(userid, passwd);
+		List res = team543.service.LoginAction.login(userid, passwd);
 		
 		int status = (int) res.get(0);
 		if (status == 0) {
