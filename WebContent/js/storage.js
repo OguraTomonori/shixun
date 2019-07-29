@@ -1,50 +1,94 @@
 /*
 window.localStorage的内容
-	inited:
+	init:
 	student:{
 		add:[
-			{id:studentID,...}
+				{
+				ori:{}
+				after:{}(null)
+			}
 		]
-		delete:[ {id:studentID, studentID: studentID} ]
+		delete:[ 
+			{
+				ori:{}
+				after:{}(null)
+			}
+		]
 		update:[
-			[id:studentID,...]
+			{
+				ori:{}
+				after:{}(null)
+			}
 		]
 	}
 	teacher:{
 		add:[
-			{...}
+				{
+				ori:{}
+				after:{}(null)
+			}
 		]
-		delete:[ {id:teacherID, teacherID: teacherID} ]
+		delete:[ 
+			{
+				ori:{}
+				after:{}(null)
+			}
+		]
 		update:[
-			{id:teacherID,...}
+			{
+				ori:{}
+				after:{}(null)
+			}
 		]
 	}
 	course:{
 		add:[
-			{id:teacherID,...}
+				{
+				ori:{}
+				after:{}(null)
+			}
 		]
-		delete:[ {id:courseID, courseID: courseID} ]
+		delete:[ 
+			{
+				ori:{}
+				after:{}(null)
+			}
+		]
 		update:[
-			{id:teacherID,...}
+			{
+				ori:{}
+				after:{}(null)
+			}
 		]
 	}
 	grade:{
 		add:[
-			{id:courseID+studentID,...}
+				{
+				ori:{}
+				after:{}(null)
+			}
 		]
-		delete:[ {id:courseID+studentID (字符串相加）,courseID: courseID, studentID: studentID} ]
+		delete:[ 
+			{
+				ori:{}
+				after:{}(null)
+			}
+		]
 		update:[
-			{id:courseID+studentID,...}
+			{
+				ori:{}
+				after:{}
+			}
 		]
 	}
 */
 
 function Stor() {
-	this.get = function(string) {
-		return JSON.parse(window.localStorage[string]);
+	this.get = function(target) {
+		return JSON.parse(window.localStorage[target]);
 	};
-	this.set = function(string, dict) {
-		window.localStorage[string] = JSON.stringify(dict);
+	this.set = function(target, dict) {
+		window.localStorage[target] = JSON.stringify(dict);
 	}
 	this.init = function() {
 		if (window.localStorage["init"] != null)
@@ -93,25 +137,31 @@ function Stor() {
 		temp[opt].splice(index, 1);
 		this.set(target, temp);
 	}
-	this.put = function(opt, target, dict) {
+	this.put = function(target, opt, ori, after) {
+		//target为teacher，student ...
 		//object为要添加的数据
 		//opt为add, delete, update
-		//先判断是否存在，若存在则覆盖，不存在则添加
-		function getIndex(arr, tar) {
-			//根据id来确定是否是对同一个dict的更改,id为字符串
-			for (var i in arr)
-				if (arr[i]["id"] == tar["id"])
+		//ori, after为修改前后数据
+		//先通过判断是否存在，若存在则覆盖，不存在则添加
+		function getIndex(dictArr) {
+			//dictArr为[ {"ori":...,"after":...} ]
+			//tar为 ori
+			//通过判断ori来判断是否是同一条更改
+			for (var i in dictArr)
+				if (dictArr[i]["ori"] == ori)
 					return i;
 			return -1;
 		}
-		var temp = this.get(target);
-		var index = getIndex(temp[opt], dict);
+		var temp = this.get(target); 
+		var index = getIndex(temp[opt]);
 		if (index != -1)
 			this.del(opt, target, index); //若存在，则删除后添加
 		temp = this.get(target);
-		temp[opt].push(dict);
+		temp[opt].push({
+			"ori": ori,
+			"after": after
+		});
 		this.set(target, temp);
-		
 	}
 	this.show = function() {
 		console.log(window.localStorage["init"]);

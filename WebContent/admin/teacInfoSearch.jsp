@@ -39,7 +39,7 @@
 	            <li id="name"><a href="#">管理员<span id="username"></span>,你好</a></li>
 	            
 	            <li class="dropdown active">
-	              <a href="${pageContext.request.contextPath }/admin/updateList.jsp">修改清单 </a>
+	              <a href="${pageContext.request.contextPath }/admin/commit.jsp">修改清单 </a>
 	            </li>
 	          </ul>
 	        </div><!--/.nav-collapse -->

@@ -22,13 +22,12 @@
 	        <div id="navbar" class="navbar-collapse collapse">
 	          <ul class="nav navbar-nav">
 	            <li class="active"><a href="${pageContext.request.contextPath }/teacher/teacher.jsp">个人信息</a></li>
-	            <li><a href="${pageContext.request.contextPath }/teacher/teacherCourseInfo.jsp">选课信息</a></li>
-	            <li><a href="${pageContext.request.contextPath }/teacher/teacherGradeInfo.jsp">成绩信息</a></li>
+	            <li><a href="${pageContext.request.contextPath }/teacher/teacherCourseInfo.jsp">教授课程</a></li>
+	         
 	            <li class="dropdown">
 	              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">其他 <span class="caret"></span></a>
 	              <ul class="dropdown-menu">
 	                <li><a href="${pageContext.request.contextPath }/logout.jsp">登出</a></li>
-	                <li role="separator" class="divider"></li>
 	              </ul>
 	            </li>
 	          </ul>
@@ -39,13 +38,52 @@
 	        </div><!--/.nav-collapse -->
 	      </div>
 	    </nav>
- 	<div class="container-fluid" id="main">
-	  	<tags:content/>  	
+ 	<script>
+	    	document.getElementById("username").innerHTML = getCookie("username");
+	    </script>
+ 	<div class="container" id="main">
+	  	<div class="row content">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<table class="table" id="table">
+
+				</table>
+			</div>
+		  </div>
  	</div>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+	    $.post({
+			"url":"${pageContext.request.contextPath }/TeacherInfoServlet",
+			"data":{
+				"teacherID": getCookie("userID")
+			},
+			"dataType":"json",
+			"success": function(response, status, xhr) {
+				response = response["data"];
+				var info = $("#table")[0];
+				var res = {
+						"姓名": response["t_name"],
+						"工号": response["t_id"],
+						"职位": response["t_jobtitle"],
+						"院系": response["t_dp"],
+						"电话号码": response["t_phonenum"],
+						"薪水": response["t_salary"],
+						"状态": response["t_state"],
+						"入学时间": response["t_entertime"],
+						"办公室": response["t_office"],
+						"email": response["t_email"]
+				};
+				for (key in res) {
+					info.innerHTML = info.innerHTML +
+					"<tr><th>" + key + "</th><td>" + res[key] + "</td></tr>";
+				}
+			}
+		});
+    </script>
     <script src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
   </body>
 </html>

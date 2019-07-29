@@ -36,7 +36,7 @@
 	          </ul>
 	          <ul class="nav navbar-nav navbar-right">
 	            <li id="name"><a href="#">管理员<span id="username"></span>,你好</a></li>
-	            <li class="active" id="updateList_btn"><a href="#">修改清单<span class="caret"></span></a></li>
+	            <li class="active" id="updateList_btn"><a href="${pageContext.request.contextPath }/admin/commit.jsp">修改清单</a></li>
 	          </ul>
 	        </div><!--/.nav-collapse -->
 	      </div>

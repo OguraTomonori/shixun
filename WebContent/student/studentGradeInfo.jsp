@@ -37,14 +37,34 @@
 	          </ul>
 	        </div><!--/.nav-collapse -->
 	      </div>
-	    </nav>
- 	<div class="container-fluid" id="main">
-	  	<tags:content/>  	
+		</nav>
+		<script>
+	    	document.getElementById("username").innerHTML = getCookie("username");
+	    </script>
+ 	<div class="container" id="main">
+	  	<div class="row content">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<table class="table" id="table">
+					<tr>
+						<th>课程名称</th>
+						<th>课程号</th>
+						<th>成绩</th>
+						<th>平时成绩</th>
+						<th>试卷成绩</th>
+						<th>评价</th>
+					</tr>
+				</table>
+			</div>
+		  </div>
  	</div>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+    	$.post()
+    </script>
     <script src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
   </body>
 </html>

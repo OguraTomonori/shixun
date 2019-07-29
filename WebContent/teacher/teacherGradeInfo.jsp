@@ -22,13 +22,12 @@
 	        <div id="navbar" class="navbar-collapse collapse">
 	          <ul class="nav navbar-nav">
 	            <li><a href="${pageContext.request.contextPath }/teacher/teacher.jsp">个人信息</a></li>
-	            <li><a href="${pageContext.request.contextPath }/teacher/teacherCourseInfo.jsp">选课信息</a></li>
-	            <li class="active"><a href="${pageContext.request.contextPath }/teacher/teacherGradeInfo.jsp">成绩信息</a></li>
+	            <li><a href="${pageContext.request.contextPath }/teacher/teacherCourseInfo.jsp">教授课程</a></li>
+	            <li class="active"><a href="${pageContext.request.contextPath }/teacher/teacherGradeInfo.jsp">学生成绩</a></li>
 	            <li class="dropdown">
 	              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">其他 <span class="caret"></span></a>
 	              <ul class="dropdown-menu">
 	                <li><a href="${pageContext.request.contextPath }/logout.jsp">登出</a></li>
-	                <li role="separator" class="divider"></li>
 	              </ul>
 	            </li>
 	          </ul>
@@ -39,13 +38,26 @@
 	        </div><!--/.nav-collapse -->
 	      </div>
 	    </nav>
- 	<div class="container-fluid" id="main">
-	  	<tags:content/>  	
+ 	<script>
+	   document.getElementById("username").innerHTML = getCookie("username");
+	</script>
+ 	<div class="container" id="main">
+	  	<div class="row content">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<table class="table" id="table">
+					
+				</table>
+			</div>
+		  </div>
  	</div>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+    	
+    </script>
     <script src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
   </body>
 </html>
