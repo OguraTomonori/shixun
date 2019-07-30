@@ -9,6 +9,7 @@ package team543.service;
 //�޸�ѡ����Ϣ
 //�޸ĳɼ���Ϣ
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -21,13 +22,9 @@ import team543.dao.StudentDao;
 import team543.dao.StudentGradeDao;
 import team543.dao.TeacherDao;
 import team543.entity.*;
+import team543.entity.Class;
+import team543.utils.DBUtils;
 
- /**
-  * 管理员操作函数
- *	 @author 公子小白
- * 	 @date 2019年7月30日上午9:29:33
- *
- */
 public class AdminAction {
 	StudentDao studentDao = new StudentDao();
 	ClassDao classDao = new ClassDao();
@@ -146,4 +143,100 @@ public class AdminAction {
 		return searchDao.searchTeacher(teacher, firstDate, secondDate);
 	}
 	
+	/**
+	 * 添加教师
+	 * @return
+	 */
+	public ArrayList<Integer> addTeacher(ArrayList<Teacher> teachers) {
+		//num保存出错的位数
+		ArrayList<Integer> num  = new ArrayList<Integer>();
+		//m记录
+		Integer m = 0;
+		
+		for(Teacher t:teachers) {
+			TeacherDao teacherDao = new TeacherDao();
+			try {
+				//成功m加一
+				teacherDao.addTeacher(t);
+				m++;
+				
+			} catch (ReflectiveOperationException | SQLException e) {
+				//否则加入num
+				num.add(m);
+			}
+		}
+		return num;
+	}
+	/**
+	 * 添加学生
+	 * @param students
+	 * @return
+	 */
+	public ArrayList<Integer> addStudent(ArrayList<Student> students) {
+		//num保存出错的位数
+		ArrayList<Integer> num  = new ArrayList<Integer>();
+		//m记录
+		Integer m = 0;
+		
+		for(Student s:students) {
+			StudentDao studentDao = new StudentDao();
+			try {
+				//成功m加一
+				studentDao.addStudent(s);
+				m++;
+				
+			} catch (ReflectiveOperationException | SQLException e) {
+				//否则加入num
+				num.add(m);
+			}
+		}
+		return num;
+	}
+	
+	public ArrayList<Integer> addClass(ArrayList<team543.entity.Class> cl) {
+		//num保存出错的位数
+		ArrayList<Integer> num  = new ArrayList<Integer>();
+		//m记录
+		Integer m = 0;
+		
+		for(team543.entity.Class c:cl) {
+			ClassDao classDao = new ClassDao();
+			try {
+				//成功m加一
+				classDao.addClass(c);
+				m++;
+				
+			} catch (ReflectiveOperationException | SQLException e) {
+				//否则加入num
+				num.add(m);
+			}
+		}
+		return num;
+	}
+	
+	/**
+	 * 添加选课
+	 * @param electiveClass
+	 * @return
+	 */
+	public ArrayList<Integer> addElectiveClass(ArrayList<ElectiveClass> electiveClass) {
+		//num保存出错的位数
+		ArrayList<Integer> num  = new ArrayList<Integer>();
+		//m记录
+		Integer m = 0;
+		
+		for(ElectiveClass c:electiveClass) {
+			ElectiveClassDao electiveClassDao = new ElectiveClassDao();
+			try {
+				//成功m加一
+				electiveClassDao.addElectiveClass(c.getS_id(), c.getC_id());;
+				m++;
+				
+			} catch (ReflectiveOperationException | SQLException e) {
+				//否则加入num
+				num.add(m);
+			}
+		}
+		return num;
+	}
 }
