@@ -10,6 +10,12 @@ import java.util.List;
 
 import team543.utils.DBUtils;
 
+ /**
+  * 课程信息基本操作
+ *	 @author 公子小白
+ * 	 @date 2019年7月30日上午9:09:45
+ *
+ */
 public class ClassDao {
 	/**
 	 * @param c_id
@@ -54,8 +60,9 @@ public class ClassDao {
 	 * @throws SQLException
 	 */
 	public void addClass(team543.entity.Class c) throws ReflectiveOperationException, SQLException {
+		//sql语句
 		String sql="INSERT INTO t_class(c_id,c_name,c_classState,c_score,c_openDP,c_percentage) VALUES(?,?,?,?,?,?)";
-		
+		//获取连接
 		Connection connection = team543.utils.DBUtils.getConnection();
 		PreparedStatement pst = connection.prepareStatement(sql);
 		
@@ -69,7 +76,7 @@ public class ClassDao {
 		DBUtils.closeConn();
 	}
 	/**
-	 * 输出课程id的课程信息
+	 * 输出课程id的课程信息（初始化学生成绩时需要处理异常）
 	 * @param id
 	 * @throws SQLException 
 	 * @throws ReflectiveOperationException 
@@ -107,14 +114,15 @@ public class ClassDao {
 	 * @throws ReflectiveOperationException
 	 */
 	public ArrayList<team543.entity.Class> getAllClass() throws SQLException, ReflectiveOperationException{
+		//sql语句
 		String sql = "SELECT * FROM t_class ;";
-		
+		//获取连接
 		Connection connection = team543.utils.DBUtils.getConnection();
 		Statement statement = connection.createStatement();
-		
+		//执行sql语句
 		ResultSet rs = statement.executeQuery(sql);
 		ArrayList<team543.entity.Class> cl = new ArrayList<team543.entity.Class>();
-		
+		//赋值
 		while(rs.next()) {
 			team543.entity.Class c =new team543.entity.Class();
 			c.setC_id(rs.getString("c_id"));
