@@ -11,9 +11,9 @@ import java.util.List;
 import team543.utils.DBUtils;
 
  /**
-  * ¿Î³ÌĞÅÏ¢»ù±¾²Ù×÷
- *	 @author ¹«×ÓĞ¡°×
- * 	 @date 2019Äê7ÔÂ30ÈÕÉÏÎç9:09:45
+  * è¯¾ç¨‹åŸºæœ¬ä¿¡æ¯è¡¨çš„æ“ä½œ
+ *	 @author å…¬å­å°ç™½
+ * 	 @date 2019å¹´7æœˆ30æ—¥ä¸Šåˆ9:20:00
  *
  */
 public class ClassDao {
@@ -23,14 +23,14 @@ public class ClassDao {
 	 * @throws SQLException
 	 */
 	public void deleteClass(String ClassId) throws ReflectiveOperationException, SQLException {
-		//sqlÓï¾ä
+		//sqlï¿½ï¿½ï¿½
 		String sql = "DELETE FROM t_class WHERE c_id=?";
-		//»ñÈ¡Á¬½Ó
+		//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
 		Connection connection = team543.utils.DBUtils.getConnection();
-		//Ô¤±àÒë
+		//Ô¤ï¿½ï¿½ï¿½ï¿½
 		PreparedStatement pst = connection.prepareStatement(sql);
 		pst.setString(1, ClassId);
-		//Ö´ĞĞ
+		//Ö´ï¿½ï¿½
 		pst.executeUpdate();
 		DBUtils.closeConn();
 	}
@@ -55,14 +55,15 @@ public class ClassDao {
 	}
 	
 	/**
+	 * æ·»åŠ è¯¾ç¨‹
 	 * @param c
 	 * @throws ReflectiveOperationException
 	 * @throws SQLException
 	 */
 	public void addClass(team543.entity.Class c) throws ReflectiveOperationException, SQLException {
-		//sqlÓï¾ä
+		//sqlè¯­å¥
 		String sql="INSERT INTO t_class(c_id,c_name,c_classState,c_score,c_openDP,c_percentage) VALUES(?,?,?,?,?,?)";
-		//»ñÈ¡Á¬½Ó
+		//è·å–è¿æ¥
 		Connection connection = team543.utils.DBUtils.getConnection();
 		PreparedStatement pst = connection.prepareStatement(sql);
 		
@@ -76,7 +77,7 @@ public class ClassDao {
 		DBUtils.closeConn();
 	}
 	/**
-	 * Êä³ö¿Î³ÌidµÄ¿Î³ÌĞÅÏ¢£¨³õÊ¼»¯Ñ§Éú³É¼¨Ê±ĞèÒª´¦ÀíÒì³££©
+	 *è·å–è¯¾ç¨‹ä¿¡æ¯ï¼Œåœ¨å­¦ç”Ÿæˆç»©åˆå§‹åŒ–æ—¶éœ€è¦è°ƒç”¨
 	 * @param id
 	 * @throws SQLException 
 	 * @throws ReflectiveOperationException 
@@ -86,7 +87,7 @@ public class ClassDao {
 		team543.entity.Class c = null;
 		
 		try {
-			//»ñÈ¡Á¬½Ó
+			//è·å–è¿æ¥
 			Connection connection = team543.utils.DBUtils.getConnection();
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(sql);
@@ -100,7 +101,7 @@ public class ClassDao {
 				c.setC_percentage(rs.getInt("c_percentage"));
 				return c;
 			}
-			//¹Ø±ÕÁ¬½Ó
+			//å…³é—­è¿æ¥
 			DBUtils.closeConn();
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -108,21 +109,21 @@ public class ClassDao {
 		return c;
 	}
 	/**
-	 * Êä³öËùÓĞ¿Î³ÌÁĞ±í
-	 * @return List<entity.Class>ÀàĞÍ
+	 * è·å–æ‰€æœ‰çš„è¯¾ç¨‹ä¿¡æ¯
+	 * @return List<team543.entity.Class>
 	 * @throws SQLException
 	 * @throws ReflectiveOperationException
 	 */
 	public ArrayList<team543.entity.Class> getAllClass() throws SQLException, ReflectiveOperationException{
-		//sqlÓï¾ä
+		//sqlï¿½ï¿½ï¿½
 		String sql = "SELECT * FROM t_class ;";
-		//»ñÈ¡Á¬½Ó
+		//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
 		Connection connection = team543.utils.DBUtils.getConnection();
 		Statement statement = connection.createStatement();
-		//Ö´ĞĞsqlÓï¾ä
+		//Ö´ï¿½ï¿½sqlï¿½ï¿½ï¿½
 		ResultSet rs = statement.executeQuery(sql);
 		ArrayList<team543.entity.Class> cl = new ArrayList<team543.entity.Class>();
-		//¸³Öµ
+		//ï¿½ï¿½Öµ
 		while(rs.next()) {
 			team543.entity.Class c =new team543.entity.Class();
 			c.setC_id(rs.getString("c_id"));

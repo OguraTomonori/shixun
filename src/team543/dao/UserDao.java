@@ -10,23 +10,29 @@ import java.util.ArrayList;
 import team543.entity.User;
 import team543.utils.DBUtils;
 
+ /**
+  * ç”¨æˆ·è¡¨çš„åŸºæœ¬æ“ä½œ
+ *	 @author å…¬å­å°ç™½
+ * 	 @date 2019å¹´7æœˆ30æ—¥ä¸Šåˆ9:28:53
+ *
+ */
 public class UserDao {
 	
 	/**
-	 * Êä³öËùÓĞµÄÓÃ»§
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğµï¿½ï¿½Ã»ï¿½
 	 * @return
 	 * @throws SQLException 
 	 * @throws ReflectiveOperationException 
 	 */
 	public ArrayList<User> getAllUser() throws ReflectiveOperationException, SQLException{
 		String sql = "SELECT * FROM t_user ;";
-		//»ñÈ¡Á¬½Ó
+		//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
 		Connection connection = team543.utils.DBUtils.getConnection();
 		Statement statement = connection.createStatement();
-		//Ö´ĞĞsqlÓï¾ä
+		//Ö´ï¿½ï¿½sqlï¿½ï¿½ï¿½
 		ResultSet rs = statement.executeQuery(sql);
 		ArrayList<User> users = new ArrayList<User>();
-		//½«»ñµÃµÄÊı¾İÊäÈëÁĞ±í
+		//ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ±ï¿½
 		while(rs.next()) {
 			User user = new User();
 			user.setUser_id(rs.getString("user_id"));
@@ -40,7 +46,7 @@ public class UserDao {
 	}
 	
 	/**
-	 * ¸ù¾İÓÃ»§id»ñµÃÓÃ»§Êı¾İ
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½idï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @param userId
 	 * @return
 	 * @throws SQLException
@@ -54,7 +60,7 @@ public class UserDao {
 		ResultSet rs = statement.executeQuery(sql);
 		
 		User user = new User();
-		//ÅĞ¶Ï½á¹û
+		//ï¿½Ğ¶Ï½ï¿½ï¿½
 		if (rs.next()) {
 			user.setUser_id(rs.getString("user_id"));
 			user.setUser_name(rs.getString("user_name"));
@@ -73,14 +79,14 @@ public class UserDao {
 		pst.setString(2, user.getUser_password());
 		pst.setString(3, user.getUser_root());
 		pst.setString(4, user.getUser_root());
-		//Ìá½»
+		//ï¿½á½»
 		pst.executeUpdate();
-		//¹Ø±ÕÁ¬½Ó
+		//ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½
 		DBUtils.closeConn();
 	}
 	
 	/**
-	 * Ìí¼ÓÓÃ»§
+	 * ï¿½ï¿½ï¿½ï¿½Ã»ï¿½
 	 * @param user
 	 * @throws SQLException 
 	 * @throws ReflectiveOperationException 
@@ -101,12 +107,12 @@ public class UserDao {
 //		Connection connection = DBUtils.getConnection();
 //		
 //		StudentDao studentDao = new StudentDao();
-//		//È¡ÏûÄ¬ÈÏÌá½»
+//		//È¡ï¿½ï¿½Ä¬ï¿½ï¿½ï¿½á½»
 ////		connection.setAutoCommit(false);
 //		
 //		addUser(users, connection);
 //		studentDao.addStudent(student, connection);
-//		//Ìá½»
+//		//ï¿½á½»
 ////		DBUtils.closeConn();
 //	}
 }

@@ -59,13 +59,13 @@
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script>
 		$.post({
-			"url":"${pageContext.request.contextPath }/SearchStudentServlet",
+			"url":"${pageContext.request.contextPath }/StudentInfoServlet",
 			"data": {
-				"s_id": getCookie("userID")
+				"studentID": getCookie("userID")
 			},
 			"dataType":"json",
 			"success": function(response, status, xhr) {
-				var res = response["data"][0];
+				var res = response["data"];
 				console.log(res);
 				var info = $("#table")[0];
 				var dict = {
@@ -75,7 +75,7 @@
 					"班级": res["s_class"],
 					"院系": res["s_dp"],
 					"专业": res["s_major"],
-					"状态": res["state"],
+					"状态": res["s_state"],
 					"入学时间": res["entertime"]
 				}
 				for (var key in dict) {

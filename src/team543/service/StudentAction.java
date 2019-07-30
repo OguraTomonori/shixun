@@ -11,19 +11,25 @@ import team543.entity.Student;
 import team543.entity.StudentGrade;
 import team543.entity.Teacher;
 
+ /**
+  * å­¦ç”Ÿæ“ä½œ
+ *	 @author å…¬å­å°ç™½
+ * 	 @date 2019å¹´7æœˆ30æ—¥ä¸Šåˆ9:30:22
+ *
+ */
 public class StudentAction {
 	StudentDao studentDao = new StudentDao();
 	StudentGradeDao studentGradeDao = new StudentGradeDao();
 	ElectiveClassDao electiveClassDao = new ElectiveClassDao();
 	ClassDao  classDao =new ClassDao();
 	/**
-	 * »ñÈ¡Ñ§ÉúĞÅÏ¢
+	 * ï¿½ï¿½È¡Ñ§ï¿½ï¿½ï¿½ï¿½Ï¢
 	 * @return
 	 * @throws SQLException
 	 * @throws ReflectiveOperationException 
 	 */
 	public Student getStudentInfo(String id) throws ReflectiveOperationException, SQLException {
-		//ÅĞ¶ÏidÊÇ·ñ¶¼ÎªÊı×Ö
+		//ï¿½Ğ¶ï¿½idï¿½Ç·ï¿½Îªï¿½ï¿½ï¿½ï¿½
 		if(team543.utils.Basic.isNumeric(id)) {
 			return studentDao.getStudentById(id);
 		}else {
@@ -32,7 +38,7 @@ public class StudentAction {
 	}
 	
 	/**
-	 * »ñÈ¡Ñ§ÉúÑ¡¿ÎĞÅÏ¢
+	 * ï¿½ï¿½È¡Ñ§ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½Ï¢
 	 * @param c_id
 	 * @return
 	 * @throws ReflectiveOperationException
@@ -41,13 +47,13 @@ public class StudentAction {
 	public  ArrayList<team543.entity.Class> getStudentClass(String studentId) throws ReflectiveOperationException, SQLException{
 		ElectiveClassDao electiveClassDao = new ElectiveClassDao();
 		ClassDao classDao = new ClassDao();
-		//´´½¨±£´æÑ§ÉúÑ¡¿ÎµÄ¿Î³ÌidµÄÁĞ±í
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½Ñ¡ï¿½ÎµÄ¿Î³ï¿½idï¿½ï¿½ï¿½Ğ±ï¿½
 		ArrayList<String> list = new ArrayList<String>();
 		
 		ArrayList<ElectiveClass> ec = new ArrayList<ElectiveClass>();
 		
 		ec = electiveClassDao.getClassId(studentId);
-		//µ÷ÓÃº¯Êı»ñÈ¡
+		//ï¿½ï¿½ï¿½Ãºï¿½ï¿½ï¿½ï¿½ï¿½È¡
 //		System.out.println(ec.get(0).getC_id());
 //		String str = "1" ; 
 		for(int i = 0 ; i < ec.size() ; i++) {
@@ -55,20 +61,20 @@ public class StudentAction {
 			list.add(ec.get(i).getC_id());
 		
 		}
-		//´´½¨±£´æ¿Î³ÌĞÅÏ¢µÄÁĞ±í
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î³ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Ğ±ï¿½
 		ArrayList<team543.entity.Class> cl = new ArrayList<team543.entity.Class>();
 		
 //		System.out.println(list);
-		//¸ÃÑ§ÉúÑ¡¿Î³ÌµÄid
+		//ï¿½ï¿½Ñ§ï¿½ï¿½Ñ¡ï¿½Î³Ìµï¿½id
 		for(int i = 0 ; i<list.size();i++) {
-			//²éÑ¯¿Î³ÌĞÅÏ¢
+			//ï¿½ï¿½Ñ¯ï¿½Î³ï¿½ï¿½ï¿½Ï¢
 			cl.add(classDao.getClassById(list.get(i)));
 		}
 		return cl;
 	}
 
 	/**
-	 * »ñÈ¡Ñ§Éú³É¼¨ÁĞ±í
+	 * ï¿½ï¿½È¡Ñ§ï¿½ï¿½ï¿½É¼ï¿½ï¿½Ğ±ï¿½
 	 * @param s_id
 	 * @return
 	 * @throws SQLException 
@@ -79,7 +85,7 @@ public class StudentAction {
 	}
 	
 	/**
-	 * Ñ§ÉúÑ¡¿Î
+	 * Ñ§ï¿½ï¿½Ñ¡ï¿½ï¿½
 	 * @param studentId
 	 * @param classId
 	 * @throws ReflectiveOperationException
@@ -90,7 +96,7 @@ public class StudentAction {
 	}
 	
 	/**
-	 * »ñÈ¡ËùÓĞ¿Î³ÌĞÅÏ¢
+	 * ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ğ¿Î³ï¿½ï¿½ï¿½Ï¢
 	 * @return
 	 * @throws SQLException
 	 * @throws ReflectiveOperationException
@@ -103,9 +109,9 @@ public class StudentAction {
 		GiveClassDao giveClassDao = new GiveClassDao();
 		TeacherDao teacherDao = new TeacherDao();
 		GiveClass giveClass = new GiveClass();
-		//¸ù¾İ¿Î³Ìid»ñÈ¡ÊÚ¿Î
+		//ï¿½ï¿½ï¿½İ¿Î³ï¿½idï¿½ï¿½È¡ï¿½Ú¿ï¿½
 		giveClass = giveClassDao.getGiveClassByClassId(ClassId);
-		//¸ù¾İÊÚ¿Î»ñµÃ½ÌÊ¦ĞÅÏ¢
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Ú¿Î»ï¿½Ã½ï¿½Ê¦ï¿½ï¿½Ï¢
 		return teacherDao.getTeacherById(giveClass.getT_id());
 	}
 

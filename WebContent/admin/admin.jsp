@@ -27,15 +27,10 @@
 	            <li><a href="${pageContext.request.contextPath }/admin/studInfoSearch.jsp">学生信息查询</a></li>
 	            <li><a href="${pageContext.request.contextPath }/admin/teacInfoSearch.jsp">教师信息查询</a></li>
 	            <li><a href="${pageContext.request.contextPath }/admin/courInfoSearch.jsp">课程信息查询</a></li>
-	            <li><a href="${pageContext.request.contextPath }/admin/gradeInfoSearch.jsp">成绩信息查询</a></li>
 	            <li class="dropdown">
 	              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">其他 <span class="caret"></span></a>
 	              <ul class="dropdown-menu">
-	              	<li><a href="${pageContext.request.contextPath }/admin/addStudent.jsp">添加学生</a></li>
-	              	<li><a href="${pageContext.request.contextPath }/admin/studInfoSearch.jsp">添加老师</a></li>
-	              	<li><a href="${pageContext.request.contextPath }/admin/studInfoSearch.jsp">添加课程</a></li>
-	              	<li><a href="${pageContext.request.contextPath }/admin/studInfoSearch.jsp">添加成绩</a></li>
-	              	<li role="separator" class="divider"></li>
+
 	                <li><a href="${pageContext.request.contextPath }/logout.jsp">登出</a></li>
 	              </ul>
 	            </li>
@@ -44,7 +39,7 @@
 	            <li id="name"><a href="#">管理员<span id="username"></span>,你好</a></li>
 	            
 	            <li class="dropdown active">
-	              <a href="${pageContext.request.contextPath }/admin/updateList.jsp">修改清单 </a>
+	              <a href="${pageContext.request.contextPath }/admin/commit.jsp">修改清单 </a>
 	            </li>
 	          </ul>
 	        </div><!--/.nav-collapse -->
@@ -57,7 +52,27 @@
  		<div class="row content">
  			<div class="col-md-2"></div>
  			<div class="col-md-8">
-		  		<tags:adminInfo/> 
+		  		<table class="table table-striped" id="admintable">
+					<tbody>
+					  	
+					</tbody>
+				
+				</table>
+				<script>
+					$.post({
+						"data":{"user_id": getCookie("userID"), "asdd": "ASDsada", "你好":"suck"},
+						"url":"${pageContext.request.contextPath }/SearchAdminServlet",// TODO
+						"success": function(response, status, xhr) {
+							var obj = document.getElementById("admintable");
+							//response为一个json
+							for (var key in response) {
+								var target_str = "<tr onclick=\"alert(\'rua\');\"><th class=\"text-center\">" + key + "</th><th class=\"text-center\">" + response[key]  + "</th></tr>";
+								obj.innerHTML += target_str;
+							}
+						},
+						"dataType":"json"
+					});
+				</script>
  			</div>
  		</div>
  	</div>

@@ -18,6 +18,13 @@ import team543.entity.StudentGrade;
 import team543.entity.StudentTeacher;
 import team543.entity.Teacher;
 
+
+ /**
+  * æ•™å¸ˆæ“ä½œ
+ *	 @author å…¬å­å°ç™½
+ * 	 @date 2019å¹´7æœˆ30æ—¥ä¸Šåˆ9:30:35
+ *
+ */
 public class TeacherAction {
 	
 	SearchDao searchDao = new SearchDao();
@@ -26,7 +33,7 @@ public class TeacherAction {
 	TeacherDao teacherDao = new TeacherDao();
 	
 	/**
-	 * »ñÈ¡½ÌÊ¦ĞÅÏ¢
+	 * ï¿½ï¿½È¡ï¿½ï¿½Ê¦ï¿½ï¿½Ï¢
 	 * @param t_id
 	 * @return
 	 * @throws SQLException 
@@ -37,7 +44,7 @@ public class TeacherAction {
 	}
 	
 	/**
-	 * »ñÈ¡½ÌÊÚµÄÑ§ÉúĞÅÏ¢
+	 * ï¿½ï¿½È¡ï¿½ï¿½ï¿½Úµï¿½Ñ§ï¿½ï¿½ï¿½ï¿½Ï¢
 	 * @return
 	 * @throws SQLException 
 	 * @throws ReflectiveOperationException 
@@ -48,7 +55,7 @@ public class TeacherAction {
 	}
 	
 	/**
-	 * »ñÈ¡½ÌÊÚ¿Î³ÌµÄ¿Î³ÌĞÅÏ¢
+	 * ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ú¿Î³ÌµÄ¿Î³ï¿½ï¿½ï¿½Ï¢
 	 * @param teacherId
 	 * @return
 	 * @throws SQLException 
@@ -56,10 +63,10 @@ public class TeacherAction {
 	 */
 	public ArrayList<team543.entity.Class> getTeachClassInfo(String teacherId) throws ReflectiveOperationException, SQLException{
 		GiveClassDao giveClassDao = new GiveClassDao();
-		
+		//æ ¹æ®æ•™å¸ˆidæŸ¥è¯¢æˆè¯¾ä¿¡æ¯
 		ArrayList<GiveClass> giveClass = giveClassDao.getGiveClassById(teacherId);
 		ArrayList<team543.entity.Class> cs = new ArrayList<team543.entity.Class>();
-		
+		//ä»æ¯ä¸ªæˆè¯¾ä¿¡æ¯ä¸­è·å–è¯¾ç¨‹idï¼Œåœ¨æŸ¥å‡ºè¯¾ç¨‹ä¿¡æ¯
 		for(GiveClass gc:giveClass) {
 			ClassDao classDao = new ClassDao();
 			team543.entity.Class c = classDao.getClassById(gc.getC_id());
@@ -70,7 +77,7 @@ public class TeacherAction {
 	}
 	
 	/**
-	 * »ñÈ¡½ÌÊÚÑ§Éú³É¼¨ĞÅÏ¢
+	 * ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ï¿½É¼ï¿½ï¿½ï¿½Ï¢
 	 * @return
 	 * @throws ReflectiveOperationException 
 	 * @throws SQLException 
@@ -81,7 +88,7 @@ public class TeacherAction {
 	}
 	
 	/**
-	 * ¸üĞÂÊÚ¿Î±í²Ù×÷
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½Ú¿Î±ï¿½ï¿½ï¿½ï¿½
 	 * @throws SQLException 
 	 * @throws ReflectiveOperationException 
 	 * 
@@ -92,7 +99,7 @@ public class TeacherAction {
 	}
 	
 	/**
-	 * ĞŞ¸ÄÑ§Éú³É¼¨ĞÅÏ¢
+	 * ï¿½Ş¸ï¿½Ñ§ï¿½ï¿½ï¿½É¼ï¿½ï¿½ï¿½Ï¢
 	 * @throws SQLException 
 	 * @throws ReflectiveOperationException 
 	 * 
@@ -103,7 +110,7 @@ public class TeacherAction {
 	}
 	
 	/**
-	 * ËÑË÷Ñ§Éú´«ÈëStudent ¿ªÊ¼ ½áÊøÈÕÆÚ£¬ÈôÃ»ÓĞÖÆ¿Õ
+	 * ï¿½ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Student ï¿½ï¿½Ê¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Æ¿ï¿½
 	 * @param student
 	 * @param firstDate
 	 * @param secondDate

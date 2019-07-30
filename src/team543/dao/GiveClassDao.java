@@ -11,13 +11,13 @@ import team543.entity.GiveClass;
 import team543.utils.DBUtils;
 
 
+ /**
+  * æˆè¯¾è¯¾ç¨‹ä¿¡æ¯è¡¨
+ *	 @author å…¬å­å°ç™½
+ * 	 @date 2019å¹´7æœˆ30æ—¥ä¸Šåˆ9:26:25
+ *
+ */
 public class GiveClassDao {
-	 /**
-	  * É¾³ıÊÚ¿ÎĞÅÏ¢
-	  *	 ´«Èë¿Î³Ìid£¬Á¬½Ó
-	  * @throws ReflectiveOperationException 
-	  *
-	  */
 		/**
 		 * @param c_id
 		 * @throws SQLException
@@ -71,7 +71,7 @@ public class GiveClassDao {
 		DBUtils.closeConn();
 	}
 	public GiveClass getGiveClassByClassId(String ClassId) throws ReflectiveOperationException, SQLException {
-		//»ñÈ¡Êı¾İ¿âÁ¬½Ó
+		//ï¿½ï¿½È¡ï¿½ï¿½ï¿½İ¿ï¿½ï¿½ï¿½ï¿½ï¿½
 		Connection connection = team543.utils.DBUtils.getConnection();
 		
 		Statement statement = connection.createStatement();
@@ -96,7 +96,7 @@ public class GiveClassDao {
 	 * @throws SQLException
 	 */
 	public ArrayList<GiveClass> getGiveClassById(String teacherId) throws ReflectiveOperationException, SQLException{
-		//»ñÈ¡Êı¾İ¿âÁ¬½Ó
+		//ï¿½ï¿½È¡ï¿½ï¿½ï¿½İ¿ï¿½ï¿½ï¿½ï¿½ï¿½
 		Connection connection = team543.utils.DBUtils.getConnection();
 		
 		Statement statement = connection.createStatement();
@@ -123,7 +123,7 @@ public class GiveClassDao {
 	
 	
 	public ArrayList<GiveClass> getAllGiveClass() throws ReflectiveOperationException, SQLException{
-		//»ñÈ¡Êı¾İ¿âÁ¬½Ó
+		//ï¿½ï¿½È¡ï¿½ï¿½ï¿½İ¿ï¿½ï¿½ï¿½ï¿½ï¿½
 		Connection connection = team543.utils.DBUtils.getConnection();
 		
 		Statement statement = connection.createStatement();

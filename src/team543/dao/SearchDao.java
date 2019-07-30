@@ -12,10 +12,11 @@ import team543.entity.Student;
 import team543.entity.Teacher;
 import team543.utils.DBUtils;
 
+
  /**
- * 1.Ñ§ºÅÆ¥Åä£¬2.°´ĞÕÃûÆ¥Åä£¬3.°´Ïµ±ğÆ¥Åä£¬4.°´°à¼¶Æ¥Åä
- *	 @author ¹«×ÓĞ¡°×
- * 	 @date 2019Äê7ÔÂ24ÈÕÉÏÎç10:38:40
+  * æœç´¢æ“ä½œå‡½æ•°
+ *	 @author å…¬å­å°ç™½
+ * 	 @date 2019å¹´7æœˆ30æ—¥ä¸Šåˆ9:27:01
  *
  */
 public class SearchDao {
@@ -37,18 +38,18 @@ public class SearchDao {
 			break;
 		}
 		
-        //»ñÈ¡Êı¾İ¿âÁ¬½Ó
+        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½İ¿ï¿½ï¿½ï¿½ï¿½ï¿½
         Connection connection = DBUtils.getConnection();
-        //´´½¨Statement
+        //ï¿½ï¿½ï¿½ï¿½Statement
         Statement statement = connection.createStatement();
-        //Ö´ĞĞsqlÓï¾ä
+        //Ö´ï¿½ï¿½sqlï¿½ï¿½ï¿½
         ResultSet rs = statement.executeQuery(sql);
-        //´´½¨±£´æÑ§ÉúµÄÁĞ±í
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ï¿½ï¿½ï¿½Ğ±ï¿½
         ArrayList<Student> arrayList = new ArrayList<Student>();
         
         while(rs.next()) {
         	Student student = new Student();
-        	//¸³Öµ
+        	//ï¿½ï¿½Öµ
             student.setS_id (rs.getString ("s_id"));
             student.setS_name (rs.getString("s_name"));
             student.setS_sex (rs.getString("s_sex"));
@@ -66,7 +67,7 @@ public class SearchDao {
 	}
 	
 	/**
-	 * °´²¿·Ö¿Î³ÌÃû³Æ²éÑ¯¿Î³ÌĞÅÏ¢
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½Ö¿Î³ï¿½ï¿½ï¿½ï¿½Æ²ï¿½Ñ¯ï¿½Î³ï¿½ï¿½ï¿½Ï¢
 	 * @param className
 	 * @return
 	 * @throws ReflectiveOperationException
@@ -78,13 +79,13 @@ public class SearchDao {
 		
 		String sql =  "SELECT * FROM t_class WHERE c_name like '"+className+"';";
 		
-        //»ñÈ¡Êı¾İ¿âÁ¬½Ó
+        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½İ¿ï¿½ï¿½ï¿½ï¿½ï¿½
         Connection connection = DBUtils.getConnection();	
-        //´´½¨Statement
+        //ï¿½ï¿½ï¿½ï¿½Statement
         Statement statement = connection.createStatement();
-        //Ö´ĞĞsqlÓï¾ä
+        //Ö´ï¿½ï¿½sqlï¿½ï¿½ï¿½
         ResultSet rs = statement.executeQuery(sql);
-        //´´½¨±£´æÑ§ÉúµÄÁĞ±í
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ï¿½ï¿½ï¿½Ğ±ï¿½
         
         ArrayList<team543.entity.Class> cls = new ArrayList<team543.entity.Class>();
         
@@ -104,7 +105,7 @@ public class SearchDao {
 	}
 	
 	/**
-	 * °´¸÷ÖÖÌõ¼ş²éÑ¯£¬²»ÄÜÈ«Îª¿Õ
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«Îªï¿½ï¿½
 	 * @param student
 	 * @return
 	 * @throws SQLException 
@@ -116,7 +117,7 @@ public class SearchDao {
 		String sql = "SELECT * FROM t_student WHERE ";
 		
 		String sql2 = "";
-		//¸ù¾İstudentÄÚÈİ²é¿´
+		//ï¿½ï¿½ï¿½ï¿½studentï¿½ï¿½ï¿½İ²é¿´
 		if(null!=student.getS_id()) {
 			sql2 += "AND s_id LIKE '%"+student.getS_id()+"%' ";
 		}
@@ -148,24 +149,24 @@ public class SearchDao {
 		if(null!=firstDate&&null!=secondDate) {
 			sql2+= "AND s_entertime BETWEEN '"+timeFormat(firstDate)+"' AND '"+timeFormat(secondDate)+"'";
 		}
-		//Ìæ»»µÚÒ»¸öAND
+		//ï¿½æ»»ï¿½ï¿½Ò»ï¿½ï¿½AND
 		sql2 = sql2.replaceFirst("AND","");
 		
-		//¼ÓÉÏ½áÊøµÄ;
+		//ï¿½ï¿½ï¿½Ï½ï¿½ï¿½ï¿½ï¿½ï¿½;
 		sql =sql+sql2+";";
 //		System.out.println(sql);
-        //»ñÈ¡Êı¾İ¿âÁ¬½Ó
+        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½İ¿ï¿½ï¿½ï¿½ï¿½ï¿½
         Connection connection = DBUtils.getConnection();
-        //´´½¨Statement
+        //ï¿½ï¿½ï¿½ï¿½Statement
         Statement statement = connection.createStatement();
-        //Ö´ĞĞsqlÓï¾ä
+        //Ö´ï¿½ï¿½sqlï¿½ï¿½ï¿½
         ResultSet rs = statement.executeQuery(sql);
-        //´´½¨±£´æÑ§ÉúµÄÁĞ±í
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ï¿½ï¿½ï¿½Ğ±ï¿½
         ArrayList<Student> arrayList = new ArrayList<Student>();
         
         while(rs.next()) {
         	Student s = new Student();
-        	//¸³Öµ
+        	//ï¿½ï¿½Öµ
             s.setS_id (rs.getString ("s_id"));
             s.setS_name (rs.getString("s_name"));
             s.setS_sex (rs.getString("s_sex"));
@@ -190,7 +191,7 @@ public class SearchDao {
 	}
 	
 	/**
-	 * ·µ»Ø¸ñÊ½»¯ºóµÄÊ±¼ä
+	 * ï¿½ï¿½ï¿½Ø¸ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 	 * @param date
 	 * @return
 	 * @throws SQLException 
@@ -202,7 +203,7 @@ public class SearchDao {
 		String sql = "SELECT * FROM t_teacher WHERE ";
 		
 		String sql2 = "";
-		//¸ù¾İstudentÄÚÈİ²é¿´
+		//ï¿½ï¿½ï¿½ï¿½studentï¿½ï¿½ï¿½İ²é¿´
 		if(null!=teacher.getT_id()) {
 			sql2 += "AND t_id LIKE '%"+teacher.getT_id()+"%' ";
 		}
@@ -230,23 +231,23 @@ public class SearchDao {
 		if(null!=firstDate&&null!=secondDate) {
 			sql2+= "AND t_entertime BETWEEN '"+timeFormat(firstDate)+"' AND '"+timeFormat(secondDate)+"'";
 		}
-		//Ìæ»»µÚÒ»¸öAND
+		//ï¿½æ»»ï¿½ï¿½Ò»ï¿½ï¿½AND
 		sql2 = sql2.replaceFirst("AND","");
-		//¼ÓÉÏ½áÊøµÄ;
+		//ï¿½ï¿½ï¿½Ï½ï¿½ï¿½ï¿½ï¿½ï¿½;
 		sql =sql+sql2+";";
 //		System.out.println(sql);
-        //»ñÈ¡Êı¾İ¿âÁ¬½Ó
+        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½İ¿ï¿½ï¿½ï¿½ï¿½ï¿½
         Connection connection = DBUtils.getConnection();
-        //´´½¨Statement
+        //ï¿½ï¿½ï¿½ï¿½Statement
         Statement statement = connection.createStatement();
-        //Ö´ĞĞsqlÓï¾ä
+        //Ö´ï¿½ï¿½sqlï¿½ï¿½ï¿½
         ResultSet rs = statement.executeQuery(sql);
-        //´´½¨±£´æÑ§ÉúµÄÁĞ±í
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ï¿½ï¿½ï¿½Ğ±ï¿½
         ArrayList<Teacher> arrayList = new ArrayList<Teacher>();
         
         while(rs.next()) {
         	Teacher t = new Teacher();
-        	//¸³Öµ
+        	//ï¿½ï¿½Öµ
             t.setT_id(rs.getString ("t_id"));
             t.setT_name(rs.getString("t_name"));
             t.setT_dp(rs.getString("t_jobtitle"));
@@ -272,7 +273,7 @@ public class SearchDao {
 		String sql = "SELECT * FROM t_class WHERE ";
 		
 		String sql2 = "";
-		//¸ù¾İstudentÄÚÈİ²é¿´
+		//ï¿½ï¿½ï¿½ï¿½studentï¿½ï¿½ï¿½İ²é¿´
 		if(null!=cl.getC_id()) {
 			sql2 += "AND c_id LIKE '%"+cl.getC_id()+"%' ";
 		}
@@ -292,23 +293,23 @@ public class SearchDao {
 		if(null!=cl.getC_opendp()) {
 			sql2+="AND c_opendp LIKE '%"+cl.getC_opendp()+"%' ";
 		}
-		//Ìæ»»µÚÒ»¸öAND
+		//ï¿½æ»»ï¿½ï¿½Ò»ï¿½ï¿½AND
 		sql2 = sql2.replaceFirst("AND","");
-		//¼ÓÉÏ½áÊøµÄ;
+		//ï¿½ï¿½ï¿½Ï½ï¿½ï¿½ï¿½ï¿½ï¿½;
 		sql =sql+sql2+";";
 //		System.out.println(sql);
-        //»ñÈ¡Êı¾İ¿âÁ¬½Ó
+        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½İ¿ï¿½ï¿½ï¿½ï¿½ï¿½
         Connection connection = DBUtils.getConnection();
-        //´´½¨Statement
+        //ï¿½ï¿½ï¿½ï¿½Statement
         Statement statement = connection.createStatement();
-        //Ö´ĞĞsqlÓï¾ä
+        //Ö´ï¿½ï¿½sqlï¿½ï¿½ï¿½
         ResultSet rs = statement.executeQuery(sql);
-        //´´½¨±£´æÑ§ÉúµÄÁĞ±í
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ï¿½ï¿½ï¿½Ğ±ï¿½
         ArrayList<team543.entity.Class> arrayList = new ArrayList<team543.entity.Class>();
         
         while(rs.next()) {
         	team543.entity.Class  c = new team543.entity.Class ();
-        	//¸³Öµ
+        	//ï¿½ï¿½Öµ
             c.setC_id(rs.getString("c_id"));
             c.setC_name(rs.getString("c_name"));
             c.setC_classstate(rs.getString("c_classState"));

@@ -10,6 +10,14 @@ import java.util.ArrayList;
 import team543.entity.ElectiveClass;
 import team543.utils.DBUtils;
 
+
+
+ /**
+ *	选课信息查询操作
+ * @author 公子小白
+ * 	 @date 2019年7月30日上午9:16:28
+ *
+ */
 public class ElectiveClassDao {
 	
 	/**
@@ -20,19 +28,22 @@ public class ElectiveClassDao {
 	 * @throws SQLException
 	 */
 	public ArrayList<ElectiveClass> getClassId(String StudentId) throws ReflectiveOperationException, SQLException{
+		//sql语句
 		String sql = "SELECT * FROM t_electiveclass WHERE s_id='"+StudentId+"'";
-		
+		//获取连接
 		Connection connection = team543.utils.DBUtils.getConnection();
 		Statement statement = connection.createStatement();
 		ResultSet rs = statement.executeQuery(sql);
 		
 		ArrayList<ElectiveClass> list = new ArrayList<ElectiveClass>();
-		
+		//赋值
 		while(rs.next()) {
+			//new 一个ElectiveClass存值
 			ElectiveClass electiveClass = new ElectiveClass();
 			electiveClass.setE_id(rs.getString("e_id"));
 			electiveClass.setC_id(rs.getString("c_id"));
 			electiveClass.setS_id(rs.getString("s_id"));
+			//添加到列表中
 			list.add(electiveClass);
 		}
 		DBUtils.closeConn();
