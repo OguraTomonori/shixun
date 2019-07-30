@@ -22,19 +22,19 @@
 			  				<div class="col-md-3">
 			  					<span class="panel-title">学生信息修改</span>
 			  				</div>
-			  				<div class="col-md-1">
+			  				<div class="col-md-2">
 								  <span  class="panel-title sel-num">0</span>
 								  /
 								  <span  class="panel-title all-num">0</span>
 			  				</div>
-			  				<div class="col-md-5"></div>
+			  				<div class="col-md-3"></div>
 			  				<div class="col-md-1">
 			  					<button type="button" class="btn btn-primary btn-sm del-btn">
 							        <span class="glyphicon glyphicon-minus"></span>
 							     </button>
 			  				</div>
 			  				<div class="col-md-1">
-							     <button type="button" class="btn btn-primary btn-sm add-btn">
+							     <button type="button" class="btn btn-primary btn-sm add-btn" data-toggle="modal" data-target="#add-model">
 							        <span class="glyphicon glyphicon-plus"></span>
 							     </button>
 			  				</div>
@@ -80,12 +80,12 @@
 			  				<div class="col-md-3">
 			  					<span class="panel-title">教师信息修改</span>
 			  				</div>
-			  				<div class="col-md-1">
+			  				<div class="col-md-2">
 								<span  class="panel-title sel-num">0</span>
 								/
 								<span  class="panel-title all-num">0</span>
 			  				</div>
-			  				<div class="col-md-4"></div>
+			  				<div class="col-md-3"></div>
 			  				<div class="col-md-1"></div>
 			  				<div class="col-md-1">
 			  					<button type="button" class="btn btn-primary btn-sm del-btn">
@@ -93,7 +93,7 @@
 							     </button>
 			  				</div>
 			  				<div class="col-md-1">
-							     <button type="button" class="btn btn-primary btn-sm add-btn">
+							     <button type="button" class="btn btn-primary btn-sm add-btn" data-toggle="modal" data-target="#add-model">
 							        <span class="glyphicon glyphicon-plus"></span>
 							     </button>
 			  				</div>
@@ -139,12 +139,12 @@
 			  				<div class="col-md-3">
 			  					<span class="panel-title">课程信息修改</span>
 			  				</div>
-			  				<div class="col-md-1">
+			  				<div class="col-md-2">
 								<span  class="panel-title sel-num">0</span>
 								/
 								<span  class="panel-title all-num">0</span>
 			  				</div>
-			  				<div class="col-md-4"></div>
+			  				<div class="col-md-3"></div>
 			  				<div class="col-md-1"></div>
 			  				<div class="col-md-1">
 			  					<button type="button" class="btn btn-primary btn-sm del-btn">
@@ -152,7 +152,7 @@
 							     </button>
 			  				</div>
 			  				<div class="col-md-1">
-							     <button type="button" class="btn btn-primary btn-sm add-btn">
+							     <button type="button" class="btn btn-primary btn-sm add-btn" data-toggle="modal" data-target="#add-model">
 							        <span class="glyphicon glyphicon-plus"></span>
 							     </button>
 			  				</div>
@@ -198,12 +198,12 @@
 			  				<div class="col-md-3">
 			  					<span class="panel-title">选课信息修改</span>
 			  				</div>
-			  				<div class="col-md-1">
+			  				<div class="col-md-2">
 								<span  class="panel-title sel-num">0</span>
 								/
 								<span  class="panel-title all-num">0</span>
 			  				</div>
-			  				<div class="col-md-4"></div>
+			  				<div class="col-md-3"></div>
 			  				<div class="col-md-1"></div>
 			  				<div class="col-md-1">
 			  					<button type="button" class="btn btn-primary btn-sm del-btn">
@@ -211,7 +211,7 @@
 							     </button>
 			  				</div>
 			  				<div class="col-md-1">
-							     <button type="button" class="btn btn-primary btn-sm add-btn">
+							     <button type="button" class="btn btn-primary btn-sm add-btn" data-toggle="modal" data-target="#add-model">
 							        <span class="glyphicon glyphicon-plus"></span>
 							     </button>
 			  				</div>
@@ -256,7 +256,179 @@
  			</div>
  		</div>
  	</div>
- 	
+	<!--  --------------------------------------------------------- -->
+	<div class="modal fade" id="add-model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">添加</h4>
+				</div>
+				<div class="modal-body" id="update-content">
+
+					<table class="table">
+						
+					</table>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger del-single-btn"  data-dismiss="modal">删除</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary save-btn"  data-dismiss="modal">保存</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="update-model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">更新</h4>
+				</div>
+				<div class="modal-body" id="update-content">
+					<div class="row">
+						<div class="col-md-5">
+							<table class="table table-left">
+						
+							</table>
+						</div>
+						<div class="col-md-2"><span class="glyphicon glyphicon-chevron-right"></span></div>
+						<div class="col-md-5">
+							<table class="table table-right">
+						
+							</table>	
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger del-single-btn"  data-dismiss="modal">删除</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary save-btn"  data-dismiss="modal">保存</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="delete-model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">删除</h4>
+				</div>
+				<div class="modal-body" id="update-content">
+					<table class="table">
+						
+					</table>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger del-single-btn"  data-dismiss="modal">删除</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<script>
+		//模态框信息初始化函数，被“详情”的a标签onclick和add按钮onclick调用
+		//若dict存在则操作dict，否则操作this的父元素的父元素的attribute(data)
+		/*
+			dict: {
+				ori:{}
+				after:{}
+			}
+		
+		*/
+		function _(opt, dict, target, keyMap) { //置入数据并返回模态框obj
+			//opt:操作
+			//dict：初始化模态框所需数据
+			//target：目标对象， student，teacher...
+			//keyMap：key的映射，因为使用字典key名直接显示……
+			model = $("#" + opt + "-model")[0];
+			console.log(model);
+			if (opt == "add" || opt == "delete") {
+				var table = model.getElementsByClassName("table")[0];
+				table.innerHTML = "";
+				console.log(table);
+				for (var key in dict["ori"])  {
+					var str = "<div class=\"input-group\">" + 
+					"<input type=\"text\" key=\"" + key + "\" value=\"" + dict["ori"][key] + "\" class=\"form-control\" aria-describedby=\"basic-addon1\" >"
+					 + "</div>";
+					if (opt != "add" && (opt == "delete" || (key == "工号" || key == "学号" || key == "课程号")))
+						 str = dict["ori"][key];
+					table.innerHTML = table.innerHTML + 
+					"<tr><th>" + key + "</th><td>" +
+					str + 
+				 	"</td></tr>";
+					
+				}
+			}
+			else if (opt == "update") {
+				var table_l = model.getElementsByClassName("table-left")[0];
+				var table_r = model.getElementsByClassName("table-right")[0];
+				table_l.innerHTML = "";
+				table_r.innerHTML = "";
+					for (var key in dict["ori"]) {
+						table_l.innerHTML = table_l.innerHTML + 
+						"<tr><th>" + key + "</th><td>" + dict["ori"][key] + "</td></tr>";
+						
+						var str = "<div class=\"input-group\">" + 
+						"<input class=\"res-item\" type=\"text\" key=\"" + key + "\" value=\"" + dict["ori"][key] + "\" class=\"form-control\" aria-describedby=\"basic-addon1\" >"
+						 + "</div>";
+						if (opt != "add" && (opt == "delete" || (key == "工号" || key == "学号" || key == "课程号")))
+							 str = dict["ori"][key];
+						table_r.innerHTML = table_r.innerHTML + 
+						"<tr><th>" + key + "</th><td class=\"res-item\" key=\"" + key + "\">" +
+						str + 
+					 	"</td></tr>";
+					}
+			}
+			if (opt != "delete") //不是delete的话都有保存操作
+				model.getElementsByClassName("save-btn").onclick = function() {
+					var rights = model.getElementsByClassName("res-item");
+					var res = {}
+					for (var i = 0; i < rights.length; i++) {
+						var value = rights[i].value;
+						if (value == null) key = rights[i].innerHTML;
+						var key = rights[i].getAttribute("key");
+						res[key] = value;
+					}
+					dict["after"] = res;
+					stor.set(target, dict);
+				}
+			
+			model.getElementsByClassName("del-single-btn").onclick = function() {
+				
+			}
+			
+			return model;
+		}
+		function stud_info(opt, dict) { //stud模态框
+			if(!dict) //没有dict说明是点击“详情”执行该函数
+				dict = JSON.parse(this.parentElement.parentElement.getAttribute("data"));
+			var model = _(opt, dict, "student"); 
+		
+		}
+		function teac_info(opt, dict) { //teac
+			if(!dict)
+				dict = JSON.parse(this.parentElement.parentElement.getAttribute("data"));
+			var model = _(opt, dict, "teacher");
+		}
+		function cour_info(opt, dict) { //cour
+			if(!dict)
+				dict = JSON.parse(this.parentElement.parentElement.getAttribute("data"));
+			var model = _(opt, dict, "course");
+		}
+		function selC_info(opt, dict) { //selectCourse
+			if(!dict)
+				dict = JSON.parse(this.parentElement.parentElement.getAttribute("data"));
+			var model = _(opt, dict, "selectCourse");
+		}
+	</script>
     <script>
     	function init() {
 	    	function getInfo(target) {
@@ -302,21 +474,242 @@
 				var info = getInfo("student");
 				var panel = panel_init("stud-panel", info["sum"]());
 				//初始化添加，删除，详情，展示所有选择
+				/**
+				 * table中每一列的结构
+				 * <tr><td><checkbox class="sel-checkbox"/></td>
+				 * <th>操作</th>
+				 * <th>学号</th>
+				 * <th>姓名</th>
+				 * <th><a>打开model的a标签</a></th>
+				 * </tr>
+				 */
+				function str(jsonObj, opt) {
+					var jsonStr = JSON.stringify(jsonObj);
+					return "<tr data=\"" + jsonStr + "\">" + 
+						"<td><checkbox class=\"sel-checkbox\"/></td>" + 
+						"<td>" + opt + "</td>" + 
+						"<td>" + jsonObj["ori"]["s_id"] + "</td><td>" + jsonObj["ori"]["s_name"] + "</td>" + 
+						"<td><button type=\"button\" onclick=\"stud-info(\"" + opt + "\")\" data-toggle=\"modal\" data-target=\"#" + opt + "-model\">详情</button></td></tr>";	
+				}	
+				var allInfo = stor.get("student");
+				var table = panel.getElementsByClassName("table")[0];
+				for (var key in allInfo) {
+					for (var i = 0; i < allInfo[key].length; i++) {
+						table.innerHTML = table.innerHTML + 
+						str(allInfo[key][i], key);
+					}
+				}
+				//初始化按钮
+				//从修改清单里删除复选框里选中的修改
+				panel.getElementsByClassName("del-btn")[0].onclick = function() {
+					if (!confirm("你确定删除选中修改项吗"))
+						return;
+					var checkboxs = panel.getElementsByClassName("sel-checkbox");
+					for (var i = 0; i < checkboxs.length; i++) {
+						if (!checkboxs[i].checked)
+							continue;
+						var jsonStr = checkboxs[i].parentElement.parentElement.getAttribute("data");
+						var jsonObj = JSON.parse(jsonStr);
+						stor.delItem("student", jsonObj["ori"]);
+					}
+				}
+				panel.getElementsByClassName("add-btn")[0].onclick = function() {
+					//初始化模态框在这里
+					var dict = {
+						"姓名": "",
+						"学号": "",
+						"性别": "",
+						"班级": "",
+						"院系": "",
+						"专业": "",
+						"状态": "",
+						"入学时间": ""
+					};
+					dict = {
+							"ori":dict,
+							"after":null
+					};
+					stud_info("add", dict);
+				}
 			}
 			function teac_init() {
 				var info = getInfo("teacher");
 				var panel = panel_init("teac-panel", info["sum"]());
+				//初始化添加，删除，详情，展示所有选择
+				/**
+				 * table中每一列的结构
+				 * <tr><td><checkbox class="sel-checkbox"/></td>
+				 * <th>操作</th>
+				 * <th>工号</th>
+				 * <th>姓名</th>
+				 * <th><a>打开model的a标签</a></th>
+				 * </tr>
+				 */
+				function str(jsonObj, opt) {
+					var jsonStr = JSON.stringify(jsonObj);
+					return "<tr data=\"" + jsonStr + "\">" + 
+						"<td><checkbox class=\"sel-checkbox\"/></td>" + 
+						"<td>" + opt + "</td>" + 
+						"<td>" + jsonObj["ori"]["t_id"] + "</td><td>" + jsonObj["ori"]["t_name"] + "</td>" + 
+						"<td><button type=\"button\" onclick=\"teac-info(\"" + opt + "\")\" data-toggle=\"modal\" data-target=\"#" + opt + "-model\">详情</button></td></tr>";	
+				}	
+				var allInfo = stor.get("teacher");
+				var table = panel.getElementsByClassName("table")[0];
+				for (var key in allInfo) {
+					for (var i = 0; i < allInfo[key].length; i++) {
+						table.innerHTML = table.innerHTML + 
+						str(allInfo[key][i], key);
+					}
+				}
 				
+				//初始化按钮
+				panel.getElementsByClassName("del-btn")[0].onclick = function() {
+					if (!confirm("你确定删除选中修改项吗"))
+						return;
+					var checkboxs = panel.getElementsByClassName("sel-checkbox");
+					for (var i = 0; i < checkboxs.length; i++) {
+						if (!checkboxs[i].checked)
+							continue;
+						var jsonStr = checkboxs[i].parentElement.parentElement.getAttribute("data");
+						var jsonObj = JSON.parse(jsonStr);
+						stor.delItem("teacher", jsonObj["ori"]);
+					}
+				}
+				panel.getElementsByClassName("add-btn")[0].onclick = function() {
+					var dict = {
+						"姓名": "",
+						"工号": "",
+						"职位": "",
+						"院系": "",
+						"性别": "",
+						"薪水": "",
+						"状态": "",
+						"入学时间": "",
+						"办公室": "",
+						"email": "",
+					};
+					dict = {
+							"ori":dict,
+							"after":null
+					};
+					stud_info("add", dict);
+				}
 			}
 			function cour_init() {
 				var info = getInfo("course");
 				var panel = panel_init("cour-panel", info["sum"]());
+				//初始化添加，删除，详情，展示所有选择
+				/**
+				 * table中每一列的结构
+				 * <tr><td><checkbox class="sel-checkbox"/></td>
+				 * <th>操作</th>
+				 * <th>课程号</th>
+				 * <th>姓名</th>
+				 * <th><a>打开model的a标签</a></th>
+				 * </tr>
+				 */
+				 function str(jsonObj, opt) {
+					var jsonStr = JSON.stringify(jsonObj);
+					return "<tr data=\"" + jsonStr + "\">" + 
+						"<td><checkbox class=\"sel-checkbox\"/></td>" + 
+						"<td>" + opt + "</td>" + 
+						"<td>" + jsonObj["ori"]["c_id"] + "</td><td>" + jsonObj["ori"]["c_name"] + "</td>" + 
+						"<td><button type=\"button\" onclick=\"cour-info(\"" + opt + "\")\" data-toggle=\"modal\" data-target=\"#" + opt + "-model\">详情</button></td></tr>";	
+				}	
+				var allInfo = stor.get("course");
+				var table = panel.getElementsByClassName("table")[0];
+				for (var key in allInfo) {
+					for (var i = 0; i < allInfo[key].length; i++) {
+						table.innerHTML = table.innerHTML + 
+						str(allInfo[key][i], key);
+					}
+				}
 				
+				//初始化按钮
+				panel.getElementsByClassName("del-btn")[0].onclick = function() {
+					if (!confirm("你确定删除选中修改项吗"))
+						return;
+					var checkboxs = panel.getElementsByClassName("sel-checkbox");
+					for (var i = 0; i < checkboxs.length; i++) {
+						if (!checkboxs[i].checked)
+							continue;
+						var jsonStr = checkboxs[i].parentElement.parentElement.getAttribute("data");
+						var jsonObj = JSON.parse(jsonStr);
+						stor.delItem("course", jsonObj["ori"]);
+					}
+				}
+				panel.getElementsByClassName("add-btn")[0].onclick = function() {
+					//初始化模态框在这里
+					var dict = {
+						"名称": "",
+						"课程号":"",
+						"院系": "",
+						"学分": "",
+						"占比": ""
+					};
+					dict = {
+							"ori":dict,
+							"after":null
+					};
+					stud_info("add", dict);
+				}
 			}
 			function selC_init() {
 				var info = getInfo("selectCourse");
 				var panel = panel_init("selC-panel", info["sum"]());
-				
+				//初始化添加，删除，详情，展示所有选择
+				/**
+				 * table中每一列的结构
+				 * <tr><td><checkbox class="sel-checkbox"/></td>
+				 * <th>操作</th>
+				 * <th>学号</th>
+				 * <th>姓名</th>
+				 * <th>课程号</th>
+				 * <th>课程名</th>
+				 * <th><a>打开model的a标签</a></th>
+				 * </tr>
+				 */
+				 function str(jsonObj, opt) {
+					var jsonStr = JSON.stringify(jsonObj);
+					return "<tr data=\"" + jsonStr + "\">" + 
+						"<td><checkbox class=\"sel-checkbox\"/></td>" + 
+						"<td>" + opt + "</td>" + 
+						"<td>" + jsonObj["ori"]["s_id"] + "</td><td>" + jsonObj["ori"]["s_name"] + "</td>" + 
+						"<td>" + jsonObj["ori"]["c_id"] + "</td><td>" + jsonObj["ori"]["c_name"] + "</td>" + 
+						"<td><button type=\"button\" onclick=\"teac-info(\"" + opt + "\")\" data-toggle=\"modal\" data-target=\"#" + opt + "-model\">详情</button></td></tr>";	
+				}	
+				var allInfo = stor.get("teacher");
+				var table = panel.getElementsByClassName("table")[0];
+				for (var key in allInfo) {
+					for (var i = 0; i < allInfo[key].length; i++) {
+						table.innerHTML = table.innerHTML + 
+						str(allInfo[key][i], key);
+					}
+				}
+				//初始化按钮
+				panel.getElementsByClassName("del-btn")[0].onclick = function() {
+					if (!confirm("你确定删除选中修改项吗"))
+						return;
+					var checkboxs = panel.getElementsByClassName("sel-checkbox");
+					for (var i = 0; i < checkboxs.length; i++) {
+						if (!checkboxs[i].checked)
+							continue;
+						var jsonStr = checkboxs[i].parentElement.parentElement.getAttribute("data");
+						var jsonObj = JSON.parse(jsonStr);
+						stor.delItem("selectCourse", jsonObj["ori"]);
+					}
+				}
+				panel.getElementsByClassName("add-btn")[0].onclick = function() {
+					//初始化模态框在这里
+					var dict = {
+						// TODO
+					}
+					dict = {
+							"ori":dict,
+							"after":null
+					};
+					stud_info("add", dict);
+				}
 			}
     		stud_init();
     		teac_init();

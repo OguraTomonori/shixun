@@ -4,8 +4,8 @@ window.localStorage的内容
 	student:{
 		add:[
 				{
-				ori:{}
-				after:{}(null)
+				ori:{}(null)
+				after:{}
 			}
 		]
 		delete:[ 
@@ -17,7 +17,7 @@ window.localStorage的内容
 		update:[
 			{
 				ori:{}
-				after:{}(null)
+				after:{}
 			}
 		]
 	}
@@ -37,7 +37,7 @@ window.localStorage的内容
 		update:[
 			{
 				ori:{}
-				after:{}(null)
+				after:{}
 			}
 		]
 	}
@@ -57,7 +57,7 @@ window.localStorage的内容
 		update:[
 			{
 				ori:{}
-				after:{}(null)
+				after:{}
 			}
 		]
 	}
@@ -192,7 +192,7 @@ function Stor() {
 		}
 		var temp = this.get(target); 
 		var index = getIndex(temp[opt]);
-		if (index != -1)
+		if (index != -1) 
 			this.del(opt, target, index); //若存在，则删除后添加
 		temp = this.get(target);
 		temp[opt].push({
@@ -200,6 +200,23 @@ function Stor() {
 			"after": after
 		});
 		this.set(target, temp);
+	}
+	this.delItem = function(target, ori) {
+		//dictArr为[ {"ori":...,"after":...} ]
+			//tar为 ori
+			//通过判断ori来判断是否是同一条更改
+		function temp(opt, target, index) {
+			var index = -1;
+			for (var i in target[opt])
+				if (dictArr[i]["ori"] == ori)
+					index = i;
+			var temp = this.get(target); 
+			if (index != -1)
+				this.del(opt, target, index); 
+		}
+		temp("add", target, ori);
+		temp("update", target, ori);
+		temp("delete", target, ori);
 	}
 	this.show = function() {
 		console.log(window.localStorage["init"]);
