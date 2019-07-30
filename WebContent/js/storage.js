@@ -81,6 +81,26 @@ window.localStorage的内容
 			}
 		]
 	}
+	selectCourse:{
+		add:[
+				{
+				ori:{}
+				after:{}(null)
+			}
+		]
+		delete:[ 
+			{
+				ori:{}
+				after:{}(null)
+			}
+		]
+		update:[
+			{
+				ori:{}
+				after:{}
+			}
+		]
+	}
 */
 
 function Stor() {
@@ -90,10 +110,7 @@ function Stor() {
 	this.set = function(target, dict) {
 		window.localStorage[target] = JSON.stringify(dict);
 	}
-	this.init = function() {
-		if (window.localStorage["init"] != null)
-			return;
-		window.localStorage["init"] = "1";
+	this.clear = function() {
 		function _() {
 			return JSON.stringify({
 				"add":[],
@@ -105,7 +122,23 @@ function Stor() {
 		window.localStorage["teacher"] = _();
 		window.localStorage["course"] = _();
 		window.localStorage["grade"] = _();
+		window.localStorage["selectCourse"] = _();
+	}
+	this.init = function() {
+		if (window.localStorage["init"] != null)
+			return;
+		window.localStorage["init"] = "1";
+		this.clear();
 	};
+	this.getNum = function(target, opt) {
+		var temp = this.get(target);
+		temp = temp[opt];
+		return temp.length;
+	}
+	this.getTargetNum = function(target) {
+		//标识各修改种类数量
+		return [this.getNum(target, "add"), this.getNum(target, "delete"), this.getNum(target, "update")];
+	}
 	this.notEmpty = function() {
 		for (var key in this.get("student")) {
 			if (this.get("student")[key].length != 0) {
@@ -123,6 +156,11 @@ function Stor() {
 			}
 		}
 		for (var key in this.get("grade")) {
+			if (this.get("grade")[key].length != 0) {
+				return true;
+			}
+		}
+		for (var key in this.get("selectCourse")) {
 			if (this.get("grade")[key].length != 0) {
 				return true;
 			}
@@ -169,6 +207,7 @@ function Stor() {
 		console.log(window.localStorage["grade"]);
 		console.log(window.localStorage["teacher"]);
 		console.log(window.localStorage["course"]);
+		console.log(window.localStorage["selectCourse"]);
 	}
 	//初始化localStorage
 	this.init();
