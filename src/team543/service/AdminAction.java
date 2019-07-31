@@ -264,12 +264,58 @@ public class AdminAction {
 		return num;
 	}
 	
-	public ArrayList<Integer> deleteStudent(ArrayList<String> studentIds)  {
+	/**
+	 * 删除学生
+	 * @param studentIds
+	 * @return
+	 */
+	public ArrayList<Integer> deleteStudent(ArrayList<Student> students)  {
 		ArrayList<Integer> num =new ArrayList<Integer>();
 		Integer n = 0;
-		for(String studentId:studentIds)
+		for(Student studentId:students)
 			try {
-				studentDao.deleteStudent(studentId);
+				studentDao.deleteStudent(studentId.getS_id());
+				n++;
+			} catch (SQLException | ReflectiveOperationException e) {
+				// TODO Auto-generated catch block
+				num.add(n);
+				n++;
+			}
+		return num;
+	}
+	
+	/**
+	 * 删除选课信息
+	 * @param e_Id
+	 * @return
+	 */
+	public ArrayList<Integer> deleteElectiveClass(ArrayList<String> e_Id){
+		ArrayList<Integer> num =new ArrayList<Integer>();
+		Integer n = 0;
+		for(String e:e_Id)
+			try {
+				electiveClassDao.deleteElectiveClass(e);
+				n++;
+			} catch (SQLException | ReflectiveOperationException e1) {
+				// TODO Auto-generated catch block
+				num.add(n);
+				n++;
+			}
+		return num;
+	}
+	
+	/**
+	 * 删除教师
+	 * @param teachers
+	 * @return
+	 */
+	public ArrayList<Integer> deleteTeacher(ArrayList<Teacher> teachers){
+		
+		ArrayList<Integer> num =new ArrayList<Integer>();
+		Integer n = 0;
+		for(Teacher t:teachers)
+			try {
+				teacherDao.deleteTeacher(Integer.valueOf(t.getT_id()));
 				n++;
 			} catch (SQLException | ReflectiveOperationException e) {
 				// TODO Auto-generated catch block
