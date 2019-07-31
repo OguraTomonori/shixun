@@ -4,8 +4,8 @@ window.localStorage的内容
 	student:{
 		add:[
 				{
-				ori:{}
-				after:{}(null)
+				ori:{}(null)
+				after:{}
 			}
 		]
 		delete:[ 
@@ -17,7 +17,7 @@ window.localStorage的内容
 		update:[
 			{
 				ori:{}
-				after:{}(null)
+				after:{}
 			}
 		]
 	}
@@ -37,7 +37,7 @@ window.localStorage的内容
 		update:[
 			{
 				ori:{}
-				after:{}(null)
+				after:{}
 			}
 		]
 	}
@@ -57,11 +57,31 @@ window.localStorage的内容
 		update:[
 			{
 				ori:{}
-				after:{}(null)
+				after:{}
 			}
 		]
 	}
 	grade:{
+		add:[
+				{
+				ori:{}
+				after:{}(null)
+			}
+		]
+		delete:[ 
+			{
+				ori:{}
+				after:{}(null)
+			}
+		]
+		update:[
+			{
+				ori:{}
+				after:{}
+			}
+		]
+	}
+	selectCourse:{
 		add:[
 				{
 				ori:{}
@@ -90,10 +110,7 @@ function Stor() {
 	this.set = function(target, dict) {
 		window.localStorage[target] = JSON.stringify(dict);
 	}
-	this.init = function() {
-		if (window.localStorage["init"] != null)
-			return;
-		window.localStorage["init"] = "1";
+	this.clear = function() {
 		function _() {
 			return JSON.stringify({
 				"add":[],
@@ -105,7 +122,23 @@ function Stor() {
 		window.localStorage["teacher"] = _();
 		window.localStorage["course"] = _();
 		window.localStorage["grade"] = _();
+		window.localStorage["selectCourse"] = _();
+	}
+	this.init = function() {
+		if (window.localStorage["init"] != null)
+			return;
+		window.localStorage["init"] = "1";
+		this.clear();
 	};
+	this.getNum = function(target, opt) {
+		var temp = this.get(target);
+		temp = temp[opt];
+		return temp.length;
+	}
+	this.getTargetNum = function(target) {
+		//标识各修改种类数量
+		return [this.getNum(target, "add"), this.getNum(target, "delete"), this.getNum(target, "update")];
+	}
 	this.notEmpty = function() {
 		for (var key in this.get("student")) {
 			if (this.get("student")[key].length != 0) {
@@ -123,6 +156,11 @@ function Stor() {
 			}
 		}
 		for (var key in this.get("grade")) {
+			if (this.get("grade")[key].length != 0) {
+				return true;
+			}
+		}
+		for (var key in this.get("selectCourse")) {
 			if (this.get("grade")[key].length != 0) {
 				return true;
 			}
@@ -154,7 +192,7 @@ function Stor() {
 		}
 		var temp = this.get(target); 
 		var index = getIndex(temp[opt]);
-		if (index != -1)
+		if (index != -1) 
 			this.del(opt, target, index); //若存在，则删除后添加
 		temp = this.get(target);
 		temp[opt].push({
@@ -163,12 +201,30 @@ function Stor() {
 		});
 		this.set(target, temp);
 	}
+	this.delItem = function(target, ori) {
+		//dictArr为[ {"ori":...,"after":...} ]
+			//tar为 ori
+			//通过判断ori来判断是否是同一条更改
+		function temp(opt, target, index) {
+			var index = -1;
+			for (var i in target[opt])
+				if (dictArr[i]["ori"] == ori)
+					index = i;
+			var temp = this.get(target); 
+			if (index != -1)
+				this.del(opt, target, index); 
+		}
+		temp("add", target, ori);
+		temp("update", target, ori);
+		temp("delete", target, ori);
+	}
 	this.show = function() {
 		console.log(window.localStorage["init"]);
 		console.log(window.localStorage["student"]);
 		console.log(window.localStorage["grade"]);
 		console.log(window.localStorage["teacher"]);
 		console.log(window.localStorage["course"]);
+		console.log(window.localStorage["selectCourse"]);
 	}
 	//初始化localStorage
 	this.init();
