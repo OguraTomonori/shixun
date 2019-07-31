@@ -279,7 +279,8 @@ public class SearchDao {
         	//��ֵ
             t.setT_id(rs.getString ("t_id"));
             t.setT_name(rs.getString("t_name"));
-            t.setT_dp(rs.getString("t_jobtitle"));
+            t.setT_dp(rs.getString("t_dp"));
+            t.setT_jobtitle(rs.getString("t_jobtitle"));
             t.setT_salary(rs.getString("t_salary"));
             t.setT_phonenum(rs.getString("t_phonenum"));
             t.setT_email(rs.getString("t_email"));
