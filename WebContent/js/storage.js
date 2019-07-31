@@ -4,8 +4,8 @@ window.localStorage的内容
 	student:{
 		add:[
 				{
-				ori:{}(null)
-				after:{}
+				ori:{}
+				after:{}(null)
 			}
 		]
 		delete:[ 

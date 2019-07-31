@@ -35,5 +35,9 @@ public class ElectiveClass {
 	public String toString() {
 		return "ElectiveClass [e_id=" + e_id + ", s_id=" + s_id + ", c_id=" + c_id + "]";
 	}
-
+	public ElectiveClass(String s_id, String c_id) {
+		this.s_id = s_id;
+		this.c_id = c_id;
+	}
+	
 }

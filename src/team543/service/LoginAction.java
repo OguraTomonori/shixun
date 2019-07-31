@@ -23,8 +23,7 @@ public class LoginAction {
 		try {
 			Connection con = team543.utils.DBUtils.getConnection();
 			Statement createStatement = con.createStatement();
-			String sql = "select user_password,user_root from t_user where user_id ='"+userId+"';";
-			
+			String sql = "select user_password,user_root, user_name from t_user where user_id ='"+userId+"';";
 			//执行sql语句
 			ResultSet re = createStatement.executeQuery(sql);
 			//判断结果中是否有值
