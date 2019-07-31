@@ -53,11 +53,10 @@
 			 <div class="col-lg-6">
 			    <div class="input-group input-group-lg">
 			      <div class="input-group-btn">
-			        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">按姓名搜索 <span class="caret"></span></button>
+			        <button type="button" id="option_btn" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" opt="0">按姓名搜索 <span class="caret"></span></button>
 			        <ul class="dropdown-menu" id="search_option">
 			          <li><a href="#">按姓名搜索</a></li>
 			          <li><a href="#">按教师号搜索</a></li>
-					  <li><a href="#">按班级搜索</a></li>
 					  <li><a href="#">按系别搜索</a></li>
 			        </ul>
 			      </div><!-- /btn-group -->
@@ -77,6 +76,7 @@
 				document.getElementById("option_btn").setAttribute("opt", i);
 				document.getElementById("option_btn").innerHTML = this.innerHTML;
 			}
+			
 		}
 		</script>
 		<div class="row content">
@@ -199,9 +199,9 @@
 			var content = document.getElementById("course-content").getElementsByClassName("table")[0];
 			content.innerHTML = "<tr><th>课程名称</th><th>课程号</th><th>学分</th><th>院系</th><th>院系</th></tr>";
 			$.post({
-				"url":"${pageContext.request.contextPath }/SearchCourseServlet",
+				"url":"${pageContext.request.contextPath }/AdminSearchCourseServlet",
 				"data":{
-					"t_id": teacherID
+					"search_text": teacherID
 				},
 				"dataType":"json",
 				"success": function(response, status, xhr) {
@@ -228,24 +228,26 @@
 			content.innerHTML = "";
 			//首先获取信息，更新页面
 			$.post({
-				"url":"${pageContext.request.contextPath }/SearchTeacherServlet",
+				"url":"${pageContext.request.contextPath }/AdminSearchTeacherServlet",
 				"data":{
-					"t_id": teacherID
+					"search_text": teacherID,
+					"search_option":"1"
 				},
 				"dataType":"json",
 				"success": function(response, status, xhr) {
 					response = response["data"][0];
+					console.log(JSON.stringify(response));
 					var res = {
-							"姓名": response["name"],
-							"工号": response["id"],
-							"职位": response["jobtitle"],
-							"院系": response["dp"],
-							"性别": response["sex"],
-							"薪水": response["salary"],
-							"状态": response["state"],
-							"入学时间": response["entertime"],
-							"办公室": response["office"],
-							"email": response["email"]
+							"姓名": response["t_name"],
+							"工号": response["t_id"],
+							"职位": response["t_jobtitle"],
+							"院系": response["t_dp"],
+							"手机号": response["t_phonenum"],
+							"薪水": response["t_salary"],
+							"状态": response["t_state"],
+							"入学时间": response["t_entertime"],
+							"办公室": response["t_office"],
+							"email": response["t_email"]
 					};
 					for (var key in res) {
 						var item = "<div class=\"input-group\"><input type=\"text\" key='" + key + "'class=\"form-control\" aria-describedby=\"basic-addon1\" value=\"" + res[key] + "\"/></div>";
@@ -278,20 +280,22 @@
 		var optionObj = document.getElementById("search_option").getElementsByTagName("a");
 		var option = 0;
 	
-		for (var i = 0; i < optionObj.length; i++) {
+		for (let i = 0; i < optionObj.length; i++) {
 			let Obj = optionObj[i];
 			Obj.onclick = function() {
-				option = i;
+				document.getElementById("option_btn").setAttribute("opt", i);
 				document.getElementById("option_btn").innerHTML = Obj.innerHTML;
 			}
 		}
+		var result = document.getElementById("result");
+		var ori = result.innerHTML;
     	document.getElementById("search_btn").onclick = function() {
 
 			//根据option进行处理……
 			$.post({
 				"url":"${pageContext.request.contextPath }/AdminSearchTeacherServlet",
 				"data":{
-					"search_option": option,
+					"search_option": document.getElementById("option_btn").getAttribute("opt"),
 					"search_text": document.getElementById("search_text").value
 				},
 				"dataType":"json",
@@ -317,7 +321,7 @@
 					*/
 					var res = response["data"];
 					var result = document.getElementById("result");
-					result.innerHTML = "";
+					result.innerHTML = ori;
 					for (var i = 0; i < res.length; i++) {
 						var id_ = res[i]["t_id"];
 						var name = res[i]["t_name"];

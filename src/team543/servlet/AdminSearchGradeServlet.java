@@ -44,7 +44,9 @@ public class AdminSearchGradeServlet extends HttpServlet {
 		switch (search_option) {
 		case "0"://根据学生id
 			try {
+				System.out.println(search_text);
 				resp = new StudentAction().getGrade(search_text);
+				System.out.println(new StudentAction().getGrade(search_text));
 			} catch (ReflectiveOperationException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
 encoding//src/team543/dao/SearchDao.java=UTF-8
 encoding//src/team543/dao/UserDao.java=UTF-8
+encoding//src/team543/entity/Grade.java=UTF-8
 encoding//src/team543/service/TeacherAction.java=UTF-8

@@ -22,7 +22,7 @@
 			  				<div class="col-md-3">
 			  					<span class="panel-title">学生信息修改</span>
 			  				</div>
-			  				<div class="col-md-2">
+			  				<div class="col-md-3">
 								  <span  class="panel-title sel-num">0</span>
 								  /
 								  <span  class="panel-title all-num">0</span>
@@ -80,13 +80,12 @@
 			  				<div class="col-md-3">
 			  					<span class="panel-title">教师信息修改</span>
 			  				</div>
-			  				<div class="col-md-2">
+			  				<div class="col-md-3">
 								<span  class="panel-title sel-num">0</span>
 								/
 								<span  class="panel-title all-num">0</span>
 			  				</div>
 			  				<div class="col-md-3"></div>
-			  				<div class="col-md-1"></div>
 			  				<div class="col-md-1">
 			  					<button type="button" class="btn btn-primary btn-sm del-btn">
 							        <span class="glyphicon glyphicon-minus"></span>
@@ -289,7 +288,7 @@
 	</div>
 	
 	<div class="modal fade" id="update-model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		<div class="modal-dialog" role="document">
+		<div class="modal-dialog" role="document" >
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -297,13 +296,13 @@
 				</div>
 				<div class="modal-body" id="update-content">
 					<div class="row">
-						<div class="col-md-5">
+						<div class="col-md-4">
 							<table class="table table-left">
 						
 							</table>
 						</div>
-						<div class="col-md-2"><span class="glyphicon glyphicon-chevron-right"></span></div>
-						<div class="col-md-5">
+						<div class="col-md-1"><span class="glyphicon glyphicon-chevron-right"></span></div>
+						<div class="col-md-4">
 							<table class="table table-right">
 						
 							</table>	
@@ -347,7 +346,6 @@
 				ori:{}
 				after:{}
 			}
-		
 		*/
 		function _(opt, dict, target, keyMap) { //置入数据并返回模态框obj
 			//opt:操作
@@ -355,22 +353,19 @@
 			//target：目标对象， student，teacher...
 			//keyMap：key的映射，因为使用字典key名直接显示……
 			model = $("#" + opt + "-model")[0];
-			console.log(model);
 			if (opt == "add" || opt == "delete") {
 				var table = model.getElementsByClassName("table")[0];
 				table.innerHTML = "";
-				console.log(table);
-				for (var key in dict["ori"])  {
+				for (let key in dict["ori"])  {
 					var str = "<div class=\"input-group\">" + 
-					"<input type=\"text\" key=\"" + key + "\" value=\"" + dict["ori"][key] + "\" class=\"form-control\" aria-describedby=\"basic-addon1\" >"
+					"<input class=\"res-item\" type=\"text\" key=\"" + key + "\" value=\"" + dict["ori"][key] + "\" class=\"form-control\" aria-describedby=\"basic-addon1\" >"
 					 + "</div>";
 					if (opt != "add" && (opt == "delete" || (key == "工号" || key == "学号" || key == "课程号")))
 						 str = dict["ori"][key];
 					table.innerHTML = table.innerHTML + 
-					"<tr><th>" + key + "</th><td>" +
+					"<tr><th>" + key + "</th><td class=\"res-item\" key=\'" + key + "\'>" +
 					str + 
 				 	"</td></tr>";
-					
 				}
 			}
 			else if (opt == "update") {
@@ -378,7 +373,7 @@
 				var table_r = model.getElementsByClassName("table-right")[0];
 				table_l.innerHTML = "";
 				table_r.innerHTML = "";
-					for (var key in dict["ori"]) {
+					for (let key in dict["ori"]) {
 						table_l.innerHTML = table_l.innerHTML + 
 						"<tr><th>" + key + "</th><td>" + dict["ori"][key] + "</td></tr>";
 						
@@ -386,51 +381,89 @@
 						"<input class=\"res-item\" type=\"text\" key=\"" + key + "\" value=\"" + dict["ori"][key] + "\" class=\"form-control\" aria-describedby=\"basic-addon1\" >"
 						 + "</div>";
 						if (opt != "add" && (opt == "delete" || (key == "工号" || key == "学号" || key == "课程号")))
-							 str = dict["ori"][key];
+							 str = dict["after"][key];
 						table_r.innerHTML = table_r.innerHTML + 
-						"<tr><th>" + key + "</th><td class=\"res-item\" key=\"" + key + "\">" +
+						"<tr><th>" + key + "</th><td class=\"res-item\" key=\'" + key + "\'>" +
 						str + 
 					 	"</td></tr>";
 					}
 			}
 			if (opt != "delete") //不是delete的话都有保存操作
-				model.getElementsByClassName("save-btn").onclick = function() {
+				model.getElementsByClassName("save-btn")[0].onclick = function() {
 					var rights = model.getElementsByClassName("res-item");
 					var res = {}
-					for (var i = 0; i < rights.length; i++) {
+					for (let i = 0; i < rights.length; i++) {
 						var value = rights[i].value;
 						if (value == null) key = rights[i].innerHTML;
 						var key = rights[i].getAttribute("key");
 						res[key] = value;
 					}
-					dict["after"] = res;
-					stor.set(target, dict);
+					var _ = {};
+					if (target == "student")
+						_ = {
+							"s_name": res["姓名"],
+							"s_id": res["学号"],
+							"s_sex": res["性别"],
+							"s_dp": res["院系"],
+							"s_major": res["专业"],
+							"s_class": res["班级"],
+							"s_state": res["状态"],
+							"entertime": res["入学时间"]
+
+						}
+					else if (target == "teacher")
+						_ = {
+							"t_id": res["工号"],
+							"t_name": res["姓名"],
+							"t_dp": res["院系"],
+							"t_jobtitle": res["职位"],
+							"t_salary": res["薪水"],
+							"t_phonenum": res["手机号"],
+							"t_email": res["t_email"],
+							"t_state": res["状态"],
+							"t_office": res["办公室"],
+							"t_entertime": res["入学时间"]
+						};
+					else if (target == "course")
+						_ = {
+							"c_id":res["名称"],
+							"c_name":res["课程号"],
+							"c_opendp":res["院系"],
+							"c_score": res["学分"],
+							"c_percentage": res["占比"]
+						};
+					else
+						_ = {
+							
+						};
+					stor.put(target, opt, _, null);
 				}
 			
-			model.getElementsByClassName("del-single-btn").onclick = function() {
+			model.getElementsByClassName("del-single-btn")[0].onclick = function() {
 				stor.delItem(target, dict["ori"]);
+				location.reload();
 			}
 			return model;
 		}
-		function stud_info(opt, dict) { //stud模态框
+		function stud_info(obj, opt, dict) { //stud模态框
 			if(!dict) //没有dict说明是点击“详情”执行该函数
-				dict = JSON.parse(this.parentElement.parentElement.getAttribute("data"));
+				dict = JSON.parse(obj.parentElement.parentElement.getAttribute("data"));
 			var model = _(opt, dict, "student"); 
 		
 		}
-		function teac_info(opt, dict) { //teac
+		function teac_info(obj, opt, dict) { //teac
 			if(!dict)
-				dict = JSON.parse(this.parentElement.parentElement.getAttribute("data"));
+				dict = JSON.parse(obj.parentElement.parentElement.getAttribute("data"));
 			var model = _(opt, dict, "teacher");
 		}
-		function cour_info(opt, dict) { //cour
+		function cour_info(obj, opt, dict) { //cour
 			if(!dict)
-				dict = JSON.parse(this.parentElement.parentElement.getAttribute("data"));
+				dict = JSON.parse(obj.parentElement.parentElement.getAttribute("data"));
 			var model = _(opt, dict, "course");
 		}
-		function selC_info(opt, dict) { //selectCourse
+		function selC_info(obj, opt, dict) { //selectCourse
 			if(!dict)
-				dict = JSON.parse(this.parentElement.parentElement.getAttribute("data"));
+				dict = JSON.parse(obj.parentElement.parentElement.getAttribute("data"));
 			var model = _(opt, dict, "selectCourse");
 		}
 	</script>
@@ -459,20 +492,20 @@
 				
 				panel.getElementsByClassName("selAll-btn")[0].onclick = function() {
 					var checkboxs = panel.getElementsByClassName("sel-checkbox");
-					for (var i = 0; i < checkboxs.length; i++) 
+					for (let i = 0; i < checkboxs.length; i++) 
 						checkboxs[i].checked = true;
 					panel.getElementsByClassName("sel-num")[0].innerHTML = 
 						panel.getElementsByClassName("all-num")[0].innerHTML;
 				}
 				panel.getElementsByClassName("selNon-btn")[0].onclick = function() {
 					var checkboxs = panel.getElementsByClassName("sel-checkbox");
-					for (var i = 0; i < checkboxs.length; i++)
+					for (let i = 0; i < checkboxs.length; i++)
 						checkboxs[i].checked = false;
 					panel.getElementsByClassName("sel-num")[0].innerHTML = "0";
 				}
 				panel.getElementsByClassName("selRev-btn")[0].onclick = function() {
 					var checkboxs = panel.getElementsByClassName("sel-checkbox");
-					for (var i = 0; i < checkboxs.length; i++)
+					for (let i = 0; i < checkboxs.length; i++)
 						checkboxs[i].checked = !checkboxs[i].checked;
 					panel.getElementsByClassName("sel-num")[0].innerHTML = 
 						(parseInt(panel.getElementsByClassName("all-num")[0].innerHTML) - 
@@ -487,7 +520,7 @@
 				//初始化添加，删除，详情，展示所有选择
 				/**
 				 * table中每一列的结构
-				 * <tr><td><checkbox class="sel-checkbox"/></td>
+				 * <tr><td><input type=\"checkbox\" class="sel-checkbox"/></td>
 				 * <th>操作</th>
 				 * <th>学号</th>
 				 * <th>姓名</th>
@@ -496,16 +529,18 @@
 				 */
 				function str(jsonObj, opt) {
 					var jsonStr = JSON.stringify(jsonObj);
-					return "<tr data=\"" + jsonStr + "\" opt=\"" + opt + "\">"
-						"<td><checkbox class=\"sel-checkbox\"/></td>" + 
-						"<td>" + opt + "</td>" + 
-						"<td>" + jsonObj["ori"]["s_id"] + "</td><td>" + jsonObj["ori"]["s_name"] + "</td>" + 
-						"<td><button type=\"button\" onclick=\"stud-info(\"" + opt + "\")\" data-toggle=\"modal\" data-target=\"#" + opt + "-model\">详情</button></td></tr>";	
-				}	
+					var _ =  "<tr data=\'" + jsonStr + "\' opt=\"" + opt + "\">" +
+					"<td><input type=\"checkbox\" class=\"sel-checkbox\"/></td>" + 
+					"<td>" + opt + "</td>" + 
+					"<td>" + jsonObj["ori"]["s_id"] + "</td><td>" + jsonObj["ori"]["s_name"] + "</td>" + 
+					"<td><a onclick=\"stud_info(this,\'" + opt + "\')\" data-toggle=\"modal\" data-target=\"#" + opt + "-model\">详情</a></td></tr>";	
+					return _;
+				}
 				var allInfo = stor.get("student");
 				var table = panel.getElementsByClassName("table")[0];
+				console.log(table);
 				for (var key in allInfo) {
-					for (var i = 0; i < allInfo[key].length; i++) {
+					for (let i = 0; i < allInfo[key].length; i++) {
 						table.innerHTML = table.innerHTML + 
 						str(allInfo[key][i], key);
 					}
@@ -516,13 +551,14 @@
 					if (!confirm("你确定删除选中修改项吗"))
 						return;
 					var checkboxs = panel.getElementsByClassName("sel-checkbox");
-					for (var i = 0; i < checkboxs.length; i++) {
+					for (let i = 0; i < checkboxs.length; i++) {
 						if (!checkboxs[i].checked)
 							continue;
 						var jsonStr = checkboxs[i].parentElement.parentElement.getAttribute("data");
 						var jsonObj = JSON.parse(jsonStr);
 						stor.delItem("student", jsonObj["ori"]);
 					}
+					location.reload();
 				}
 				panel.getElementsByClassName("add-btn")[0].onclick = function() {
 					//初始化模态框在这里
@@ -540,7 +576,24 @@
 							"ori":dict,
 							"after":null
 					};
-					stud_info("add", dict);
+					stud_info(null, "add", dict);
+				}
+				var checkboxs = panel.getElementsByClassName("sel-checkbox");
+				for (let i = 0; i < checkboxs.length; i++) {
+					checkboxs[i].onclick = function() {
+						
+						if (checkboxs[i].checked) {
+							//选中时触发
+							panel.getElementsByClassName("sel-num")[0].innerHTML = 
+						(parseInt(panel.getElementsByClassName("sel-num")[0].innerHTML) + 1) + "";
+						
+						}
+						else {
+							//不选中时触发
+							panel.getElementsByClassName("sel-num")[0].innerHTML = 
+						(parseInt(panel.getElementsByClassName("sel-num")[0].innerHTML) - 1) + "";
+						}
+					}
 				}
 			}
 			function teac_init() {
@@ -549,7 +602,7 @@
 				//初始化添加，删除，详情，展示所有选择
 				/**
 				 * table中每一列的结构
-				 * <tr><td><checkbox class="sel-checkbox"/></td>
+				 * <tr><td><input type=\"checkbox\" class="sel-checkbox"/></td>
 				 * <th>操作</th>
 				 * <th>工号</th>
 				 * <th>姓名</th>
@@ -558,16 +611,17 @@
 				 */
 				function str(jsonObj, opt) {
 					var jsonStr = JSON.stringify(jsonObj);
-					return "<tr data=\"" + jsonStr + "\" opt=\"" + opt + "\">"
-						"<td><checkbox class=\"sel-checkbox\"/></td>" + 
+					var _ =  "<tr data=\'" + jsonStr + "\' opt=\"" + opt + "\">" + 
+						"<td><input type=\"checkbox\" class=\"sel-checkbox\"/></td>" + 
 						"<td>" + opt + "</td>" + 
 						"<td>" + jsonObj["ori"]["t_id"] + "</td><td>" + jsonObj["ori"]["t_name"] + "</td>" + 
-						"<td><button type=\"button\" onclick=\"teac-info(\"" + opt + "\")\" data-toggle=\"modal\" data-target=\"#" + opt + "-model\">详情</button></td></tr>";	
+						"<td><a onclick=\"teac_info(this,\'" + opt + "\')\" data-toggle=\"modal\" data-target=\"#" + opt + "-model\">详情</a></td></tr>";	
+					return _;
 				}	
 				var allInfo = stor.get("teacher");
 				var table = panel.getElementsByClassName("table")[0];
-				for (var key in allInfo) {
-					for (var i = 0; i < allInfo[key].length; i++) {
+				for (let key in allInfo) {
+					for (let i = 0; i < allInfo[key].length; i++) {
 						table.innerHTML = table.innerHTML + 
 						str(allInfo[key][i], key);
 					}
@@ -578,7 +632,7 @@
 					if (!confirm("你确定删除选中修改项吗"))
 						return;
 					var checkboxs = panel.getElementsByClassName("sel-checkbox");
-					for (var i = 0; i < checkboxs.length; i++) {
+					for (let i = 0; i < checkboxs.length; i++) {
 						if (!checkboxs[i].checked)
 							continue;
 						var jsonStr = checkboxs[i].parentElement.parentElement.getAttribute("data");
@@ -592,32 +646,33 @@
 						"工号": "",
 						"职位": "",
 						"院系": "",
-						"性别": "",
+						"手机号": "",
 						"薪水": "",
 						"状态": "",
 						"入学时间": "",
 						"办公室": "",
-						"email": "",
+						"email": ""
 					};
 					dict = {
 							"ori":dict,
 							"after":null
 					};
-					stud_info("add", dict);
+					teac_info(null, "add", dict);
 				}
-				var checkboxs = panel.getElementsByClassName("checkboxs");
-				for (var i = 0; i < checkboxs.length; i++) {
+				var checkboxs = panel.getElementsByClassName("sel-checkbox");
+				for (let i = 0; i < checkboxs.length; i++) {
 					checkboxs[i].onclick = function() {
+						
 						if (checkboxs[i].checked) {
 							//选中时触发
 							panel.getElementsByClassName("sel-num")[0].innerHTML = 
-						(parseInt(panel.getElementsByClassName("all-num")[0].innerHTML) + 1) + "";
+						(parseInt(panel.getElementsByClassName("sel-num")[0].innerHTML) + 1) + "";
 						
 						}
 						else {
 							//不选中时触发
 							panel.getElementsByClassName("sel-num")[0].innerHTML = 
-						(parseInt(panel.getElementsByClassName("all-num")[0].innerHTML) - 1) + "";
+						(parseInt(panel.getElementsByClassName("sel-num")[0].innerHTML) - 1) + "";
 						}
 					}
 				}
@@ -628,7 +683,7 @@
 				//初始化添加，删除，详情，展示所有选择
 				/**
 				 * table中每一列的结构
-				 * <tr><td><checkbox class="sel-checkbox"/></td>
+				 * <tr><td><input type=\"checkbox\" class="sel-checkbox"/></td>
 				 * <th>操作</th>
 				 * <th>课程号</th>
 				 * <th>姓名</th>
@@ -637,16 +692,17 @@
 				 */
 				 function str(jsonObj, opt) {
 					var jsonStr = JSON.stringify(jsonObj);
-					return "<tr data=\"" + jsonStr + "\" opt=\"" + opt + "\">"
-						"<td><checkbox class=\"sel-checkbox\"/></td>" + 
+					var _ =  "<tr data=\'" + jsonStr + "\' opt=\"" + opt + "\">" + 
+						"<td><input type=\"checkbox\" class=\"sel-checkbox\"/></td>" + 
 						"<td>" + opt + "</td>" + 
 						"<td>" + jsonObj["ori"]["c_id"] + "</td><td>" + jsonObj["ori"]["c_name"] + "</td>" + 
-						"<td><button type=\"button\" onclick=\"cour-info(\"" + opt + "\")\" data-toggle=\"modal\" data-target=\"#" + opt + "-model\">详情</button></td></tr>";	
-				}	
+						"<td><a onclick=\"cour_info(this,\'" + opt + "\')\" data-toggle=\"modal\" data-target=\"#" + opt + "-model\">详情</a></td></tr>";	
+					return _;
+				 }	
 				var allInfo = stor.get("course");
 				var table = panel.getElementsByClassName("table")[0];
-				for (var key in allInfo) {
-					for (var i = 0; i < allInfo[key].length; i++) {
+				for (let key in allInfo) {
+					for (let i = 0; i < allInfo[key].length; i++) {
 						table.innerHTML = table.innerHTML + 
 						str(allInfo[key][i], key);
 					}
@@ -657,7 +713,7 @@
 					if (!confirm("你确定删除选中修改项吗"))
 						return;
 					var checkboxs = panel.getElementsByClassName("sel-checkbox");
-					for (var i = 0; i < checkboxs.length; i++) {
+					for (let i = 0; i < checkboxs.length; i++) {
 						if (!checkboxs[i].checked)
 							continue;
 						var jsonStr = checkboxs[i].parentElement.parentElement.getAttribute("data");
@@ -672,13 +728,31 @@
 						"课程号":"",
 						"院系": "",
 						"学分": "",
-						"占比": ""
+						"占比": "",
+						"课程状态":""
 					};
 					dict = {
 							"ori":dict,
 							"after":null
 					};
-					stud_info("add", dict);
+					cour_info(null, "add", dict);
+				}
+				var checkboxs = panel.getElementsByClassName("sel-checkbox");
+				for (let i = 0; i < checkboxs.length; i++) {
+					checkboxs[i].onclick = function() {
+						
+						if (checkboxs[i].checked) {
+							//选中时触发
+							panel.getElementsByClassName("sel-num")[0].innerHTML = 
+						(parseInt(panel.getElementsByClassName("sel-num")[0].innerHTML) + 1) + "";
+						
+						}
+						else {
+							//不选中时触发
+							panel.getElementsByClassName("sel-num")[0].innerHTML = 
+						(parseInt(panel.getElementsByClassName("sel-num")[0].innerHTML) - 1) + "";
+						}
+					}
 				}
 			}
 			function selC_init() {
@@ -687,7 +761,7 @@
 				//初始化添加，删除，详情，展示所有选择
 				/**
 				 * table中每一列的结构
-				 * <tr><td><checkbox class="sel-checkbox"/></td>
+				 * <tr><td><input type=\"checkbox\" class="sel-checkbox"/></td>
 				 * <th>操作</th>
 				 * <th>学号</th>
 				 * <th>姓名</th>
@@ -698,17 +772,18 @@
 				 */
 				 function str(jsonObj, opt) {
 					var jsonStr = JSON.stringify(jsonObj);
-					return "<tr data=\"" + jsonStr + "\" opt=\"" + opt + "\">" + 
-						"<td><checkbox class=\"sel-checkbox\"/></td>" + 
+					var _ = "<tr data=\'" + jsonStr + "\' opt=\"" + opt + "\">" + 
+						"<td><input type=\"checkbox\" class=\"sel-checkbox\"/></td>" + 
 						"<td>" + opt + "</td>" + 
 						"<td>" + jsonObj["ori"]["s_id"] + "</td><td>" + jsonObj["ori"]["s_name"] + "</td>" + 
 						"<td>" + jsonObj["ori"]["c_id"] + "</td><td>" + jsonObj["ori"]["c_name"] + "</td>" + 
-						"<td><button type=\"button\" onclick=\"teac-info(\"" + opt + "\")\" data-toggle=\"modal\" data-target=\"#" + opt + "-model\">详情</button></td></tr>";	
-				}	
-				var allInfo = stor.get("teacher");
+						"<td><a onclick=\"selC_info(this,\'" + opt + "\')\" data-toggle=\"modal\" data-target=\"#" + opt + "-model\">详情</a></td></tr>";	
+					return _;
+				}
+				var allInfo = stor.get("selectCourse");
 				var table = panel.getElementsByClassName("table")[0];
-				for (var key in allInfo) {
-					for (var i = 0; i < allInfo[key].length; i++) {
+				for (let key in allInfo) {
+					for (let i = 0; i < allInfo[key].length; i++) {
 						table.innerHTML = table.innerHTML + 
 						str(allInfo[key][i], key);
 					}
@@ -718,7 +793,7 @@
 					if (!confirm("你确定删除选中修改项吗"))
 						return;
 					var checkboxs = panel.getElementsByClassName("sel-checkbox");
-					for (var i = 0; i < checkboxs.length; i++) {
+					for (let i = 0; i < checkboxs.length; i++) {
 						if (!checkboxs[i].checked)
 							continue;
 						var jsonStr = checkboxs[i].parentElement.parentElement.getAttribute("data");
@@ -735,14 +810,30 @@
 							"ori":dict,
 							"after":null
 					};
-					stud_info("add", dict);
+					selC_info(null, "add", dict);
+				}
+				var checkboxs = panel.getElementsByClassName("sel-checkbox");
+				for (let i = 0; i < checkboxs.length; i++) {
+					checkboxs[i].onclick = function() {
+						
+						if (checkboxs[i].checked) {
+							//选中时触发
+							panel.getElementsByClassName("sel-num")[0].innerHTML = 
+						(parseInt(panel.getElementsByClassName("sel-num")[0].innerHTML) + 1) + "";
+						
+						}
+						else {
+							//不选中时触发
+							panel.getElementsByClassName("sel-num")[0].innerHTML = 
+						(parseInt(panel.getElementsByClassName("sel-num")[0].innerHTML) - 1) + "";
+						}
+					}
 				}
 			}
     		stud_init();
     		teac_init();
     		cour_init();
     		selC_init();
-   
     	}
     	//更新
     	if (!stor.notEmpty()) {
@@ -761,7 +852,7 @@
     		var teac = $("#teac-panel")[0].getElementsByClassName("sel-checkbox");
     		var cour = $("#cour-panel")[0].getElementsByClassName("sel-checkbox");
     		var selC = $("#selC-panel")[0].getElementsByClassName("sel-checkbox");
-    		var data = {
+    		let data = {
     			"student":{
     				"add":[],
     				"delete":[],
@@ -792,26 +883,35 @@
     					data[target][opt].push(jsonObj);
     			}
     		}
-    		for (var i = 0; i < stud.length; i++) {
+    		for (let i = 0; i < stud.length; i++) {
     			_(stud[i], "student");
     		}
-    		for (var i = 0; i < teac.length; i++) {
+    		for (let i = 0; i < teac.length; i++) {
     			_(teac[i], "teacher");
     		}
-    		for (var i = 0; i < cour.length; i++) {
+    		for (let i = 0; i < cour.length; i++) {
     			_(cour[i], "course");
     		}
-    		for (var i = 0; i < selC.length; i++) {
+    		for (let i = 0; i < selC.length; i++) {
     			_(selC[i], "selC");
     		}
+    		console.log(JSON.stringify(data));
     		//提交上传
     		$.post({
     			"url":"${pageContext.request.contextPath }/AdminCommitServlet",
-    			"data": {"data": JSON.stringify(data)},
+    			"data": {"data":JSON.stringify(data)},
     			"dataType":"json",
     			"success": function(response, status, xhr) {
-    				
-    				
+    				if (response["stauts"] == "success") {
+	    				alert("提交成功");
+	    				location.href="${pageContext.request.contextPath }/admin/admin.jsp";
+    				}
+    				else {
+    					//此时response["data"]应为……未提交成功修改
+    					alert("提交失败");
+    					// TODO
+    					location.reload();
+    				}
     			}
     		});
     	}

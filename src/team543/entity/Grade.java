@@ -4,17 +4,17 @@ import team543.dao.ClassDao;
 
 public class Grade {
     ClassDao classDao = new ClassDao();
-	//ѧ��id
+	//学锟斤拷id
 	private String s_id;
-	//�γ�id
+	//锟轿筹拷id
 	private String c_id;
-	//ƽʱ�ɼ�
+	//平时锟缴硷拷
 	private String g_OrdTimGra;
-	//�Ծ�ɼ�
+	//锟皆撅拷杉锟�
 	private String g_ExaPopGra;
-	//�ɼ�����
+	//锟缴硷拷锟斤拷锟斤拷
 	private String g_evaluate;
-	//���ճɼ�
+	//锟斤拷锟秸成硷拷
 	private String totalMark;
 	
 	public String getS_id() {
@@ -67,7 +67,7 @@ public class Grade {
 		this.g_OrdTimGra = g_OrdTimGra;
 		this.g_ExaPopGra = g_ExaPopGra;
 		this.g_evaluate = g_evaluate;
-		double m = (double)Integer.valueOf(g_OrdTimGra).intValue();
+		double m = (double) Integer.valueOf(g_OrdTimGra).intValue();
 		double n =  (double)Integer.valueOf(g_ExaPopGra).intValue();
 		double p = (double) (Integer.valueOf(new ClassDao().getClassById("01").getC_percentage()).intValue()*0.01);
 		this.totalMark = String.valueOf(m*p+n*(1-p));

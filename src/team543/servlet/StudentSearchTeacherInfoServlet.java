@@ -40,12 +40,7 @@ public class StudentSearchTeacherInfoServlet extends HttpServlet {
 		
 		ArrayList<Teacher> resp = null;
 		
-		try {
-			resp =new StudentAction().getTeacherByStudent(studentID);
-		} catch (ReflectiveOperationException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 	}
 
 	/**
