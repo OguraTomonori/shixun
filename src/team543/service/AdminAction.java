@@ -91,6 +91,7 @@ public class AdminAction {
 			m++;
 		} catch (SQLException | ReflectiveOperationException | ParseException e) {
 			num.add(m);
+			m++;
 		}
 		return num;
 	}
@@ -101,14 +102,17 @@ public class AdminAction {
 	 * @throws ReflectiveOperationException 
 	 * 
 	 */
-	public ArrayList<Integer> updateTeacher(Teacher teacher) {
+	public ArrayList<Integer> updateTeacher(ArrayList<Teacher> teachers) {
 		ArrayList<Integer> num =new ArrayList<Integer>();
-		Integer m = 0 ; 
-		try {
-			teacherDao.updateTeacher(teacher);
-			m++;
-		} catch (Exception e) {
-			num.add(m);
+		Integer m = 0;
+		for (Teacher teacher:teachers) {
+			try {
+				teacherDao.updateTeacher(teacher);
+				m++;
+			} catch (Exception e) {
+				num.add(m);
+				m++;
+			} 
 		}
 		return num;
 	}
@@ -127,6 +131,7 @@ public class AdminAction {
 			m++;
 		} catch (Exception e) {
 			num.add(m);
+			m++;
 		}
 		return num;
 	}
@@ -178,6 +183,7 @@ public class AdminAction {
 			} catch (ReflectiveOperationException | SQLException e) {
 				//否则加入num
 				num.add(m);
+				m++;
 			}
 		}
 		return num;
@@ -203,6 +209,7 @@ public class AdminAction {
 			} catch (ReflectiveOperationException | SQLException e) {
 				//否则加入num
 				num.add(m);
+				m++;
 			}
 		}
 		return num;
@@ -224,6 +231,7 @@ public class AdminAction {
 			} catch (ReflectiveOperationException | SQLException e) {
 				//否则加入num
 				num.add(m);
+				m++;
 			}
 		}
 		return num;
@@ -250,8 +258,24 @@ public class AdminAction {
 			} catch (ReflectiveOperationException | SQLException e) {
 				//否则加入num
 				num.add(m);
+				m++;
 			}
 		}
+		return num;
+	}
+	
+	public ArrayList<Integer> deleteStudent(ArrayList<String> studentIds)  {
+		ArrayList<Integer> num =new ArrayList<Integer>();
+		Integer n = 0;
+		for(String studentId:studentIds)
+			try {
+				studentDao.deleteStudent(studentId);
+				n++;
+			} catch (SQLException | ReflectiveOperationException e) {
+				// TODO Auto-generated catch block
+				num.add(n);
+				n++;
+			}
 		return num;
 	}
 }

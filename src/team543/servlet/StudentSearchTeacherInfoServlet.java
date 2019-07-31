@@ -1,10 +1,19 @@
 package team543.servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import team543.entity.Student;
+import team543.entity.Teacher;
+import team543.service.StudentAction;
 
 /**
  * Servlet implementation class StudentSearchTeacherInfoServlet
@@ -25,7 +34,18 @@ public class StudentSearchTeacherInfoServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		response.setContentType("application/json; charset=utf-8");
+		String studentID = request.getParameter("studentID");
+		Map<String, Object> res = new HashMap<String, Object>();
+		
+		ArrayList<Teacher> resp = null;
+		
+		try {
+			resp =new StudentAction().getTeacherByStudent(studentID);
+		} catch (ReflectiveOperationException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
