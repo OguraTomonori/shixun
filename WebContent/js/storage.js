@@ -175,23 +175,38 @@ function Stor() {
 		temp[opt].splice(index, 1);
 		this.set(target, temp);
 	}
+	function getIndex(dictArr, ori) {
+		//dictArr为[ {"ori":...,"after":...} ]
+		//tar为 ori
+		//通过判断ori来判断是否是同一条更改
+		function equal(dictA, dictB) {
+			for (var key in dictA) {
+				if (!dictB[key] || (dictA[key] != dictB[key]))
+					return false;
+			}
+			return true;
+				
+		}
+		for (var i in dictArr) {
+			if (equal(dictArr[i]["ori"], ori))
+				return i;
+			console.log(JSON.stringify(dictArr[i]["ori"]));
+			console.log(JSON.stringify(ori));
+		}
+		
+		
+		return -1;
+	}
 	this.put = function(target, opt, ori, after) {
 		//target为teacher，student ...
 		//object为要添加的数据
 		//opt为add, delete, update
 		//ori, after为修改前后数据
 		//先通过判断是否存在，若存在则覆盖，不存在则添加
-		function getIndex(dictArr) {
-			//dictArr为[ {"ori":...,"after":...} ]
-			//tar为 ori
-			//通过判断ori来判断是否是同一条更改
-			for (var i in dictArr)
-				if (dictArr[i]["ori"] == ori)
-					return i;
-			return -1;
-		}
+		
 		var temp = this.get(target); 
-		var index = getIndex(temp[opt]);
+		var index = getIndex(temp[opt], ori);
+		console.log(index);
 		if (index != -1) 
 			this.del(opt, target, index); //若存在，则删除后添加
 		temp = this.get(target);
