@@ -21,6 +21,7 @@ import team543.dao.StudentDao;
 import team543.dao.StudentGradeDao;
 import team543.dao.TeacherDao;
 import team543.entity.*;
+import team543.entity.Class;
 
 public class AdminAction {
 	StudentDao studentDao = new StudentDao();
@@ -75,6 +76,21 @@ public class AdminAction {
 		return studentGradeDao.getGrades(sort,sequence);
 	}
 	
+	public ArrayList<Integer> updateClass(ArrayList<Class> cl){
+		ArrayList<Integer> num =new ArrayList<Integer>();
+		Integer m = 0 ; 
+		for (Class c : cl) {
+			try {
+				classDao.updateClass(c);
+				m++;
+			} catch (SQLException | ReflectiveOperationException e) {
+				num.add(m);
+				m++;
+			} 
+		}
+		return num;
+	}
+	
 	/**
 	 * �޸�ѧ����Ϣ
 	 * @throws ReflectiveOperationException 
@@ -86,12 +102,14 @@ public class AdminAction {
 		
 		ArrayList<Integer> num =new ArrayList<Integer>();
 		Integer m = 0 ; 
-		try {
-			student.updateStudent(students);
-			m++;
-		} catch (SQLException | ReflectiveOperationException | ParseException e) {
-			num.add(m);
-			m++;
+		for ( Student s : students) {
+			try {
+				student.updateStudent(students);
+				m++;
+			} catch (SQLException | ReflectiveOperationException | ParseException e) {
+				num.add(m);
+				m++;
+			} 
 		}
 		return num;
 	}
@@ -161,6 +179,17 @@ public class AdminAction {
 	 */
 	public ArrayList<Teacher> searchTeacher(Teacher teacher,Date firstDate,Date secondDate) throws SQLException, ReflectiveOperationException{
 		return searchDao.searchTeacher(teacher, firstDate, secondDate);
+	}
+	
+	/**
+	 * 搜索课程
+	 * @param cl
+	 * @return
+	 * @throws ReflectiveOperationException
+	 * @throws SQLException
+	 */
+	public ArrayList<team543.entity.Class> searchClass(team543.entity.Class cl) throws ReflectiveOperationException, SQLException{
+		return searchDao.searchClass(cl);
 	}
 	
 	/**
