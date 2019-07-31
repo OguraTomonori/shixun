@@ -61,7 +61,7 @@ public class TeacherAction {
 		
 		StudentDao studentDao = new StudentDao();
 		
-		ArrayList<ElectiveClass> ecs =  new ElectiveClassDao().getStudentTd(ClassId);
+		ArrayList<ElectiveClass> ecs =  new ElectiveClassDao().getStudentId(ClassId);
 		ArrayList<Student> arrayList = new ArrayList<Student>();
 		
 		
