@@ -16,6 +16,7 @@ import java.util.Date;
 
 import team543.dao.ClassDao;
 import team543.dao.ElectiveClassDao;
+import team543.dao.GiveClassDao;
 import team543.dao.SearchDao;
 import team543.dao.StudentDao;
 import team543.dao.StudentGradeDao;
@@ -193,6 +194,17 @@ public class AdminAction {
 	}
 	
 	/**
+	 * @param ClassId
+	 * @return
+	 * @throws SQLException 
+	 * @throws ReflectiveOperationException 
+	 */
+	public Teacher getTeacherByClassId(String ClassId) throws ReflectiveOperationException, SQLException {
+		String teacherId = new GiveClassDao().getGiveClassByTeacherId(ClassId).getT_id();
+		return teacherDao.getTeacherById(teacherId);
+	}
+	
+	/**
 	 * 添加教师
 	 * @return
 	 */
@@ -347,7 +359,6 @@ public class AdminAction {
 				teacherDao.deleteTeacher(Integer.valueOf(t.getT_id()));
 				n++;
 			} catch (SQLException | ReflectiveOperationException e) {
-				// TODO Auto-generated catch block
 				num.add(n);
 				n++;
 			}
