@@ -4,18 +4,18 @@ import team543.dao.ClassDao;
 
 public class Grade {
     ClassDao classDao = new ClassDao();
-	//Ñ§Éúid
+	//Ñ§ï¿½ï¿½id
 	private String s_id;
-	//¿Î³Ìid
+	//ï¿½Î³ï¿½id
 	private String c_id;
-	//Æ½Ê±³É¼¨
+	//Æ½Ê±ï¿½É¼ï¿½
 	private String g_OrdTimGra;
-	//ÊÔ¾í³É¼¨
+	//ï¿½Ô¾ï¿½É¼ï¿½
 	private String g_ExaPopGra;
-	//³É¼¨ÆÀ¼Û
+	//ï¿½É¼ï¿½ï¿½ï¿½ï¿½ï¿½
 	private String g_evaluate;
-	//×îÖÕ³É¼¨
-	private String totalMark =  String.valueOf(Integer.valueOf(g_ExaPopGra).intValue()*(Integer.valueOf(g_OrdTimGra).intValue()*Integer.valueOf(classDao.getClassById(s_id).getC_percentage()).intValue()*0.01));
+	//ï¿½ï¿½ï¿½Õ³É¼ï¿½
+	private String totalMark;
 	
 	public String getS_id() {
 		return s_id;
@@ -58,6 +58,8 @@ public class Grade {
 		return "Grade [s_id=" + s_id + ", c_id=" + c_id + ", g_OrdTimGra=" + g_OrdTimGra + ", g_ExaPopGra="
 				+ g_ExaPopGra + ", g_evaluate=" + g_evaluate + ", totalMark=" + totalMark + "]";
 	}
+
+	
 	public Grade(String s_id, String c_id, String g_OrdTimGra, String g_ExaPopGra, String g_evaluate) {
 		super();
 		this.s_id = s_id;
@@ -65,17 +67,11 @@ public class Grade {
 		this.g_OrdTimGra = g_OrdTimGra;
 		this.g_ExaPopGra = g_ExaPopGra;
 		this.g_evaluate = g_evaluate;
-	}
-	
-	public Grade(String s_id, String c_id, String g_OrdTimGra, String g_ExaPopGra, String g_evaluate,
-			String totalMark) {
-		super();
-		this.s_id = s_id;
-		this.c_id = c_id;
-		this.g_OrdTimGra = g_OrdTimGra;
-		this.g_ExaPopGra = g_ExaPopGra;
-		this.g_evaluate = g_evaluate;
-		this.totalMark = totalMark;
+		double m = (double)Integer.valueOf(g_OrdTimGra).intValue();
+		double n =  (double)Integer.valueOf(g_ExaPopGra).intValue();
+		double p = (double) (Integer.valueOf(new ClassDao().getClassById("01").getC_percentage()).intValue()*0.01);
+		this.totalMark = String.valueOf(m*p+n*(1-p));
+		//this.totalMark = String.valueOf(Integer.valueOf(g_ExaPopGra).intValue()*(Integer.valueOf(g_OrdTimGra).intValue()*Integer.valueOf(classDao.getClassById(s_id).getC_percentage()).intValue()*0.01));
 	}
 	public Grade() {
 		

@@ -5,12 +5,15 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import team543.dao.ClassDao;
+import team543.dao.ElectiveClassDao;
 import team543.dao.GiveClassDao;
 import team543.dao.GradeDao;
 import team543.dao.SearchDao;
+import team543.dao.StudentDao;
 import team543.dao.StudentGradeDao;
 import team543.dao.StudentTeacherDao;
 import team543.dao.TeacherDao;
+import team543.entity.ElectiveClass;
 import team543.entity.GiveClass;
 import team543.entity.Grade;
 import team543.entity.Student;
@@ -46,6 +49,28 @@ public class TeacherAction {
 		return studentTeacherDao.getStudentByTeacherId(teacherId);
 	}
 	
+	
+	/**
+	 * 通过课程查学生
+	 * @param ClassId
+	 * @return
+	 * @throws ReflectiveOperationException
+	 * @throws SQLException
+	 */
+	public ArrayList<Student> getStudentByClassId(String ClassId) throws ReflectiveOperationException, SQLException{
+		
+		StudentDao studentDao = new StudentDao();
+		
+		ArrayList<ElectiveClass> ecs =  new ElectiveClassDao().getStudentTd(ClassId);
+		ArrayList<Student> arrayList = new ArrayList<Student>();
+		
+		
+		for (ElectiveClass ec:ecs) {
+			arrayList.add(studentDao.getStudentById(ec.getS_id()));
+		}
+		
+		return arrayList;
+	}
 	/**
 	 * ��ȡ���ڿγ̵Ŀγ���Ϣ
 	 * @param teacherId
