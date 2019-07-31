@@ -3,26 +3,26 @@ package team543.entity;
 import team543.dao.ClassDao;
 
 /*
- * Ñ§Éú³É¼¨ÊµÌå
+ * Ñ§ï¿½ï¿½ï¿½É¼ï¿½Êµï¿½ï¿½
  *
  * */
 
 public class StudentGrade {
 	ClassDao classDao = new ClassDao();
-    //Ñ§ÉúID
+    //Ñ§ï¿½ï¿½ID
     private String studentId;
-    //Ñ§ÉúÐÕÃû
+    //Ñ§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private String studentName;
-    //¿Î³ÌID
+    //ï¿½Î³ï¿½ID
     private String classId;
-    //¿Î³ÌÃû³Æ
+    //ï¿½Î³ï¿½ï¿½ï¿½ï¿½ï¿½
     private String className;
-    //Æ½Ê±·Ö
+    //Æ½Ê±ï¿½ï¿½
     private String regularGrade;
-    //¿¼ÊÔ³É¼¨
+    //ï¿½ï¿½ï¿½Ô³É¼ï¿½
     private String testGrade;
-    //×Ü·Ö
-    private String totalMark = String.valueOf(Integer.valueOf(testGrade).intValue()*(Integer.valueOf(regularGrade).intValue()*Integer.valueOf(classDao.getClassById(classId).getC_percentage()).intValue()*0.01));
+    //ï¿½Ü·ï¿½
+    private String totalMark;//= String.valueOf(Integer.valueOf(testGrade).intValue()*(Integer.valueOf(regularGrade).intValue()*Integer.valueOf(classDao.getClassById(classId).getC_percentage()).intValue()*0.01));
 
     public String getStudentId () {
         return studentId;
@@ -92,4 +92,25 @@ public class StudentGrade {
                 ", totalMark='" + totalMark + '\'' +
                 '}';
     }
+
+	public StudentGrade(ClassDao classDao, String studentId, String studentName, String classId, String className,
+			String regularGrade, String testGrade) {
+		super();
+		this.classDao = classDao;
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.classId = classId;
+		this.className = className;
+		this.regularGrade = regularGrade;
+		this.testGrade = testGrade;
+		double m = (double)Integer.valueOf(regularGrade).intValue();
+		double n =  (double)Integer.valueOf(testGrade).intValue();
+		double p = (double) (Integer.valueOf(new ClassDao().getClassById(classId).getC_percentage()).intValue()*0.01);
+		this.totalMark = String.valueOf(m*p+n*(1-p));
+	}
+	
+	public StudentGrade() {
+		
+	}
+    
 }
