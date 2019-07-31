@@ -182,6 +182,17 @@ public class AdminAction {
 	}
 	
 	/**
+	 * 搜索课程
+	 * @param cl
+	 * @return
+	 * @throws ReflectiveOperationException
+	 * @throws SQLException
+	 */
+	public ArrayList<team543.entity.Class> searchClass(team543.entity.Class cl) throws ReflectiveOperationException, SQLException{
+		return searchDao.searchClass(cl);
+	}
+	
+	/**
 	 * 添加教师
 	 * @return
 	 */
