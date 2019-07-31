@@ -55,6 +55,7 @@ public class AdminSearchStudentServlet extends HttpServlet {
 		*/
 		
 		response.setContentType("application/json; charset=utf-8");
+		/*
 		Map<String, Object> params = team543.utils.ParamUtil.getRequestParameters(request);
 		String studentID = (String) params.get("s_id");
 		String name = (String) params.get("s_name");
@@ -65,7 +66,6 @@ public class AdminSearchStudentServlet extends HttpServlet {
 		String state = (String) params.get("s_state");
 		String ST = (String) params.get("startTime");
 		String ET = (String) params.get("endTime");
-		
 		Date startTime = null;
 		try {
 			if (ST != null)
@@ -82,12 +82,49 @@ public class AdminSearchStudentServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
 		ArrayList<Student> resp = null;
 		try {
 			resp = new TeacherAction().searchStudent(
 				new Student(studentID, name, sex, dp, major, class_, state, null)
 				, startTime, endTime);
+		} catch (ReflectiveOperationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Map<String, Object> res = new HashMap();
+		res.put("data", resp);
+		JSONObject jsonObj = new JSONObject(res);
+		String json = jsonObj.toJSONString();
+		System.out.println(json);
+		response.getWriter().append(json);
+		*/
+		String search_option = request.getParameter("search_option");
+		String search_text = request.getParameter("search_text");
+		String name = null;
+		String id = null;
+		String major = null;
+		String class_ = null;
+		switch (search_option) {
+		case "0":
+			name = search_text;
+			break;
+		case "1":
+			id = search_text;
+			break;
+		case "2":
+			major = search_text;
+			break;
+		case "3":
+			class_ = search_text;
+		}
+		ArrayList<Student> resp = null;
+		try {
+			resp = new TeacherAction().searchStudent(
+				new Student(id, name, null, null, major, class_, null, null)
+				, null, null);
 		} catch (ReflectiveOperationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

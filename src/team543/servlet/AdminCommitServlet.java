@@ -81,13 +81,7 @@ public class AdminCommitServlet extends HttpServlet {
 				)
 			);
 		}
-		try {
-			admin.updateStudent(studentUpdate);
-		} catch (SQLException | ReflectiveOperationException | ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		// TODO 学生删除
+		admin.updateStudent(studentUpdate);
 		
 		
     }
@@ -139,23 +133,17 @@ public class AdminCommitServlet extends HttpServlet {
 					)
 				);
 		}
-		try {
-			admin.updateTeacher(teacherUpdate);
-		} catch (SQLException | ReflectiveOperationException | ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		// TODO 教师删除
+		admin.updateTeacher(teacherUpdate);
 		
     }
 	private void commitCourse(AdminAction admin, Map<String,Object> course) {
-		ArrayList<Object> courseAddObj = (ArrayList<Object>) teacher.get("add");
+		ArrayList<Object> courseAddObj = (ArrayList<Object>) course.get("add");
 		ArrayList<team543.entity.Class> courseAdd = new ArrayList();
 		
-		ArrayList<Object> courseUpdateObj = (ArrayList<Object>) teacher.get("update");
+		ArrayList<Object> courseUpdateObj = (ArrayList<Object>) course.get("update");
 		ArrayList<team543.entity.Class> courseUpdate = new ArrayList();
 		
-		ArrayList<Object> courseDeleteObj = (ArrayList<Object>) teacher.get("delete");
+		ArrayList<Object> courseDeleteObj = (ArrayList<Object>) course.get("delete");
 		ArrayList<team543.entity.Class> courseDelete = new ArrayList();
 		
 		for (int i = 0; i < courseAddObj.size(); i++) {
@@ -202,7 +190,7 @@ public class AdminCommitServlet extends HttpServlet {
 		
 		//只有删除
 		ArrayList<Object> selCUpdateObj = (ArrayList<Object>) selC.get("update");
-		ArrayList<ElectiveClass> selCUpdate = new ArrayList();
+		ArrayList<String> selCUpdate = new ArrayList();
 		
 		for (int i = 0; i < selCAddObj.size(); i++) {
 			Map<String, Object> temp = (Map<String, Object>)((Map<String, Object>) selCAddObj.get(i)).get("ori");
@@ -219,18 +207,10 @@ public class AdminCommitServlet extends HttpServlet {
 		for (int i = 0; i < selCUpdateObj.size(); i++) {
 			Map<String, Object> temp = (Map<String, Object>)((Map<String, Object>) selCUpdateObj.get(i)).get("after");
 			selCUpdate.add(
-					new ElectiveClass(
-							(String) temp.get("c_id"),
-							(String) temp.get("s_id")
-						)
+					(String) temp.get("e_id")
 				);
 		}
-		try {
-			admin.deleteElectiveClass(selCUpdate);
-		} catch (SQLException | ReflectiveOperationException | ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		admin.deleteElectiveClass(selCUpdate);
 	}
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub

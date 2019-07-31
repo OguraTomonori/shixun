@@ -49,11 +49,10 @@
 			 <div class="col-lg-6">
 			    <div class="input-group input-group-lg">
 			      <div class="input-group-btn">
-			        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">按姓名搜索 <span class="caret"></span></button>
+			        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">按课程名搜索 <span class="caret"></span></button>
 			        <ul class="dropdown-menu" id="search_option">
-			          <li><a href="#">按姓名搜索</a></li>
-			          <li><a href="#">按学号搜索</a></li>
-					  <li><a href="#">按班级搜索</a></li>
+			          <li><a href="#">按课程名搜索</a></li>
+			          <li><a href="#">按课程号搜索</a></li>
 			          <li><a href="#">按专业搜索</a></li>
 					  <li><a href="#">按系别搜索</a></li>
 			        </ul>
@@ -68,6 +67,15 @@
 			  
 			 
 		</div><!-- row content -->
+		<script>
+		var optionObj = document.getElementById("search_option").getElementsByTagName("a");
+		for (let i = 0; i < optionObj.length; i++) {
+			optionObj[i].onclick = function() {
+				document.getElementById("option_btn").setAttribute("opt", i);
+				document.getElementById("option_btn").innerHTML = this.innerHTML;
+			}
+		}
+		</script>
 		<div class="row content">
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
@@ -193,24 +201,25 @@ function teacher(teacherID) {
 	var content = document.getElementById("teacher-content").getElementsByClassName("table")[0];
 	content.innerHTML = "";
 	$.post({
-		"url":"${pageContext.request.contextPath }/SearchTeacherServlet",
+		"url":"${pageContext.request.contextPath }/AdminSearchTeacherServlet",
 		"data":{
-			"t_id": teacherID
+			"search_text": teacherID,
+			"search_option": "1"
 		},
 		"dataType":"json",
 		"success": function(response, status, xhr) {
 			response = response["data"][0];
 			var res = {
-					"姓名": response["name"],
-					"工号": response["id"],
-					"职位": response["jobtitle"],
-					"院系": response["dp"],
-					"性别": response["sex"],
-					"薪水": response["salary"],
-					"状态": response["state"],
-					"入学时间": response["entertime"],
-					"办公室": response["office"],
-					"email": response["email"]
+					"姓名": response["t_name"],
+					"工号": response["t_id"],
+					"职位": response["t_jobtitle"],
+					"院系": response["t_dp"],
+					"性别": response["t_sex"],
+					"薪水": response["t_salary"],
+					"状态": response["t_state"],
+					"入学时间": response["t_entertime"],
+					"办公室": response["t_office"],
+					"email": response["t_email"]
 			};
 			for (key in res) {
 				content.innerHTML = content.innerHTML +
@@ -225,19 +234,20 @@ function update(courseID) {
 	content.innerHTML = "";
 	//首先获取信息，更新页面
 	$.post({
-		"url":"${pageContext.request.contextPath }/SearchCourseServlet",
+		"url":"${pageContext.request.contextPath }/AdminSearchCourseServlet",
 		"data":{
-			"c_id": courseID
+			"search_text": courseID,
+			"search_option": "1"
 		},
 		"dataType":"json",
 		"success": function(response, status, xhr) {
 			response = response["data"][0];
 			var res = {
-					"名称": response["name"],
-				 	"课程号":response["id"],
-					"院系": response["dp"],
-				 	"学分": response["score"],
-				 	"占比": response["percentage"]
+					"名称": response["c_name"],
+				 	"课程号":response["c_id"],
+					"院系": response["c_dp"],
+				 	"学分": response["c_score"],
+				 	"占比": response["c_percentage"]
 			};
 			for (var key in res) {
 				var item = "<div class=\"input-group\"><input type=\"text\" key='" + key + "'class=\"form-control\" aria-describedby=\"basic-addon1\" value=\"" + res[key] + "\"/></div>";
@@ -268,22 +278,13 @@ function update(courseID) {
 }
 </script>
 <script>
-		var optionObj = document.getElementById("search_option").getElementsByTagName("a");
-		var option = 0;
 		
-		for (var i = 0; i < optionObj.length; i++) {
-			let Obj = optionObj[i];
-			Obj.onclick = function() {
-				option = i;
-				document.getElementById("option_btn").innerHTML = Obj.innerHTML;
-			}
-		}
     	document.getElementById("search_btn").onclick = function() {
 			//根据option进行处理……
 			$.post({
-				"url":"${pageContext.request.contextPath }/SearchCourseServlet",
+				"url":"${pageContext.request.contextPath }/AdminSearchCourseServlet",
 				"data":{
-					"search_option": option,
+					"search_option": document.getElementById("option_btn").getAttribute("opt"),
 					"search_text": document.getElementById("search_text").value
 				},
 				"dataType":"json",

@@ -55,11 +55,12 @@
 			 <div class="col-lg-6">
 			    <div class="input-group input-group-lg">
 			      <div class="input-group-btn">
-			        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="option_btn">按姓名搜索 <span class="caret"></span></button>
-			        <ul class="dropdown-menu" id="search_option">
+			        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="option_btn" opt="0">按姓名搜索 <span class="caret"></span></button>
+			        <ul class="dropdown-menu" id="search_option" opt="0">
 			          <li><a href="#">按姓名搜索</a></li>
 			          <li><a href="#">按学号搜索</a></li>
 					  <li><a href="#">按班级搜索</a></li>
+					  <li><a href="#">按专业搜索</a></li>
 			        </ul>
 			      </div><!-- /btn-group -->
 			      <input type="text" class="form-control" aria-label="..." id="search_text">
@@ -229,19 +230,20 @@
 			$.post({
 				"url":"${pageContext.request.contextPath }/AdminSearchStudentServlet",
 				"data":{
-					"s_id": studentID
+					"search_text": studentID,
+					"search_option": "1"
 				},
 				"dataType":"json",
 				"success": function(response, status, xhr) {
 					response = response["data"][0];
 					var res = {
-							"姓名": response["name"],
-							"学号": response["id"],
-							"性别": response["sex"],
-							"班级": response["class"],
-							"院系": response["dp"],
-							"专业": response["major"],
-							"状态": response["state"],
+							"姓名": response["s_name"],
+							"学号": response["s_id"],
+							"性别": response["s_sex"],
+							"班级": response["s_class"],
+							"院系": response["s_dp"],
+							"专业": response["s_major"],
+							"状态": response["s_state"],
 							"入学时间": response["entertime"]
 					};
 					
@@ -255,48 +257,51 @@
 			var content = document.getElementById("grade-content").getElementsByClassName("table")[0];
 			content.innerHTML = "<tr><th>课程名称</th><th>课程号</th><th>成绩</th><th>平时成绩</th><th>试卷成绩</th><th>评价</th></tr>";
 			$.post({
-				"url":"${pageContext.request.contextPath }/SearchGradeServlet",
+				"url":"${pageContext.request.contextPath }/AdminSearchGradeServlet",
 				"data":{
-					"s_id": studentID
+					"search_text": studentID,
+					"search_option": "0"
 				},
 				"dataType":"json",
 				"success": function(response, status, xhr) {
-					var res = {
-						"课程名称": response["name"],
-						"课程号": response["id"],
-						"成绩": response["grade"],
-						"平时成绩": response["ordTimeGrade"],
-						"试卷成绩": response["examPaperGrade"],
-						"评价": response["eval"]
-					};
-					for (var key in res) {
-						content.innerHTML = content.innerHTML +
-						"<tr><th>" + key + "</th><td>" + res[key] + "</td></tr>";
+					response = response["data"];
+					for (var i = 0; i < response.length; i++) {
+						var res = {
+								"课程名称": response[i]["c_name"],
+								"课程号": response[i]["c_id"],
+								"成绩": response[i]["totalMark"],
+								"平时成绩": response[i]["g_OrdTimGra"],
+								"试卷成绩": response[i]["g_ExaPopGra"],
+								"评价": response[i]["g_evaluate"]
+							};
+						for (var key in res) {
+							content.innerHTML = content.innerHTML +
+							"<tr><th>" + key + "</th><td>" + res[key] + "</td></tr>";
+						}
 					}
 				}});
 		}
 		function update(studentID) { 
-			
-			
 			var content = document.getElementById("update-content").getElementsByClassName("table")[0];
 			content.innerHTML = "";
 			//首先获取信息，更新页面
 			$.post({
-				"url":"${pageContext.request.contextPath }/SearchStudentServlet",
+				"url":"${pageContext.request.contextPath }/AdminSearchStudentServlet",
 				"data":{
-					"s_id": studentID
+					"search_text": studentID,
+					"search_option": "1"
 				},
 				"dataType":"json",
 				"success": function(response, status, xhr) {
 					response = response["data"][0];
 					var res = {
-							"姓名": response["name"],
-							"学号": response["id"],
-							"性别": response["sex"],
-							"班级": response["class"],
-							"院系": response["dp"],
-							"专业": response["major"],
-							"状态": response["state"],
+							"姓名": response["s_name"],
+							"学号": response["s_id"],
+							"性别": response["s_sex"],
+							"班级": response["s_class"],
+							"院系": response["s_dp"],
+							"专业": response["s_major"],
+							"状态": response["s_state"],
 							"入学时间": response["entertime"]
 					};
 					for (var key in res) {
@@ -310,7 +315,7 @@
 					}
 					document.getElementById("deleteStudent").onclick = function() {
 						//删除学生操作添加到清单
-						stor.put("delete", "student", {"studentID": studentID});
+						stor.put( "student","delete", {"s_id": studentID}, null);
 						
 					}
 					document.getElementById("saveUpdate").onclick = function() {
@@ -318,12 +323,19 @@
 						var inputs = content.getElementsByTagName("input");
 						for (var i = 0; i < inputs.length; i++)
 							res[inputs[i].getAttribute("key")] = inputs[i].value;
-						res["id"] = res["学号"];
-						stor.put("update", "student", res);
-						alert(JSON.stringify(stor.get("student")));
+						var ori = response;
+						var after = {
+							"s_name": res["姓名"],
+							"s_id": res["学号"],
+							"s_sex": res["性别"],
+							"s_class": res["班级"],
+							"s_dp": res["院系"],
+							"s_major": res["专业"],
+							"s_state": res["状态"],
+							"entertime": res["入学时间"]	
+						}
+						stor.put( "student","update", ori , after);
 					}
-					
-					
 			}});
 			
 		}
@@ -333,22 +345,19 @@
 			查询
 		*/
 		var optionObj = document.getElementById("search_option").getElementsByTagName("a");
-		var option = 0;
-		
-		for (var i = 0; i < optionObj.length; i++) {
-			let Obj = optionObj[i];
-			Obj.onclick = function() {
-				option = i;
-				document.getElementById("option_btn").innerHTML = Obj.innerHTML;
+		for (let i = 0; i < optionObj.length; i++) {
+			optionObj[i].onclick = function() {
+				document.getElementById("option_btn").setAttribute("opt", i);
+				document.getElementById("option_btn").innerHTML = this.innerHTML;
 			}
 		}
+		var ori = document.getElementById("result").innerHTML;
     	document.getElementById("search_btn").onclick = function() {
-
 			//根据option进行处理……
 			$.post({
-				"url":"${pageContext.request.contextPath }/SearchStudentServlet",
+				"url":"${pageContext.request.contextPath }/AdminSearchStudentServlet",
 				"data":{
-					"search_option": option,
+					"search_option": document.getElementById("option_btn").getAttribute("opt"),
 					"search_text": document.getElementById("search_text").value
 				},
 				"dataType":"json",
@@ -368,13 +377,15 @@
 					var res = response["data"];
 					console.log(res);
 					var result = document.getElementById("result");
+					result.innerHTML = ori;
 					for (var i = 0; i < res.length; i++) {
-						var id_ = res[i]["id"];
-						var name = res[i]["name"];
-						var class_ = res[i]["class"];
-						var dp = res[i]["dp"];
-						var sex = res[i]["sex"];
-						var major = res[i]["major"];
+						console.log(JSON.stringify(res[i]));
+						var id_ = res[i]["s_id"];
+						var name = res[i]["s_name"];
+						var class_ = res[i]["s_class"];
+						var dp = res[i]["s_dp"];
+						var sex = res[i]["s_sex"];
+						var major = res[i]["s_major"];
 						var entertime = res[i]["entertime"];
 						result.innerHTML = 
 							result.innerHTML + "<tr id='" + "student" + id_ + "'>" + 
@@ -392,7 +403,6 @@
 					}
 					// TODO
 					//查询后根据localStorage来更新每一tr状态
-					
 				}
 			});
 		}

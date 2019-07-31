@@ -70,6 +70,15 @@
 							    
 			  </div><!-- /.col-lg-6 -->
 		</div><!-- row content -->
+		<script>
+		var optionObj = document.getElementById("search_option").getElementsByTagName("a");
+		for (let i = 0; i < optionObj.length; i++) {
+			optionObj[i].onclick = function() {
+				document.getElementById("option_btn").setAttribute("opt", i);
+				document.getElementById("option_btn").innerHTML = this.innerHTML;
+			}
+		}
+		</script>
 		<div class="row content">
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
@@ -85,84 +94,6 @@
 				 		<th></th>
 				 	</tr>
 				</table>
-			</div>
-		</div>
-		<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="myModalLabel">添加</h4>
-					</div>
-					<div class="modal-body" id="teacher-content">
-						<table class="table">
-							<tr>
-								<th>姓名</th>
-								<td><div class="input-group">
-									<input type="text" key="姓名" class="form-control" aria-describedby="basic-addon1" >
-								</div></td>
-							</tr>
-							<tr>
-								<th>工号</th>
-								<td><div class="input-group">
-									<input type="text" key="工号" class="form-control" aria-describedby="basic-addon1" >
-								</div></td>
-							</tr>
-							<tr>
-								<th>性别</th>
-								<td><div class="input-group">
-									<input type="text" key="性别" class="form-control" aria-describedby="basic-addon1" >
-								</div></td>
-							</tr>
-							<tr>
-								<th>院系</th>
-								<td><div class="input-group">
-									<input type="text" key="院系" class="form-control" aria-describedby="basic-addon1" >
-								</div></td>
-							</tr>
-							<tr>
-								<th>职位</th>
-								<td><div class="input-group">
-									<input type="text" key="职位" class="form-control" aria-describedby="basic-addon1" >
-								</div></td>
-							</tr>
-							<tr>
-								<th>薪水</th>
-								<td><div class="input-group">
-									<input type="text" key="薪水" class="form-control" aria-describedby="basic-addon1" >
-								</div></td>
-							</tr>
-							<tr>
-								<th>状态</th>
-								<td><div class="input-group">
-									<input type="text" key="状态" class="form-control" aria-describedby="basic-addon1" >
-								</div></td>
-							</tr>
-							<tr>
-								<th>入学时间</th>
-								<td><div class="input-group">
-									<input type="text" key="入学时间" class="form-control" aria-describedby="basic-addon1" >
-								</div></td>
-							</tr>
-							<tr>
-								<th>办公室</th>
-								<td><div class="input-group">
-									<input type="text" key="办公室" class="form-control" aria-describedby="basic-addon1" >
-								</div></td>
-							</tr>
-							<tr>
-								<th>email</th>
-								<td><div class="input-group">
-									<input type="text" key="email" class="form-control" aria-describedby="basic-addon1" >
-								</div></td>
-							</tr>
-						</table>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<button type="button" class="btn btn-primary" data-dismiss="modal" id="saveAdd">保存</button>
-					</div>
-				</div>
 			</div>
 		</div>
 		<div class="modal fade" id="teacher" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -236,26 +167,27 @@
 			var content = document.getElementById("teacher-content").getElementsByClassName("table")[0];
 			content.innerHTML = "";
 			$.post({
-				"url":"${pageContext.request.contextPath }/SearchTeacherServlet",
+				"url":"${pageContext.request.contextPath }/AdminSearchTeacherServlet",
 				"data":{
-					"t_id": teacherID
+					"search_text": teacherID,
+					"search_option": "1"
 				},
 				"dataType":"json",
 				"success": function(response, status, xhr) {
 					response = response["data"][0];
 					var res = {
-							"姓名": response["name"],
-							"工号": response["id"],
-							"职位": response["jobtitle"],
-							"院系": response["dp"],
-							"性别": response["sex"],
-							"薪水": response["salary"],
-							"状态": response["state"],
-							"入学时间": response["entertime"],
-							"办公室": response["office"],
-							"email": response["email"]
+							"姓名": response["t_name"],
+							"工号": response["t_id"],
+							"职位": response["t_jobtitle"],
+							"院系": response["t_dp"],
+							"薪水": response["t_salary"],
+							"状态": response["t_state"],
+							"入学时间": response["t_entertime"],
+							"办公室": response["t_office"],
+							"email": response["t_email"]
 					};
-					for (key in res) {
+					console.log(res);
+					for (let key in res) {
 						content.innerHTML = content.innerHTML +
 						"<tr><th>" + key + "</th><td>" + res[key] + "</td></tr>";
 					}
@@ -357,7 +289,7 @@
 
 			//根据option进行处理……
 			$.post({
-				"url":"${pageContext.request.contextPath }/SearchTeacherServlet",
+				"url":"${pageContext.request.contextPath }/AdminSearchTeacherServlet",
 				"data":{
 					"search_option": option,
 					"search_text": document.getElementById("search_text").value
@@ -367,7 +299,7 @@
 					//response应该是一个json包装的字典的数组
 					//{"data":[ {} ... ]}
 					//字典结构
-					//{
+					//		{
 					//	"id":学号
 					//	"name"
 					//	"class"
@@ -384,12 +316,12 @@
 						}
 					*/
 					var res = response["data"];
-					console.log(res);
 					var result = document.getElementById("result");
+					result.innerHTML = "";
 					for (var i = 0; i < res.length; i++) {
-						var id_ = res[i]["id"];
-						var name = res[i]["name"];
-						var dp = res[i]["dp"];
+						var id_ = res[i]["t_id"];
+						var name = res[i]["t_name"];
+						var dp = res[i]["t_dp"];
 
 						result.innerHTML = 
 							result.innerHTML + "<tr>" + 
