@@ -255,6 +255,14 @@
 		  		</div>
  			</div>
  		</div>
+ 		<div class="row content">
+ 			<div class="col-md-10"></div>
+ 			<div class="col-md-2">
+ 				<div class="btn-group" role="group" aria-label="...">
+				  <button type="button" class="btn btn-primary" id="commit">提交修改</button>
+				</div>
+ 			</div>
+ 		</div>
  	</div>
 	<!--  --------------------------------------------------------- -->
 	<div class="modal fade" id="add-model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -331,8 +339,6 @@
 			</div>
 		</div>
 	</div>
-	
-	
 	<script>
 		//模态框信息初始化函数，被“详情”的a标签onclick和add按钮onclick调用
 		//若dict存在则操作dict，否则操作this的父元素的父元素的attribute(data)
@@ -402,9 +408,8 @@
 				}
 			
 			model.getElementsByClassName("del-single-btn").onclick = function() {
-				
+				stor.delItem(target, dict["ori"]);
 			}
-			
 			return model;
 		}
 		function stud_info(opt, dict) { //stud模态框
@@ -454,18 +459,24 @@
 				
 				panel.getElementsByClassName("selAll-btn")[0].onclick = function() {
 					var checkboxs = panel.getElementsByClassName("sel-checkbox");
-					for (var i = 0; i < checkboxs.length; i++)
+					for (var i = 0; i < checkboxs.length; i++) 
 						checkboxs[i].checked = true;
+					panel.getElementsByClassName("sel-num")[0].innerHTML = 
+						panel.getElementsByClassName("all-num")[0].innerHTML;
 				}
 				panel.getElementsByClassName("selNon-btn")[0].onclick = function() {
 					var checkboxs = panel.getElementsByClassName("sel-checkbox");
 					for (var i = 0; i < checkboxs.length; i++)
 						checkboxs[i].checked = false;
+					panel.getElementsByClassName("sel-num")[0].innerHTML = "0";
 				}
 				panel.getElementsByClassName("selRev-btn")[0].onclick = function() {
 					var checkboxs = panel.getElementsByClassName("sel-checkbox");
 					for (var i = 0; i < checkboxs.length; i++)
 						checkboxs[i].checked = !checkboxs[i].checked;
+					panel.getElementsByClassName("sel-num")[0].innerHTML = 
+						(parseInt(panel.getElementsByClassName("all-num")[0].innerHTML) - 
+						parseInt(panel.getElementsByClassName("sel-num")[0].innerHTML)) + "";
 				}
 				
 				return panel;
@@ -485,7 +496,7 @@
 				 */
 				function str(jsonObj, opt) {
 					var jsonStr = JSON.stringify(jsonObj);
-					return "<tr data=\"" + jsonStr + "\">" + 
+					return "<tr data=\"" + jsonStr + "\" opt=\"" + opt + "\">"
 						"<td><checkbox class=\"sel-checkbox\"/></td>" + 
 						"<td>" + opt + "</td>" + 
 						"<td>" + jsonObj["ori"]["s_id"] + "</td><td>" + jsonObj["ori"]["s_name"] + "</td>" + 
@@ -547,7 +558,7 @@
 				 */
 				function str(jsonObj, opt) {
 					var jsonStr = JSON.stringify(jsonObj);
-					return "<tr data=\"" + jsonStr + "\">" + 
+					return "<tr data=\"" + jsonStr + "\" opt=\"" + opt + "\">"
 						"<td><checkbox class=\"sel-checkbox\"/></td>" + 
 						"<td>" + opt + "</td>" + 
 						"<td>" + jsonObj["ori"]["t_id"] + "</td><td>" + jsonObj["ori"]["t_name"] + "</td>" + 
@@ -594,6 +605,22 @@
 					};
 					stud_info("add", dict);
 				}
+				var checkboxs = panel.getElementsByClassName("checkboxs");
+				for (var i = 0; i < checkboxs.length; i++) {
+					checkboxs[i].onclick = function() {
+						if (checkboxs[i].checked) {
+							//选中时触发
+							panel.getElementsByClassName("sel-num")[0].innerHTML = 
+						(parseInt(panel.getElementsByClassName("all-num")[0].innerHTML) + 1) + "";
+						
+						}
+						else {
+							//不选中时触发
+							panel.getElementsByClassName("sel-num")[0].innerHTML = 
+						(parseInt(panel.getElementsByClassName("all-num")[0].innerHTML) - 1) + "";
+						}
+					}
+				}
 			}
 			function cour_init() {
 				var info = getInfo("course");
@@ -610,7 +637,7 @@
 				 */
 				 function str(jsonObj, opt) {
 					var jsonStr = JSON.stringify(jsonObj);
-					return "<tr data=\"" + jsonStr + "\">" + 
+					return "<tr data=\"" + jsonStr + "\" opt=\"" + opt + "\">"
 						"<td><checkbox class=\"sel-checkbox\"/></td>" + 
 						"<td>" + opt + "</td>" + 
 						"<td>" + jsonObj["ori"]["c_id"] + "</td><td>" + jsonObj["ori"]["c_name"] + "</td>" + 
@@ -671,7 +698,7 @@
 				 */
 				 function str(jsonObj, opt) {
 					var jsonStr = JSON.stringify(jsonObj);
-					return "<tr data=\"" + jsonStr + "\">" + 
+					return "<tr data=\"" + jsonStr + "\" opt=\"" + opt + "\">" + 
 						"<td><checkbox class=\"sel-checkbox\"/></td>" + 
 						"<td>" + opt + "</td>" + 
 						"<td>" + jsonObj["ori"]["s_id"] + "</td><td>" + jsonObj["ori"]["s_name"] + "</td>" + 
@@ -715,6 +742,7 @@
     		teac_init();
     		cour_init();
     		selC_init();
+   
     	}
     	//更新
     	if (!stor.notEmpty()) {
@@ -722,8 +750,71 @@
     		//location.href="admin.jsp";
 		}
     	init();
-    	
-    	
+    </script>
+    <script>
+    	var commitBtn = $("#commit")[0];
+    	commitBtn.onclick = function() {
+    		
+    		if (!confirm("确认要提交吗"))
+    			return;
+    		var stud = $("#stud-panel")[0].getElementsByClassName("sel-checkbox");
+    		var teac = $("#teac-panel")[0].getElementsByClassName("sel-checkbox");
+    		var cour = $("#cour-panel")[0].getElementsByClassName("sel-checkbox");
+    		var selC = $("#selC-panel")[0].getElementsByClassName("sel-checkbox");
+    		var data = {
+    			"student":{
+    				"add":[],
+    				"delete":[],
+    				"update":[]
+    			},
+    			"teacher":{
+    				"add":[],
+    				"delete":[],
+    				"update":[]
+    			},
+    			"course":{
+    				"add":[],
+    				"delete":[],
+    				"update":[]
+    			},
+    			"selC":{
+    				"add":[],
+    				"delete":[],
+    				"update":[]
+    			}
+    		}
+    		function _(obj, target) {
+    			if (obj.checked) {
+    				var tr = obj.parentElement.parentElement;
+    				var opt = tr.getAttribute("opt");
+    				var jsonObj = JSON.parse(tr.getAttribute("data"));
+    				if (opt == "add");
+    					data[target][opt].push(jsonObj);
+    			}
+    		}
+    		for (var i = 0; i < stud.length; i++) {
+    			_(stud[i], "student");
+    		}
+    		for (var i = 0; i < teac.length; i++) {
+    			_(teac[i], "teacher");
+    		}
+    		for (var i = 0; i < cour.length; i++) {
+    			_(cour[i], "course");
+    		}
+    		for (var i = 0; i < selC.length; i++) {
+    			_(selC[i], "selC");
+    		}
+    		//提交上传
+    		$.post({
+    			"url":"${pageContext.request.contextPath }/AdminCommitServlet",
+    			"data": {"data": JSON.stringify(data)},
+    			"dataType":"json",
+    			"success": function(response, status, xhr) {
+    				
+    				
+    			}
+    		});
+    	}
     </script>
     <script src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
   </body>

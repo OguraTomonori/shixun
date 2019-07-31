@@ -65,6 +65,7 @@ public class AdminSearchStudentServlet extends HttpServlet {
 		String state = (String) params.get("s_state");
 		String ST = (String) params.get("startTime");
 		String ET = (String) params.get("endTime");
+		
 		Date startTime = null;
 		try {
 			if (ST != null)
