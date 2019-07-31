@@ -9,7 +9,6 @@ package team543.service;
 //�޸�ѡ����Ϣ
 //�޸ĳɼ���Ϣ
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -22,8 +21,6 @@ import team543.dao.StudentDao;
 import team543.dao.StudentGradeDao;
 import team543.dao.TeacherDao;
 import team543.entity.*;
-import team543.entity.Class;
-import team543.utils.DBUtils;
 
 public class AdminAction {
 	StudentDao studentDao = new StudentDao();
@@ -85,8 +82,17 @@ public class AdminAction {
 	 * @throws ParseException 
 	 * 
 	 */
-	public void updateStudent(ArrayList<Student> students) throws SQLException, ReflectiveOperationException, ParseException {
-		student.updateStudent(students);
+	public ArrayList<Integer> updateStudent(ArrayList<Student> students) {
+		
+		ArrayList<Integer> num =new ArrayList<Integer>();
+		Integer m = 0 ; 
+		try {
+			student.updateStudent(students);
+			m++;
+		} catch (SQLException | ReflectiveOperationException | ParseException e) {
+			num.add(m);
+		}
+		return num;
 	}
 	
 	/**
@@ -95,8 +101,16 @@ public class AdminAction {
 	 * @throws ReflectiveOperationException 
 	 * 
 	 */
-	public void updateTeacher(Teacher teacher) throws ReflectiveOperationException, SQLException {
-		teacherDao.updateTeacher(teacher);
+	public ArrayList<Integer> updateTeacher(Teacher teacher) {
+		ArrayList<Integer> num =new ArrayList<Integer>();
+		Integer m = 0 ; 
+		try {
+			teacherDao.updateTeacher(teacher);
+			m++;
+		} catch (Exception e) {
+			num.add(m);
+		}
+		return num;
 	}
 	
 	/**
@@ -105,17 +119,18 @@ public class AdminAction {
 	 * @throws ReflectiveOperationException 
 	 * 
 	 */
-	public void updateElectiveClass(String id ,String StudentId , String ClassId) throws ReflectiveOperationException, SQLException {
-		electiveClassDao.updateElectiveClass(id,StudentId, ClassId);
+	public ArrayList<Integer> updateElectiveClass(String id ,String StudentId , String ClassId)  {
+		ArrayList<Integer> num =new ArrayList<Integer>();
+		Integer m = 0 ; 
+		try {
+			electiveClassDao.updateElectiveClass(id,StudentId, ClassId);
+			m++;
+		} catch (Exception e) {
+			num.add(m);
+		}
+		return num;
 	}
 	
-	/**
-	 * �޸ĳɼ���Ϣ
-	 * 
-	 */
-	public void updateGrade() {
-		
-	}
 	
 	/**
 	 * ����ѧ��
