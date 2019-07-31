@@ -18,13 +18,6 @@ import team543.entity.StudentGrade;
 import team543.entity.StudentTeacher;
 import team543.entity.Teacher;
 
-
- /**
-  * 教师操作
- *	 @author 公子小白
- * 	 @date 2019年7月30日上午9:30:35
- *
- */
 public class TeacherAction {
 	
 	SearchDao searchDao = new SearchDao();
@@ -50,7 +43,6 @@ public class TeacherAction {
 	 * @throws ReflectiveOperationException 
 	 */
 	public ArrayList<StudentTeacher> getTeachStudentInfo(String teacherId) throws ReflectiveOperationException, SQLException {
-		
 		return studentTeacherDao.getStudentByTeacherId(teacherId);
 	}
 	
@@ -63,16 +55,15 @@ public class TeacherAction {
 	 */
 	public ArrayList<team543.entity.Class> getTeachClassInfo(String teacherId) throws ReflectiveOperationException, SQLException{
 		GiveClassDao giveClassDao = new GiveClassDao();
-		//根据教师id查询授课信息
+		
 		ArrayList<GiveClass> giveClass = giveClassDao.getGiveClassById(teacherId);
 		ArrayList<team543.entity.Class> cs = new ArrayList<team543.entity.Class>();
-		//从每个授课信息中获取课程id，在查出课程信息
+		
 		for(GiveClass gc:giveClass) {
 			ClassDao classDao = new ClassDao();
 			team543.entity.Class c = classDao.getClassById(gc.getC_id());
 			cs.add(c);
 		}
-		
 		return cs;
 	}
 	
@@ -110,7 +101,7 @@ public class TeacherAction {
 	}
 	
 	/**
-	 * ����ѧ������Student ��ʼ �������ڣ���û���ƿ�
+	 * 
 	 * @param student
 	 * @param firstDate
 	 * @param secondDate
@@ -118,7 +109,7 @@ public class TeacherAction {
 	 * @throws ReflectiveOperationException
 	 * @throws SQLException
 	 */
-	public ArrayList<Student> srarchStudent(Student student,Date firstDate,Date secondDate) throws ReflectiveOperationException, SQLException{
+	public ArrayList<Student> searchStudent(Student student,Date firstDate,Date secondDate) throws ReflectiveOperationException, SQLException{
 		return searchDao.searchStudent(student, firstDate, secondDate);
 	}
 
