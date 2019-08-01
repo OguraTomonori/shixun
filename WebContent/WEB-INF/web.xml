@@ -461,4 +461,14 @@
     <servlet-name>AdminSearchTeacherCourseServlet</servlet-name>
     <url-pattern>/AdminSearchTeacherCourseServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ChangePasswdServlet</display-name>
+    <servlet-name>ChangePasswdServlet</servlet-name>
+    <servlet-class>team543.servlet.ChangePasswdServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ChangePasswdServlet</servlet-name>
+    <url-pattern>/ChangePasswdServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

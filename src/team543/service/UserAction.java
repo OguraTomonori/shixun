@@ -1,13 +1,14 @@
 package team543.service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import team543.dao.UserDao;
 import team543.entity.User;
 
 /**
- *	 @author 公子小白
- * 	 @date 2019年7月30日上午9:43:20
+ *	 @author 鍏瓙灏忕櫧
+ * 	 @date 2019骞�7鏈�30鏃ヤ笂鍗�9:43:20
  *
  */
 public class UserAction {
@@ -17,12 +18,20 @@ public class UserAction {
 	 * @throws SQLException 
 	 * @throws ReflectiveOperationException 
 	 */
-	public String updateUser(User user) {
-		UserDao userDao = new UserDao();
+	public String updateUser(String id, String oldpw ,String newpw) {
+		ArrayList res = new LoginAction().login(id, oldpw);
 		String b = "success";
-		try {
-			userDao.updataUserInfo(user);
-		} catch (ReflectiveOperationException | SQLException e) {
+		if ((Integer) res.get(0) == 0) {
+			try {
+				UserDao userDao = new UserDao();
+				userDao.updataUserInfo(new User(
+					id, newpw, (String) res.get(3), (String) res.get(1)
+						));
+			} catch (ReflectiveOperationException | SQLException e) {
+				b = "failed";
+			}
+		}
+		else {
 			b = "failed";
 		}
 		return b ;
