@@ -194,7 +194,7 @@ public class AdminCommitServlet extends HttpServlet {
 		ArrayList<ElectiveClass> selCAdd = new ArrayList();
 		
 		//ж╩спи╬ЁЩ
-		ArrayList<Object> selCDeleteObj = (ArrayList<Object>) JSONObject.parseArray(course.getJSONArray("delete").toString(), Object.class);
+		ArrayList<Object> selCDeleteObj = (ArrayList<Object>) JSONObject.parseArray(selC.getJSONArray("delete").toString(), Object.class);
 		ArrayList<String> selCDelete = new ArrayList();
 		
 		for (int i = 0; i < selCAddObj.size(); i++) {

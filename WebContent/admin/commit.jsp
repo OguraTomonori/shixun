@@ -15,6 +15,19 @@
  	<div class="container-fluid" id="main">
  		<div class="row content">
  			<div class="col-md-2"></div>
+ 			<div class="col-md-1">
+ 				<button class="btn btn-default back-btn">
+ 					<span class="glyphicon glyphicon-chevron-left"></span>
+ 				</button>
+ 				<script>
+ 					$(".back-btn")[0].onclick = function(){
+ 						location.href = document.referrer;
+ 					}
+ 				</script>
+ 			</div>
+ 		</div>
+ 		<div class="row content">
+ 			<div class="col-md-2"></div>
  			<div class="col-md-8">
 		  		<div class="panel panel-info" id="stud-panel">
 			  		<div class="panel-heading">
@@ -910,6 +923,7 @@
     					//此时response["data"]应为……未提交成功修改
     					alert("提交失败");
     					// TODO
+    					//删除所有提交成功修改
     					location.reload();
     				}
     			}

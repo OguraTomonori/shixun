@@ -236,6 +236,43 @@ function Stor() {
 		console.log(window.localStorage["course"]);
 		console.log(window.localStorage["selectCourse"]);
 	}
+	this.has = function(target, eval) {
+		var dict = this.get(target);
+		if (target == "student") { //此时eval为studentID
+			for (var key in dict) 
+				for (let i = 0; i < dict[key].length; i++)
+					if (dict[key][i]["ori"]["s_id"] == eval)
+						return true;
+			return false;
+		}
+		else if (target == "course") {
+			for (var key in dict) 
+				for (let i = 0; i < dict[key].length; i++)
+					if (dict[key][i]["ori"]["c_id"] == eval)
+						return true;
+			return false;
+		}
+		else if (target == "teacher") {
+			for (var key in dict) 
+				for (let i = 0; i < dict[key].length; i++)
+					if (dict[key][i]["ori"]["t_id"] == eval)
+						return true;
+			return false;
+		}
+		else {
+			for (var key in dict) 
+				for (let i = 0; i < dict[key].length; i++) {
+					console.log(dict[key][i]["ori"]["s_id"]);
+					console.log(eval["s_id"]);
+					console.log(dict[key][i]["ori"]["c_id"]);
+					console.log(eval["c_id"]);
+					if (dict[key][i]["ori"]["s_id"] == eval["s_id"] &&
+							dict[key][i]["ori"]["c_id"] == eval["c_id"])
+						return true;
+				}
+			return false;
+		}
+	}
 	//初始化localStorage
 	this.init();
 }

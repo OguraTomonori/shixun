@@ -33,7 +33,7 @@
 	          </ul>
 	          <ul class="nav navbar-nav navbar-right">
 	            <li id="name"><a href="#"><span id="username"></span>老师,你好</a></li>
-	            <li class="active" id="updateList_btn"><a href="#">修改清单<span class="caret"></span></a></li>
+	            <li class="active" id="updateList_btn"><a href="${pageContext.request.contextPath }/teacher/commit.jsp">修改清单</a></li>
 	          </ul>
 	        </div><!--/.nav-collapse -->
 	      </div>
@@ -59,7 +59,7 @@
 	    $.post({
 			"url":"${pageContext.request.contextPath }/TeacherInfoServlet",
 			"data":{
-				"teacherID": getCookie("userID")
+				"teacherID": getCookie("userID"),
 			},
 			"dataType":"json",
 			"success": function(response, status, xhr) {
