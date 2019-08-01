@@ -84,6 +84,13 @@
 					<div class="modal-body" id="modify-content">
 						<table class="table">
 						<tr>
+							<th>姓名</th>
+							<!--  -->
+							<td><div class="input-group">
+								  <input type="text" class="item" aria-label="">
+							</div></td>
+						</tr>
+						<tr>
 							<th>学号</th>
 							<!--  -->
 							<td><div class="input-group">
@@ -156,37 +163,43 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script>
-	    function addGrade(courseID, percentage) {
+	    function addGrade(courseName, courseID, percentage) {
 			//初始化model信息
 			var model = document.getElementById("addGrade");
 			var res = model.getElementsByClassName("item");
 			for (let i = 0; i < res.length; i++)
 				res[i].value = "";
 			percentage = parseFloat(percentage) / 100;
-			for (let i = 2; i < 4; i++) {
+			for (let i = 3; i < 5; i++) {
 				res[i].onchange = function() {
-					var reg = parseInt(res[2].value);
-					var test = parseInt(res[3].value);
+					var reg = parseInt(res[3].value);
+					var test = parseInt(res[4].value);
 					var grade = "" + parseInt(reg * percentage + test * (1 - percentage));
 					if (grade == "NaN")
 						grade = "错误的数据";
-					res[1].innerHTML = grade;
+					res[2].innerHTML = grade;
 				}
 			}
 			model.getElementsByClassName("add-btn")[0].onclick = function() {
 				var ori = {
 					"c_id": courseID,
-					"s_id": res[0].value,
-					"reg": parseInt(res[2].value),
-					"test": parseInt(res[3].value)
+					"c_name": courseName,
+					"s_id": res[1].value,
+					"s_name": res[0].value,
+					"reg": parseInt(res[3].value),
+					"test": parseInt(res[4].value)
 				};
 				stor.put("grade", "add", ori, null);
 	   	 	}
 	    }
-	    function deleteGrade(courseID, studentID) {
+	    function deleteGrade(courseID, studentID, courseName, studentName, reg, test) {
 	    	var ori = {
 	    		"s_id":studentID,
-	    		"c_id":courseID
+	    		"c_id":courseID,
+	    		"s_name":studentName,
+	    		"c_name":courseName,
+	    		"reg":reg,
+	    		"test":test
 	    	}
 	    	stor.put("grade", "delete", ori, null);
 	    }
@@ -225,8 +238,8 @@
 					}
 					else {
 						str += 
-							"<td>" + 
-							"<a class=\"href disabled\" href='#' onclick=\"deleteGrade('" + courseID + "','" + arr[1] + "')\">删除</a>" + 
+							"<td>" +
+							"<a class=\"href\" data-dismiss=\"modal\" href='#' onclick=\"deleteGrade('" + courseID + "','" + arr[1] + "','" + courseName + "','" + arr[0] + "','" + arr[3] + "','" + arr[4] + "')\">删除</a>" + 
 							"</td>";
 							
 						str +=
@@ -253,7 +266,12 @@
 			},
 			"dataType":"json",
 			"success": function(response, status, xhr) {
+				console.log(JSON.stringify(response));
 				var res = response["data"];
+				if (res == "err") {
+					alert("登录信息错误！");
+					location.href="${pageContext.request.contextPath }/index.jsp";
+				}
 				var info = $("#table")[0];
 				for (var i in res) {
 					var arr = [
@@ -271,7 +289,7 @@
 					
 					str +=
 						"<td><a href=\"#\" data-toggle=\"modal\" data-target=\"#addGrade\" "+
-						"onclick=\"addGrade('" + arr[1] + "','" + arr[5] + "')\"" + 
+						"onclick=\"addGrade('" + arr[0] + "', '" + arr[1] + "','" + arr[5] + "')\"" + 
 						">添加成绩</a></td>";
 					str +=
 						"<td><a href=\"#\" data-toggle=\"modal\" data-target=\"#grade\" "+

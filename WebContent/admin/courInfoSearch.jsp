@@ -197,38 +197,26 @@
 	点击时调用，更新model
 */
 
-function teacher(teacherID) { 
+function teacher(dict) { 
 	var content = document.getElementById("teacher-content").getElementsByClassName("table")[0];
 	content.innerHTML = "";
-	$.post({
-		"url":"${pageContext.request.contextPath }/AdminSearchTeacherServlet",
-		"data":{
-			"search_text": teacherID,
-			"search_option": "1"
-		},
-		"dataType":"json",
-		"success": function(response, status, xhr) {
-			response = response["data"][0];
-			var res = {
-					
-				"姓名": response["t_name"],
-				"工号": response["t_id"],
-				"职位": response["t_jobtitle"],
-				"院系": response["t_dp"],
-				"性别": response["t_sex"],
-				"薪水": response["t_salary"],
-				"状态": response["t_state"],
-				"入学时间": response["t_entertime"],
-				"办公室": response["t_office"],
-				"email": response["t_email"]
-			
-			};
-			for (key in res) {
-				content.innerHTML = content.innerHTML +
-				"<tr><th>" + key + "</th><td>" + res[key] + "</td></tr>";
-			}
-		}
-	});
+	var data = {
+		"名称":dict["t_name"],
+		"工号":dict["t_id"],
+		"院系":dict["t_dp"],
+		"职称":dict["t_jobtitle"],
+		"薪水":dict["t_salary"],
+		"电话号码":dict["t_phonenum"],
+		"email":dict["t_email"],
+		"办公室":dict["t_office"],
+		"状态":dict["t_state"],
+		"入职时间":dict["t_entertime"]
+	}
+	var str = "";
+	for (var key in data) {
+		str += "<tr><th>" + key + "</th><td>" + data[key] + "</td></tr>";
+	}
+	content.innerHTML = str;
 }
 
 function update(courseID) { 
@@ -280,10 +268,10 @@ function update(courseID) {
 }
 </script>
 <script>
-		
+		var ori = document.getElementById("result").innerHTML;
     	document.getElementById("search_btn").onclick = function() {
 			//根据option进行处理……
-			$.get({
+			$.post({
 				"url":"${pageContext.request.contextPath }/AdminSearchCourseServlet",
 				"data":{
 					"search_option": document.getElementById("option_btn").getAttribute("opt"),
@@ -306,10 +294,15 @@ function update(courseID) {
 						}
 					
 					*/
-					alert("dd");
 					var res = response["data"];
+					var teac = response["teac"];
+					if (res == "err") {
+						alert("登录信息错误！");
+						location.href="${pageContext.request.contextPath }/index.jsp";
+					}
 					var result = document.getElementById("result");
-					for (var i = 0; i < res.length; i++) {
+					result.innerHTML = ori;
+					for (let i = 0; i < res.length; i++) {
 						var c_id = res[i]["c_id"];
 						var name = res[i]["c_name"];
 						var score = res[i]["c_score"];
@@ -317,6 +310,8 @@ function update(courseID) {
 						var percentage = res[i]["c_percentage"];
 						var t_classstate = res[i]["c_classstate"];
 						var t_id = res[i]["t_id"];
+						console.log(teac);
+						console.log(res);
 						result.innerHTML = 
 							result.innerHTML + "<tr>" + 
 							"<td>" + name + "</td>" + 
@@ -324,9 +319,9 @@ function update(courseID) {
 							"<td>" + dp + "</td>" + 
 							"<td>" + score + "</td>" + 
 							"<td>" + percentage + "%</td>" + 
-							"<td>" + t_classstate + "</td>" + 
-							"<td><a href='#' data-toggle=\"modal\" data-target=\"#student\" onclick='teacher(\"" +
-							t_id + "\")'>"+ "t_name" + "</a></td>" +  
+							"<td>" + t_classstate + "</td>" +
+							"<td><a href='#' data-toggle=\"modal\" data-target=\"#teacher\" onclick='teacher(" +
+							JSON.stringify(teac[i]) + ")'>"+ teac[i]["t_name"] + "</a></td>" +  
 							"<td><a href='#' data-toggle=\"modal\" data-target=\"#update\" onclick='update(\"" +
 							c_id + "\")'>更新</a></td></tr>";
 					}

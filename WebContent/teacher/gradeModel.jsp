@@ -77,7 +77,7 @@
  			var data = window.opener.data;
  			console.log(data);
  			/*
- 				data:[s_name, s_id, grade, reg, test,percentage, c_name, courseID]
+ 				data:[s_name, s_id, grade, reg, test, percentage, c_name, courseID]
  			
  			*/
  			var items = document.getElementsByClassName("item");
@@ -87,7 +87,7 @@
  			}
  			items[3].innerHTML = "" + percentage;
  			for (let i = 4; i < 6; i++) {
- 				items[i].value = data[i];
+ 				items[i].value = data[i - 1];
  			}
 			for (let i = 4; i < 6; i++) {
  				//对input添加检测

@@ -52,7 +52,6 @@
 						<th>成绩</th>
 						<th>平时成绩</th>
 						<th>试卷成绩</th>
-						<th>评价</th>
 					</tr>
 				</table>
 			</div>
@@ -63,7 +62,40 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script>
-    	$.post()
+    $.post({
+		"url":"${pageContext.request.contextPath }/StudentSearchGradeServlet",
+		"data": {
+			"studentID": getCookie("userID"),
+		},
+		"dataType":"json",
+		"success": function(response, status, xhr) {
+			var res = response["data"];
+			if (res == "err") {
+				alert("登录信息错误！");
+				location.href="${pageContext.request.contextPath }/logout.jsp";
+			}
+			var teachers = response["teac"]
+			var info = $("#table")[0];
+			for (var i in res) {
+				var arr = [
+					res[i]["className"],
+					res[i]["classId"],
+					res[i]["totalMark"],
+					res[i]["regularGrade"],
+					res[i]["testGrade"]
+				]
+				var str = info.innerHTML + 
+				"<tr>";
+
+				for (var j in arr) {
+					str += 
+						"<td>" + arr[j] + "</td>"
+				}
+				
+				info.innerHTML = str + "</tr>";
+			}
+		}
+	});
     </script>
     <script src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
   </body>

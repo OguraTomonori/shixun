@@ -197,33 +197,31 @@
 		function course(teacherID) { 
 			//获取该老师执教课程
 			var content = document.getElementById("course-content").getElementsByClassName("table")[0];
-			content.innerHTML = "<tr><th>课程名称</th><th>课程号</th><th>学分</th><th>院系</th><th>院系</th></tr>";
+			content.innerHTML = "<tr><th>课程名称</th><th>课程号</th><th>学分</th><th>平时分占比</th><th>院系</th><th>状态</th></tr>";
 			$.post({
-				"url":"${pageContext.request.contextPath }/AdminSearchCourseServlet",
+				"url":"${pageContext.request.contextPath }/AdminSearchTeacherCourseServlet",
 				"data":{
-					"search_text": teacherID
+					"teacherID": teacherID,
 				},
 				"dataType":"json",
 				"success": function(response, status, xhr) {
 					//TODO
-					var res = {
-						"课程名称": response["name"],
-						"课程号": response["id"],
-						"学分": response["score"],
-						"院系": response["dp"],
-						"": response["percentage"]
-					};
-					for (var key in res) {
-						content.innerHTML = content.innerHTML +
-						"<tr><th>" + key + "</th><td>" + res[key] + "</td></tr>";
+					var cour = response["data"];
+					for (let i = 0; i < cour.length; i++) {
+						var str = content.innerHTML + "<tr>" + 
+						"<td>" + cour[i]["c_name"] + "</td>" + 
+						"<td>" + cour[i]["c_id"] + "</td>" + 
+						"<td>" + cour[i]["c_score"] + "</td>" + 
+						"<td>" + cour[i]["c_percentage"] + "</td>" + 
+						"<td>" + cour[i]["c_opendp"] + "</td>" + 
+						"<td>" + cour[i]["c_classstate"] + "</td></tr>";
+						content.innerHTML = str;
 					}
 				}});
 
 
 		}
 		function update(teacherID) { 
-			
-			
 			var content = document.getElementById("update-content").getElementsByClassName("table")[0];
 			content.innerHTML = "";
 			//首先获取信息，更新页面
@@ -259,17 +257,42 @@
 						"</td></tr>";
 					}
 					document.getElementById("deleteTeacher").onclick = function() {
-						stor.put("delete", "teacher", {"teacherID": teacherID});
+						stor.put("teacher", "delete",  {"t_id": teacherID});
 						
 					}
 					document.getElementById("saveUpdate").onclick = function() {
 						//根据现在信息添加到清单
 						var inputs = content.getElementsByTagName("input");
+						var before = {
+								"t_id": res["工号"],
+								"t_name": res["姓名"],
+								"t_jobtitle": res["职位"],
+								"t_dp": res["院系"],
+								"t_phonenum": res["手机号"],
+								"t_salary": res["薪水"],
+								"t_state": res["状态"],
+								"t_entertime": res["入学时间"],
+								"t_office": res["办公室"],
+								"t_email": res["email"]
+						}
 						for (var i = 0; i < inputs.length; i++)
 							res[inputs[i].getAttribute("key")] = inputs[i].value;
-						res["id"] = res["工号"];
-						stor.put("update", "teacher", res);
-						alert(JSON.stringify(stor.get("teacher")));
+						var after = {
+								"t_id": res["工号"],
+								"t_name": res["姓名"],
+								"t_jobtitle": res["职位"],
+								"t_dp": res["院系"],
+								"t_phonenum": res["手机号"],
+								"t_salary": res["薪水"],
+								"t_state": res["状态"],
+								"t_entertime": res["入学时间"],
+								"t_office": res["办公室"],
+								"t_email": res["email"]
+						}
+						console.log(JSON.stringify(before));
+						console.log(JSON.stringify(after));
+						stor.put("teacher","update" , before, after);
+						
 					}
 					
 				}
@@ -320,24 +343,35 @@
 						}
 					*/
 					var res = response["data"];
+					if (res == "err") {
+						alert("登录信息错误！");
+						location.href="${pageContext.request.contextPath }/index.jsp";
+					}
 					var result = document.getElementById("result");
 					result.innerHTML = ori;
 					for (var i = 0; i < res.length; i++) {
 						var id_ = res[i]["t_id"];
 						var name = res[i]["t_name"];
 						var dp = res[i]["t_dp"];
-
-						result.innerHTML = 
+						
+						var str = 
 							result.innerHTML + "<tr>" + 
 							"<td>" + name + "</td>" + 
 							"<td>" + id_ + "</td>" + 
-							"<td>" + dp + "</td>" + 
-							"<td><a href='#' data-toggle=\"modal\" data-target=\"#teacher\" onclick='teacher(\"" +
-							id_ + "\")'>详情</a></td>" + 
-							"<td><a href='#' data-toggle=\"modal\" data-target=\"#course\" onclick='course(\"" +
-							id_ + "\")'>课程</a></td>" + 
-							"<td><a href='#' data-toggle=\"modal\" data-target=\"#update\" onclick='update(\"" +
-							id_ + "\")'>更新</a></td></tr>";
+							"<td>" + dp + "</td>";
+							console.log(id_);
+							if (stor.has("teacher", id_))
+								str += 
+									"<td><span class='glyphicon glyphicon-paperclip'></span></td>"
+							else
+								str += "<td><a href='#' data-toggle=\"modal\" data-target=\"#teacher\" onclick='teacher(\"" +
+								id_ + "\")'>详情</a></td>" + 
+								"<td><a href='#' data-toggle=\"modal\" data-target=\"#course\" onclick='course(\"" +
+								id_ + "\")'>课程</a></td>" + 
+								"<td><a href='#' data-toggle=\"modal\" data-target=\"#update\" onclick='update(\"" +
+								id_ + "\")'>更新</a></td>";
+							str += "</tr>";
+							result.innerHTML = str;
 					}
 				}
 			});

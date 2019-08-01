@@ -64,6 +64,10 @@
 			"dataType":"json",
 			"success": function(response, status, xhr) {
 				response = response["data"];
+				if (response == "err") {
+					alert("登录信息错误！");
+					location.href="${pageContext.request.contextPath }/index.jsp";
+				}
 				var info = $("#table")[0];
 				var res = {
 						"姓名": response["t_name"],

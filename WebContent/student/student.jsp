@@ -30,7 +30,6 @@
 	              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">其他 <span class="caret"></span></a>
 	              <ul class="dropdown-menu">
 	                <li><a href="${pageContext.request.contextPath }/logout.jsp">登出</a></li>
-	                <li role="separator" class="divider"></li>
 	              </ul>
 	            </li>
 	          </ul>
@@ -58,6 +57,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script>
+    	
 		$.post({
 			"url":"${pageContext.request.contextPath }/StudentInfoServlet",
 			"data": {
@@ -66,7 +66,10 @@
 			"dataType":"json",
 			"success": function(response, status, xhr) {
 				var res = response["data"];
-				console.log(res);
+				if (res == "err") {
+					alert("登录信息错误！");
+					location.href="${pageContext.request.contextPath }/index.jsp";
+				}
 				var info = $("#table")[0];
 				var dict = {
 					"姓名": res["s_name"],

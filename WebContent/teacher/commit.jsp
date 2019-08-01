@@ -21,7 +21,7 @@
  				</button>
  				<script>
  					$(".back-btn")[0].onclick = function(){
- 						location.href = document.referrer;
+ 						location.href = " ${pageContext.request.contextPath }/teacher/teacher.jsp";
  					}
  				</script>
  			</div>
@@ -111,7 +111,7 @@
 
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger del-single-btn"  data-dismiss="modal">删除</button>
+				
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 					<button type="button" class="btn btn-primary save-btn"  data-dismiss="modal">保存</button>
 				</div>
@@ -142,7 +142,6 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger del-single-btn"  data-dismiss="modal">删除</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 					<button type="button" class="btn btn-primary save-btn"  data-dismiss="modal">保存</button>
 				</div>
@@ -164,7 +163,6 @@
 
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger del-single-btn"  data-dismiss="modal">删除</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 				</div>
 			</div>
@@ -226,7 +224,8 @@
 					var after = null;
 						ori = dict["ori"];
 					if (opt == "update") {
-						var res = $(".input-item");
+						var res = model.getElementsByClassName("input-item");
+						console.log(res);
 						after = {
 							"s_id": ori["s_id"],
 							"s_name": ori["s_name"],
@@ -236,6 +235,18 @@
 							"test": res[1].value
 						}
 					}
+					else {
+						var res = $(".res-item");
+						ori = {
+							"s_id": ori["s_id"],
+							"s_name": ori["s_name"],
+							"c_id": ori["c_id"],
+							"c_name": ori["c_name"],
+							"reg": res[2].value,
+							"test": res[3].value
+						}
+					}
+					console.log("dasdsdsa");
 					console.log(JSON.stringify(ori));
 					console.log(JSON.stringify(after))
 					stor.put(target, opt, ori, after);
@@ -335,6 +346,8 @@
 					return _;
 				}
 				var allInfo = stor.get("grade");
+				
+				
 				var table = panel.getElementsByClassName("table")[0];
 				for (let key in allInfo) {
 					for (let i = 0; i < allInfo[key].length; i++) {
@@ -344,8 +357,6 @@
 				}
 				//初始化按钮
 				panel.getElementsByClassName("del-btn")[0].onclick = function() {
-					if (!confirm("你确定删除选中修改项吗"))
-						return;
 					var checkboxs = panel.getElementsByClassName("sel-checkbox");
 					for (let i = 0; i < checkboxs.length; i++) {
 						if (!checkboxs[i].checked)
@@ -377,27 +388,24 @@
     		grade_init();
     	}
     	//更新
-    	if (!stor.notEmpty()) {
-    		alert("你还没有任何修改！");
-    		//location.href="admin.jsp";
-		}
     	init();
     </script>
     <script>
     	var commitBtn = $("#commit")[0];
+    	
     	commitBtn.onclick = function() {
     		
     		if (!confirm("确认要提交吗"))
     			return;
     		var grade = $("#grade-panel")[0].getElementsByClassName("sel-checkbox");
-    		let data = {
+    		var data = {
     			"grade":{
     				"add":[],
     				"delete":[],
     				"update":[]
     			}
     		}
-    		function _(obj, target) {
+    		function __(obj, target) {
     			if (obj.checked) {
     				var tr = obj.parentElement.parentElement;
     				var opt = tr.getAttribute("opt");
@@ -407,27 +415,37 @@
     			}
     		}
     		for (let i = 0; i < grade.length; i++) {
-    			_(grade[i], "grade");
+    			__(grade[i], "grade");
     		}
-    		console.log(JSON.stringify(data));
     		//提交上传
+    		console.log("dasasefwrrwerterwt");
     		$.post({
     			"url":"${pageContext.request.contextPath }/TeacherCommitServlet",
     			"data": {"data":JSON.stringify(data)},
     			"dataType":"json",
     			"success": function(response, status, xhr) {
-    				if (response["stauts"] == "success") {
+    				
+    				if (response["data"] == "err") {
+    					
+    					alert("登录信息错误！");
+    					location.href="${pageContext.request.contextPath }/index.jsp";
+    				}
+    				console.log("das");
+    				function deletedAllCheckedItem() {
+    					var delBtn = $(".del-btn");
+    					for (let i = 0; i < delBtn.length; i++) {
+    						delBtn[i].click();
+    					}
+    				}
+    				if (response["status"] == "success") {
+    					
 	    				alert("提交成功");
-	    				location.href="${pageContext.request.contextPath }/admin/admin.jsp";
+	    				deletedAllCheckedItem();
     				}
     				else {
     					//此时response["data"]应为……未提交成功修改
     					alert("提交失败");
-    					// TODO
-    					//删除所有提交成功修改
-    					
-    					
-    					
+    					deletedAllCheckedItem();
     					location.reload();
     				}
     			}

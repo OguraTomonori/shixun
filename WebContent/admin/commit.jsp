@@ -21,7 +21,7 @@
  				</button>
  				<script>
  					$(".back-btn")[0].onclick = function(){
- 						location.href = document.referrer;
+ 						location.href = "${pageContext.request.contextPath }/admin/admin.jsp";
  					}
  				</script>
  			</div>
@@ -301,26 +301,29 @@
 	</div>
 	
 	<div class="modal fade" id="update-model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		<div class="modal-dialog" role="document" >
+		<div class="modal-dialog" role="document" style="width:1000px" >
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					<h4 class="modal-title" id="myModalLabel">更新</h4>
 				</div>
 				<div class="modal-body" id="update-content">
-					<div class="row">
-						<div class="col-md-4">
-							<table class="table table-left">
-						
-							</table>
+				 	<div class="container-fluid">
+						<div class="row">
+							<div class="col-md-5">
+								<table class="table table-left">
+							
+								</table>
+							</div>
+							<div class="col-md-2"><span class="glyphicon glyphicon-chevron-right"></span></div>
+							<div class="col-md-5">
+								<table class="table table-right">
+							
+								</table>	
+							</div>
 						</div>
-						<div class="col-md-1"><span class="glyphicon glyphicon-chevron-right"></span></div>
-						<div class="col-md-4">
-							<table class="table table-right">
-						
-							</table>	
-						</div>
-					</div>
+				 	
+				 	</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -358,7 +361,7 @@
 				after:{}
 			}
 		*/
-		function _(opt, dict, target, keyMap) { //置入数据并返回模态框obj
+		function _(opt, dict, target, info) { //置入数据并返回模态框obj
 			//opt:操作
 			//dict：初始化模态框所需数据
 			//target：目标对象， student，teacher...
@@ -410,67 +413,95 @@
 						res[key] = value;
 					}
 					var _ = {};
-					if (target == "student")
-						_ = {
-							"s_name": res["姓名"],
-							"s_id": res["学号"],
-							"s_sex": res["性别"],
-							"s_dp": res["院系"],
-							"s_major": res["专业"],
-							"s_class": res["班级"],
-							"s_state": res["状态"],
-							"entertime": res["入学时间"]
-
-						}
-					else if (target == "teacher")
-						_ = {
-							"t_id": res["工号"],
-							"t_name": res["姓名"],
-							"t_dp": res["院系"],
-							"t_jobtitle": res["职位"],
-							"t_salary": res["薪水"],
-							"t_phonenum": res["手机号"],
-							"t_email": res["t_email"],
-							"t_state": res["状态"],
-							"t_office": res["办公室"],
-							"t_entertime": res["入学时间"]
-						};
-					else if (target == "course")
-						_ = {
-							"c_id":res["名称"],
-							"c_name":res["课程号"],
-							"c_opendp":res["院系"],
-							"c_score": res["学分"],
-							"c_percentage": res["占比"]
-						};
+					if (info) {
+						if (target == "student")
+							_ = {
+								"s_name": res["姓名"],
+								"s_id": res["学号"],
+								"s_sex": res["性别"],
+								"s_dp": res["院系"],
+								"s_major": res["专业"],
+								"s_class": res["班级"],
+								"s_state": res["状态"],
+								"entertime": res["入学时间"]
+	
+							}
+						else if (target == "teacher")
+							_ = {
+								"t_id": res["工号"],
+								"t_name": res["姓名"],
+								"t_dp": res["院系"],
+								"t_jobtitle": res["职位"],
+								"t_salary": res["薪水"],
+								"t_phonenum": res["手机号"],
+								"t_email": res["t_email"],
+								"t_state": res["状态"],
+								"t_office": res["办公室"],
+								"t_entertime": res["入学时间"]
+							};
+						else if (target == "course")
+							_ = {
+								"c_id":res["课程号"],
+								"c_name":res["名称"],
+								"c_opendp":res["院系"],
+								"c_score": res["学分"],
+								"c_percentage": res["占比"]
+							};
+						else
+							_ = {
+								"s_id": res["学号"],
+								"s_name": res["姓名"],
+								"c_name": res["课程名"],
+								"c_id": res["课程号"]
+							};
+					}
 					else
-						_ = {
-							"s_id": res["姓名"],
-							"c_id": res["课程号"]
-						};
-					stor.put(target, opt, _, null);
+						_ = res; 	
+					if (opt == "update")
+						stor.put(target, opt, dict["ori"], _);
+					else {
+						stor.delItem(target, dict["ori"]);
+						stor.put(target, opt, _, null);
+					}
 				}
 		}
 		function stud_info(obj, opt, dict) { //stud模态框
-			if(!dict) //没有dict说明是点击“详情”执行该函数
+			var info = true;
+			if(!dict) {
+				//没有dict说明是点击“详情”执行该函数
 				dict = JSON.parse(obj.parentElement.parentElement.getAttribute("data"));
-			var model = _(opt, dict, "student"); 
+				info = false;
+			} 
+			 _(opt, dict, "student", info); 
+			
 		
 		}
 		function teac_info(obj, opt, dict) { //teac
-			if(!dict)
+			var info = true;
+			if(!dict) {
+				//没有dict说明是点击“详情”执行该函数
 				dict = JSON.parse(obj.parentElement.parentElement.getAttribute("data"));
-			var model = _(opt, dict, "teacher");
+				info = false;
+			} 
+			_(opt, dict, "teacher", info);
 		}
 		function cour_info(obj, opt, dict) { //cour
-			if(!dict)
+			var info = true;
+			if(!dict) {
+				//没有dict说明是点击“详情”执行该函数
 				dict = JSON.parse(obj.parentElement.parentElement.getAttribute("data"));
-			var model = _(opt, dict, "course");
+				info = false;
+			} 
+			_(opt, dict, "course", info);
 		}
 		function selC_info(obj, opt, dict) { //selectCourse
-			if(!dict)
+			var info = true;
+			if(!dict) {
+				//没有dict说明是点击“详情”执行该函数
 				dict = JSON.parse(obj.parentElement.parentElement.getAttribute("data"));
-			var model = _(opt, dict, "selectCourse");
+				info = false;
+			} 
+			_(opt, dict, "selectCourse", info);
 		}
 	</script>
     <script>
@@ -549,7 +580,6 @@
 				}
 				var allInfo = stor.get("student");
 				var table = panel.getElementsByClassName("table")[0];
-				console.log(table);
 				for (var key in allInfo) {
 					for (let i = 0; i < allInfo[key].length; i++) {
 						table.innerHTML = table.innerHTML + 
@@ -559,8 +589,6 @@
 				//初始化按钮
 				//从修改清单里删除复选框里选中的修改
 				panel.getElementsByClassName("del-btn")[0].onclick = function() {
-					if (!confirm("你确定删除选中修改项吗"))
-						return;
 					var checkboxs = panel.getElementsByClassName("sel-checkbox");
 					for (let i = 0; i < checkboxs.length; i++) {
 						if (!checkboxs[i].checked)
@@ -645,8 +673,6 @@
 				
 				//初始化按钮
 				panel.getElementsByClassName("del-btn")[0].onclick = function() {
-					if (!confirm("你确定删除选中修改项吗"))
-						return;
 					var checkboxs = panel.getElementsByClassName("sel-checkbox");
 					for (let i = 0; i < checkboxs.length; i++) {
 						if (!checkboxs[i].checked)
@@ -655,6 +681,7 @@
 						var jsonObj = JSON.parse(jsonStr);
 						stor.delItem("teacher", jsonObj["ori"]);
 					}
+					location.reload();
 				}
 				panel.getElementsByClassName("add-btn")[0].onclick = function() {
 					var dict = {
@@ -683,7 +710,6 @@
 							//选中时触发
 							panel.getElementsByClassName("sel-num")[0].innerHTML = 
 						(parseInt(panel.getElementsByClassName("sel-num")[0].innerHTML) + 1) + "";
-						
 						}
 						else {
 							//不选中时触发
@@ -731,8 +757,6 @@
 				
 				//初始化按钮
 				panel.getElementsByClassName("del-btn")[0].onclick = function() {
-					if (!confirm("你确定删除选中修改项吗"))
-						return;
 					var checkboxs = panel.getElementsByClassName("sel-checkbox");
 					for (let i = 0; i < checkboxs.length; i++) {
 						if (!checkboxs[i].checked)
@@ -741,12 +765,13 @@
 						var jsonObj = JSON.parse(jsonStr);
 						stor.delItem("course", jsonObj["ori"]);
 					}
+					location.reload();
 				}
 				panel.getElementsByClassName("add-btn")[0].onclick = function() {
 					//初始化模态框在这里
 					var dict = {
-						"名称": "",
 						"课程号":"",
+						"名称": "",
 						"院系": "",
 						"学分": "",
 						"占比": "",
@@ -800,7 +825,7 @@
 					var jsonStr = JSON.stringify(jsonObj);
 					var _ = "<tr data=\'" + jsonStr + "\' opt=\"" + opt + "\">" + 
 						"<td><input type=\"checkbox\" class=\"sel-checkbox\"/></td>" + 
-						"<td>" + keyMap(opt) + "</td>" + 
+						"<td>" + keyMap[opt] + "</td>" + 
 						"<td>" + jsonObj["ori"]["s_id"] + "</td><td>" + jsonObj["ori"]["s_name"] + "</td>" + 
 						"<td>" + jsonObj["ori"]["c_id"] + "</td><td>" + jsonObj["ori"]["c_name"] + "</td>" + 
 						"<td><a onclick=\"selC_info(this,\'" + opt + "\')\" data-toggle=\"modal\" data-target=\"#" + opt + "-model\">详情</a></td></tr>";	
@@ -816,8 +841,6 @@
 				}
 				//初始化按钮
 				panel.getElementsByClassName("del-btn")[0].onclick = function() {
-					if (!confirm("你确定删除选中修改项吗"))
-						return;
 					var checkboxs = panel.getElementsByClassName("sel-checkbox");
 					for (let i = 0; i < checkboxs.length; i++) {
 						if (!checkboxs[i].checked)
@@ -826,11 +849,16 @@
 						var jsonObj = JSON.parse(jsonStr);
 						stor.delItem("selectCourse", jsonObj["ori"]);
 					}
+					location.reload();
 				}
 				panel.getElementsByClassName("add-btn")[0].onclick = function() {
 					//初始化模态框在这里
 					var dict = {
 						// TODO
+						"学号":"",
+						"姓名":"",
+						"课程名":"",
+						"课程号":""
 					}
 					dict = {
 							"ori":dict,
@@ -862,10 +890,6 @@
     		selC_init();
     	}
     	//更新
-    	if (!stor.notEmpty()) {
-    		alert("你还没有任何修改！");
-    		//location.href="admin.jsp";
-		}
     	init();
     </script>
     <script>
@@ -905,8 +929,7 @@
     				var tr = obj.parentElement.parentElement;
     				var opt = tr.getAttribute("opt");
     				var jsonObj = JSON.parse(tr.getAttribute("data"));
-    				if (opt == "add");
-    					data[target][opt].push(jsonObj);
+    				data[target][opt].push(jsonObj);
     			}
     		}
     		for (let i = 0; i < stud.length; i++) {
@@ -928,16 +951,26 @@
     			"data": {"data":JSON.stringify(data)},
     			"dataType":"json",
     			"success": function(response, status, xhr) {
-    				console.log(JSON.stringify(response));
+    				function deletedAllCheckedItem() {
+    					var delBtn = $(".del-btn");
+    					for (let i = 0; i < delBtn.length; i++) {
+    						delBtn[i].click();
+    					}
+    				}
+    				if (response["data"] == "err") {
+						alert("登录信息错误！");
+						location.href="${pageContext.request.contextPath }/index.jsp";
+					}
     				if (response["status"] == "success") {
 	    				alert("提交成功");
-	    				location.href="${pageContext.request.contextPath }/admin/admin.jsp";
+	    				deletedAllCheckedItem();
+	    				location.reload();
     				}
     				else {
+    					response["data"]
     					//此时response["data"]应为……未提交成功修改
     					alert("提交失败");
-    					// TODO
-    					//删除所有提交成功修改
+    					deletedAllCheckedItem();
     					location.reload();
     				}
     			}

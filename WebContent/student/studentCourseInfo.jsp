@@ -57,20 +57,62 @@
 					</table>
  		</div>
  	</div>
+ 	<div class="modal fade" id="teacher" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">详情</h4>
+					</div>
+					<div class="modal-body" id="teacher-content">
+						<table class="table">
+							
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 	<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 	<script>
+		
+	</script>
+	<script>
+		function teacher(response) {
+			var dict = {
+					"姓名": response["t_name"],
+					"工号": response["t_id"],
+					"职位": response["t_jobtitle"],
+					"院系": response["t_dp"],
+					"薪水": response["t_salary"],
+					"状态": response["t_state"],
+					"入学时间": response["t_entertime"],
+					"办公室": response["t_office"],
+					"email": response["t_email"]
+			}
+			var str = "";
+			for (var key in dict) 
+				str += "<tr><th>" + key + "</th><td>" + dict[key] + "</td></tr>";
+			$("#teacher")[0].getElementsByClassName("table")[0].innerHTML = str;
+		}
 		$.post({
 			"url":"${pageContext.request.contextPath }/StudentSearchCourseServlet",
 			"data": {
-				"studentID": getCookie("userID")
+				"studentID": getCookie("userID"),
 			},
 			"dataType":"json",
 			"success": function(response, status, xhr) {
 				var res = response["data"];
-				console.log(res);
+				if (res == "err") {
+					alert("登录信息错误！");
+					location.href="${pageContext.request.contextPath }/index.jsp";
+				}
+				var teachers = response["teac"]
 				var info = $("#table")[0];
 				for (var i in res) {
 					var arr = [
@@ -81,18 +123,17 @@
 						res[i]["c_classstate"],
 						res[i]["c_percentage"]
 					]
-					info.innerHTML = 
-						info.innerHTML + 
-						"<tr>"
+					var str = info.innerHTML + 
+					"<tr>";
+
 					for (var j in arr) {
-						info.innerHTML = 
-							info.innerHTML + 
+						str += 
 							"<td>" + arr[j] + "</td>"
 					}
-					info.innerHTML = 
-						info.innerHTML + 
-						"" //教师a标签
-						+ "</tr>";
+					str += 
+						"<td><a href='#' data-toggle=\"modal\" data-target=\"#teacher\" onclick=\'teacher(" + JSON.stringify(teachers[i]) + ")\'>" + teachers[i]["t_name"] + "</a>" //教师a标签
+						+ "</td></tr>";
+					info.innerHTML = str;
 				}
 			}
 		});

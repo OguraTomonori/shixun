@@ -12,6 +12,7 @@
 	delCookie("userID");
 	delCookie("sessionID");
 	delCookie("permission");
+	delCookie("username");
 	document.location.href="index.jsp";
 </script>
 </body>

@@ -378,7 +378,10 @@
 					//	"entertime"
 					//}
 					var res = response["data"];
-					console.log(res);
+					if (res == "err") {
+						alert("登录信息错误！");
+						location.href="${pageContext.request.contextPath }/index.jsp";
+					}
 					var result = document.getElementById("result");
 					result.innerHTML = ori;
 					for (var i = 0; i < res.length; i++) {

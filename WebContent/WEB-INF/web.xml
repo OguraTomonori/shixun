@@ -377,10 +377,6 @@
     <filter-name>StudentCheckFIlter</filter-name>
     <servlet-name>StudentSearchTeacherInfoServlet</servlet-name>
   </filter-mapping>
-  <filter-mapping>
-    <filter-name>StudentCheckFIlter</filter-name>
-    <servlet-name>AdminCommitServlet</servlet-name>
-  </filter-mapping>
   <filter>
     <display-name>TeacherCheckFilter</display-name>
     <filter-name>TeacherCheckFilter</filter-name>
@@ -413,10 +409,6 @@
   <filter-mapping>
     <filter-name>TeacherCheckFilter</filter-name>
     <servlet-name>TeacherSearchStudentServlet</servlet-name>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>TeacherCheckFilter</filter-name>
-    <servlet-name>AdminCommitServlet</servlet-name>
   </filter-mapping>
   <filter>
     <display-name>AdminCheckFilter</display-name>
@@ -459,4 +451,14 @@
     <filter-name>AdminCheckFilter</filter-name>
     <servlet-name>AdminUpdateTeacherServlet</servlet-name>
   </filter-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AdminSearchTeacherCourseServlet</display-name>
+    <servlet-name>AdminSearchTeacherCourseServlet</servlet-name>
+    <servlet-class>team543.servlet.AdminSearchTeacherCourseServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminSearchTeacherCourseServlet</servlet-name>
+    <url-pattern>/AdminSearchTeacherCourseServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
