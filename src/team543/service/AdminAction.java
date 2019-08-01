@@ -368,14 +368,36 @@ public class AdminAction {
 		return num;
 	}
 	
+	/**
+	 * @param giveClass
+	 * @return
+	 */
 	public ArrayList<Integer> updateGiveClass(ArrayList<GiveClass> giveClass) {
 		ArrayList<Integer> num =new ArrayList<Integer>();
 		Integer n = 0;
 		for(GiveClass gc:giveClass)
 			try {
-				new GiveClassDao().updateGiveClass(gc);;
+				new GiveClassDao().updateGiveClass(gc);
 				n++;
 			} catch (SQLException | ReflectiveOperationException | MyException e) {
+				num.add(n);
+				n++;
+			}
+		return num;
+	}
+	
+	/**
+	 * @param cl
+	 * @return
+	 */
+	public ArrayList<Integer> deleteClass(ArrayList<Class> cl){
+		ArrayList<Integer> num =new ArrayList<Integer>();
+		Integer n = 0;
+		for(Class c:cl)
+			try {
+				new ClassDao().deleteClass(c.getC_id());;
+				n++;
+			} catch (SQLException | ReflectiveOperationException e) {
 				num.add(n);
 				n++;
 			}
