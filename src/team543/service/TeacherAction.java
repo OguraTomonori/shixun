@@ -137,5 +137,14 @@ public class TeacherAction {
 	public ArrayList<Student> searchStudent(Student student,Date firstDate,Date secondDate) throws ReflectiveOperationException, SQLException{
 		return searchDao.searchStudent(student, firstDate, secondDate);
 	}
-
+	
+	/**
+	 * 通过课程id获取该课程学生的成绩
+	 * @return
+	 * @throws ReflectiveOperationException 
+	 * @throws SQLException 
+	 */
+	public ArrayList<StudentGrade> getGradeByClss(String classId) throws SQLException, ReflectiveOperationException{
+		return new StudentGradeDao().getClassGrade(classId);
+	}
 }
