@@ -105,7 +105,7 @@ public class AdminAction {
 		Integer m = 0 ; 
 		for ( Student s : students) {
 			try {
-				student.updateStudent(students);
+				student.updateStudent(s);
 				m++;
 			} catch (SQLException | ReflectiveOperationException | ParseException e) {
 				num.add(m);
