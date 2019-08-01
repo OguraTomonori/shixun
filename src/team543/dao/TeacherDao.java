@@ -104,8 +104,11 @@ public class TeacherDao {
     	//������ݿ�����
     	Connection connection = DBUtils.getConnection();
     	//sql���
-    	String sql="INSERT INTO t_teacher(t_id,t_name,t_dp,t_jobtitle,t_salay,t_phonenum,t_email,t_office,t_state,t_entertime) VALUES (?,?,?,?,?,?,?,?,?,?)";
+    	String sql="INSERT INTO t_teacher(t_id,t_name,t_dp,t_jobtitle,t_salary,t_phonenum,t_email,t_office,t_state,t_entertime) VALUES (?,?,?,?,?,?,?,?,?,?);";
     	//����prepareStatement
+    	
+//    	System.out.println(sql);
+    	
     	PreparedStatement pst = connection.prepareStatement(sql);
     	pst.setString(1, teacher.getT_id());
     	pst.setString(2, teacher.getT_name());
