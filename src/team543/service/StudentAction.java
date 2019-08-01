@@ -123,12 +123,12 @@ public class StudentAction {
 		ElectiveClassDao electiveClassDao = new ElectiveClassDao();
 		
 		ArrayList<ElectiveClass> list = electiveClassDao.getClassId(StudentId);
-		ArrayList<Teacher> Lteacherist = new ArrayList<Teacher>();
+		ArrayList<Teacher> teacherList = new ArrayList<Teacher>();
 		//查出学生选课的id查询教授的教师的信息
 		for (ElectiveClass ec:list) {
-			Lteacherist.add(getTeacherByClassId(ec.getC_id()));
+			teacherList.add(getTeacherByClassId(ec.getC_id()));
 		}
-		return Lteacherist;
+		return teacherList;
 	}
 	
 
