@@ -9,15 +9,16 @@ import java.util.ArrayList;
 
 import team543.entity.GiveClass;
 import team543.utils.DBUtils;
+import team543.utils.MyException;
 
 
- /**
-  * 授课课程信息表
- *	 @author 公子小白
- * 	 @date 2019年7月30日上午9:26:25
- *
- */
 public class GiveClassDao {
+	 /**
+	  * ɾ���ڿ���Ϣ
+	  *	 ����γ�id������
+	  * @throws ReflectiveOperationException 
+	  *
+	  */
 		/**
 		 * @param c_id
 		 * @throws SQLException
@@ -36,8 +37,13 @@ public class GiveClassDao {
 	 * @param giveclass
 	 * @throws ReflectiveOperationException
 	 * @throws SQLException
+	 * @throws MyException 
 	 */
-	public void updateGiveClass(GiveClass gc) throws ReflectiveOperationException, SQLException {
+	public void updateGiveClass(GiveClass gc) throws ReflectiveOperationException, SQLException, MyException {
+		
+		if(!(team543.utils.Basic.isNumeric(gc.getC_id())&&team543.utils.Basic.isNumeric(gc.getT_id()))) {
+			throw new MyException();
+		}
 		String sql="UPDATE t_giveclass SET t_id=?,c_time=?, t_site=? WHERE c_id=?";
 		Connection connection = team543.utils.DBUtils.getConnection();
 		
@@ -55,8 +61,14 @@ public class GiveClassDao {
 	 * @param gc
 	 * @throws ReflectiveOperationException
 	 * @throws SQLException
+	 * @throws MyException 
 	 */
-	public void addGiveClass(GiveClass gc) throws ReflectiveOperationException, SQLException {
+	public void addGiveClass(GiveClass gc) throws ReflectiveOperationException, SQLException, MyException {
+		
+		if(!(team543.utils.Basic.isNumeric(gc.getC_id())&&team543.utils.Basic.isNumeric(gc.getT_id()))) {
+			throw new MyException();
+		}
+		
 		String sql="INSERT INTO t_giveclass(c_id,t_id,c_time,t_site) VALUES(?,?,?,?)";
 		Connection connection = team543.utils.DBUtils.getConnection();
 		
@@ -70,6 +82,12 @@ public class GiveClassDao {
 		pst.executeUpdate();
 		DBUtils.closeConn();
 	}
+	/**
+	 * @param ClassId
+	 * @return
+	 * @throws ReflectiveOperationException
+	 * @throws SQLException
+	 */
 	public GiveClass getGiveClassByClassId(String ClassId) throws ReflectiveOperationException, SQLException {
 		//��ȡ���ݿ�����
 		Connection connection = team543.utils.DBUtils.getConnection();
@@ -77,6 +95,32 @@ public class GiveClassDao {
 		Statement statement = connection.createStatement();
 		
 		String sql = "SELECT * FROM t_giveclass where c_id = '"+ ClassId +"';";
+		
+		ResultSet rs = statement.executeQuery(sql);
+		GiveClass gc = new GiveClass();
+		if(rs.next()) {
+			gc.setC_id(rs.getString("c_id"));
+			gc.setT_id(rs.getString("t_id"));
+			gc.setC_time(rs.getString("c_time"));
+			gc.setT_site(rs.getString("t_site"));
+		}
+		DBUtils.closeConn();
+		return gc;
+	}
+	
+	/**
+	 * @param teacherId
+	 * @return
+	 * @throws ReflectiveOperationException
+	 * @throws SQLException
+	 */
+	public GiveClass getGiveClassByTeacherId(String teacherId) throws ReflectiveOperationException, SQLException {
+		//��ȡ���ݿ�����
+		Connection connection = team543.utils.DBUtils.getConnection();
+		
+		Statement statement = connection.createStatement();
+		
+		String sql = "SELECT * FROM t_giveclass where t_id = '"+ teacherId +"';";
 		
 		ResultSet rs = statement.executeQuery(sql);
 		GiveClass gc = new GiveClass();

@@ -23,6 +23,7 @@ import team543.dao.StudentGradeDao;
 import team543.dao.TeacherDao;
 import team543.entity.*;
 import team543.entity.Class;
+import team543.utils.MyException;
 
 public class AdminAction {
 	StudentDao studentDao = new StudentDao();
@@ -77,7 +78,7 @@ public class AdminAction {
 		return studentGradeDao.getGrades(sort,sequence);
 	}
 	
-	public ArrayList<Integer> updateClass(ArrayList<Class> cl){
+	public ArrayList<Integer> updateClass(ArrayList<Class> cl) throws MyException{
 		ArrayList<Integer> num =new ArrayList<Integer>();
 		Integer m = 0 ; 
 		for (Class c : cl) {
@@ -207,8 +208,9 @@ public class AdminAction {
 	/**
 	 * 添加教师
 	 * @return
+	 * @throws MyException 
 	 */
-	public ArrayList<Integer> addTeacher(ArrayList<Teacher> teachers) {
+	public ArrayList<Integer> addTeacher(ArrayList<Teacher> teachers) throws MyException {
 		//num保存出错的位数
 		ArrayList<Integer> num  = new ArrayList<Integer>();
 		//m记录
@@ -256,7 +258,7 @@ public class AdminAction {
 		return num;
 	}
 	
-	public ArrayList<Integer> addClass(ArrayList<team543.entity.Class> cl) {
+	public ArrayList<Integer> addClass(ArrayList<team543.entity.Class> cl) throws MyException {
 		//num保存出错的位数
 		ArrayList<Integer> num  = new ArrayList<Integer>();
 		//m记录

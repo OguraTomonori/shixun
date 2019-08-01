@@ -10,29 +10,29 @@ import java.util.ArrayList;
 
 
 /*
-* getStudents »ñÈ¡Ñ§ÉúÁÐ±í
-* getStudentById  ÓÉÑ§ºÅ²éÑ¯Ñ§Éú
-* addStudent ÅúÁ¿Ìí¼ÓÑ§Éú
-* deleteStudent  ÅúÁ¿É¾³ýÑ§Éú
-* updateStudent ÅúÁ¿ÐÞ¸ÄÑ§Éú
+* getStudents ï¿½ï¿½È¡Ñ§ï¿½ï¿½ï¿½Ð±ï¿½
+* getStudentById  ï¿½ï¿½Ñ§ï¿½Å²ï¿½Ñ¯Ñ§ï¿½ï¿½
+* addStudent ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½
+* deleteStudent  ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½Ñ§ï¿½ï¿½
+* updateStudent ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½Ñ§ï¿½ï¿½
 * */
 
 public class StudentDao {
 
     /*
-     * »ñÈ¡Ñ§ÉúÁÐ±í
+     * ï¿½ï¿½È¡Ñ§ï¿½ï¿½ï¿½Ð±ï¿½
      * @return students(ArrayList)
      * @throws ReflectiveOperationException
      * @throws SQLException
      */
     public  ArrayList<Student> getStudents() throws ReflectiveOperationException, SQLException{
-        //»ñÈ¡Êý¾Ý¿âÁ¬½Ó
+        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½
         Connection connection = DBUtils.getConnection();
-        //´´½¨Statement
+        //ï¿½ï¿½ï¿½ï¿½Statement
         Statement statement = connection.createStatement();
-        //sqlÓï¾ä
+        //sqlï¿½ï¿½ï¿½
         String sql="SELECT * FROM t_student";
-        //Ö´ÐÐsqlÓï¾ä
+        //Ö´ï¿½ï¿½sqlï¿½ï¿½ï¿½
         ResultSet rs = statement.executeQuery(sql);
         ArrayList<Student> students = new ArrayList<Student> ();
         while(rs.next()) {
@@ -53,20 +53,20 @@ public class StudentDao {
 
 
     /*
-     * Í¨¹ýÑ§ÉúID²éÑ¯Ñ§ÉúÐÅÏ¢
+     * Í¨ï¿½ï¿½Ñ§ï¿½ï¿½IDï¿½ï¿½Ñ¯Ñ§ï¿½ï¿½ï¿½ï¿½Ï¢
      * @param studentId
      * @return student(class)
      * @throws ReflectiveOperationException
      * @throws SQLException
      */
     public  Student getStudentById (String studentId) throws ReflectiveOperationException, SQLException {
-        //»ñÈ¡Êý¾Ý¿âÁ¬½Ó
+        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½
         Connection connection = DBUtils.getConnection();
-        //´´½¨Statement
+        //ï¿½ï¿½ï¿½ï¿½Statement
         Statement statement = connection.createStatement();
-        //sqlÓï¾ä
+        //sqlï¿½ï¿½ï¿½
         String sql="SELECT * FROM t_student WHERE s_id="+studentId;
-        //Ö´ÐÐsqlÓï¾ä
+        //Ö´ï¿½ï¿½sqlï¿½ï¿½ï¿½
         ResultSet rs = statement.executeQuery(sql);
         if(rs.next()) {
             Student student = new Student();
@@ -85,18 +85,18 @@ public class StudentDao {
 
 
     /*
-     * Ìí¼ÓÑ§Éú(ÅúÁ¿)
-     * Ñ§ºÅ¡¢ÐÕÃû¡¢ÐÔ±ð¡¢Ïµ±ð¡¢°à¼¶¡¢×´Ì¬¡¢ÈëÑ§Ê±¼ä
+     * ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)
+     * Ñ§ï¿½Å¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½Ïµï¿½ð¡¢°à¼¶ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½Ñ§Ê±ï¿½ï¿½
      * @param Student[]
      * @throws SQLException
      * @throws ReflectiveOperationException
      */
-    public  void addStudent(ArrayList<Student> s,Connection connection) throws SQLException, ReflectiveOperationException {
-        //sqlÓï¾ä
+    public  void addStudents(ArrayList<Student> s,Connection connection) throws SQLException, ReflectiveOperationException {
+        //sqlï¿½ï¿½ï¿½
         for (Student student:s
         ) {
             String sql = "INSERT into  t_student (s_id, s_name, s_sex, s_dp, s_class, s_state, s_entertime) VALUES (?,?,?,?,?,?,now())";
-            //´´½¨prepareStatement
+            //ï¿½ï¿½ï¿½ï¿½prepareStatement
             PreparedStatement pst = connection.prepareStatement (sql);
             pst.setString (1, student.getS_id ());
             pst.setString (2, student.getS_name ());
@@ -108,68 +108,89 @@ public class StudentDao {
             pst.executeUpdate ();
         }
     }
+    public  void addStudent(Student student) throws SQLException, ReflectiveOperationException {
+        String sql = "INSERT into  t_student (s_id, s_name, s_sex, s_dp, s_class, s_state, s_entertime) VALUES (?,?,?,?,?,?,now())";
+        //ï¿½ï¿½ï¿½ï¿½prepareStatement
+        Connection connection = DBUtils.getConnection();
+        PreparedStatement pst = connection.prepareStatement (sql);
+        pst.setString (1, student.getS_id ());
+        pst.setString (2, student.getS_name ());
+        pst.setString (3, student.getS_sex ());
+        pst.setString (4, student.getS_dp ());
+        pst.setString (5, student.getS_class ());
+        pst.setString (6, student.getS_state ());
+//            pst.setString (7, student.getEntertime ());
+        pst.executeUpdate ();
+        DBUtils.closeConn();
+   }
+ 
 
-
-
-    /*
-     * Í¨¹ýÑ§ÉúIDÉ¾³ýÑ§Éú£¨ÅúÁ¿£©
-     * @param id[]
+    /**
+     * @param studentId
      * @throws SQLException
      * @throws ReflectiveOperationException
      */
-    public  void deleteStudent(int[] id) throws SQLException, ReflectiveOperationException {
-        //»ñÈ¡Êý¾Ý¿âÁ¬½Ó
+    public  void deleteStudent(String studentId) throws SQLException, ReflectiveOperationException {
+        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½
         Connection connection = DBUtils.getConnection();
-        for (int i=0;i<id.length;i++
-             ) {
-            //sqlÓï¾ä
-            String sql="DELETE FROM t_student WHERE s_id=?";
-            //´´½¨prepareStatement
-            PreparedStatement pst = connection.prepareStatement(sql);
-            pst.setInt(1, id[i]);
-            pst.executeUpdate();
-        }
-
+		//sqlï¿½ï¿½ï¿½
+		String sql = "DELETE FROM t_student WHERE s_id=?";
+		//ï¿½ï¿½ï¿½ï¿½prepareStatement
+		PreparedStatement pst = connection.prepareStatement(sql);
+		pst.setString(1, studentId);
+		pst.executeUpdate();
         DBUtils.closeConn();
     }
 
+    /**
+     * æ·»åŠ å•ä¸ªå­¦ç”Ÿ
+     * @param student
+     * @throws ReflectiveOperationException
+     * @throws SQLException
+     * @throws ParseException
+     */
+    public void updateStudent(Student student) throws ReflectiveOperationException, SQLException, ParseException {
+    	  String sql = "UPDATE t_student SET s_name=?,s_sex=?,s_dp=?,s_major=?,s_class=?,s_state=?,s_entertime=? WHERE s_id=?";
+    	  Connection connection = DBUtils.getConnection ();
+    	  //ï¿½ï¿½ï¿½ï¿½prepareStatement
+          PreparedStatement pst = connection.prepareStatement (sql);
+          pst.setString (1, student.getS_name ());
+          pst.setString (2, student.getS_sex ());
+          pst.setString (3, student.getS_dp ());
+          pst.setString (4, student.getS_major ());
+          pst.setString (5, student.getS_class ());
+          pst.setString (6, student.getS_state ());
+          
+          
+          SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+          
+          java.util.Date utilDate=simpleDateFormat.parse(student.getEntertime());
 
+          java.sql.Date sqlDate=new java.sql.Date(utilDate.getTime());
+          
+          pst.setDate (7, sqlDate);
+          pst.setString (8, student.getS_id ());
+          pst.executeUpdate ();
+    }
+    
     /*
-     * ¸üÐÂÑ§ÉúÐÅÏ¢£¨ÅúÁ¿²Ù×÷£©
+     * ï¿½ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      * s_name,s_sex,s_dp,s_major,s_class,s_state,s_entertime
      * @param  Student[]
      * @throws SQLException
      * @throws ReflectiveOperationException
      */
+    /**
+     * ä¿®æ”¹
+     */
     public void updateStudent (ArrayList<Student> students) throws SQLException, ReflectiveOperationException, ParseException {
-        //»ñÈ¡Êý¾Ý¿âÁ¬½Ó
-        Connection connection = DBUtils.getConnection ();
 
         for (Student student:students
              ) {
-            String sql = "UPDATE t_student SET s_name=?,s_sex=?,s_dp=?,s_major=?,s_class=?,s_state=?,s_entertime=? WHERE s_id=?";
-            //´´½¨prepareStatement
-            PreparedStatement pst = connection.prepareStatement (sql);
-            pst.setString (1, student.getS_name ());
-            pst.setString (2, student.getS_sex ());
-            pst.setString (3, student.getS_dp ());
-            pst.setString (4, student.getS_major ());
-            pst.setString (5, student.getS_class ());
-            pst.setString (6, student.getS_state ());
-            
-            
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            
-            java.util.Date utilDate=simpleDateFormat.parse(student.getEntertime());
-
-            java.sql.Date sqlDate=new java.sql.Date(utilDate.getTime());
-            
-            pst.setDate (7, sqlDate);
-            pst.setString (8, student.getS_id ());
-            pst.executeUpdate ();
+        	updateStudent(student);
         }
 
-        //sqlÓï¾ä
+        //sqlï¿½ï¿½ï¿½
         DBUtils.closeConn ();
     }
 }

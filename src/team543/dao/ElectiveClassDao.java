@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import team543.entity.ElectiveClass;
 import team543.utils.DBUtils;
+import team543.utils.MyException;
 
 public class ElectiveClassDao {
 	
@@ -69,10 +70,17 @@ public class ElectiveClassDao {
 	 * ����ѡ����Ϣ
 	 * @throws SQLException 
 	 * @throws ReflectiveOperationException 
+	 * @throws MyException 
 	 * 
 	 */
-	public void updateElectiveClass(String id , String studentId , String classId) throws ReflectiveOperationException, SQLException {
+	public void updateElectiveClass(String id , String studentId , String classId) throws ReflectiveOperationException, SQLException, MyException {
+		
+		if(!(team543.utils.Basic.isNumeric(id)&&team543.utils.Basic.isNumeric(studentId)&&team543.utils.Basic.isNumeric(classId))) {
+			throw new MyException();
+		}
+		
 		String sql = "UPDATE t_electiveclass SET c_id=? , s_id = ? WHERE e_id = ?; ";
+		
 		Connection connection = team543.utils.DBUtils.getConnection();
 		//Ԥ����
 		PreparedStatement pst = connection.prepareStatement(sql);

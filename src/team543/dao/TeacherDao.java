@@ -2,16 +2,17 @@ package team543.dao;
 
 import team543.entity.Teacher;
 import team543.utils.DBUtils;
+import team543.utils.MyException;
 
 import java.sql.*;
 import java.util.ArrayList;
 
 /*
- * getTeachers »ñÈ¡ÀÏÊ¦ÁÐ±í
- * getTeacherById ÓÉ½ÌÊ¦Id²éÑ¯½ÌÊ¦ÐÅÏ¢
- * addTeacher Ìí¼ÓÀÏÊ¦
- * deleteTeacher É¾³ýÀÏÊ¦
- * updateTeacher ÐÞ¸ÄÀÏÊ¦
+ * getTeachers ï¿½ï¿½È¡ï¿½ï¿½Ê¦ï¿½Ð±ï¿½
+ * getTeacherById ï¿½É½ï¿½Ê¦Idï¿½ï¿½Ñ¯ï¿½ï¿½Ê¦ï¿½ï¿½Ï¢
+ * addTeacher ï¿½ï¿½ï¿½ï¿½ï¿½Ê¦
+ * deleteTeacher É¾ï¿½ï¿½ï¿½ï¿½Ê¦
+ * updateTeacher ï¿½Þ¸ï¿½ï¿½ï¿½Ê¦
  */
 
 
@@ -19,19 +20,21 @@ import java.util.ArrayList;
 public class TeacherDao {
  
 	/*
-	 *  »ñÈ¡ÀÏÊ¦ÁÐ±í
+	 *  ï¿½ï¿½È¡ï¿½ï¿½Ê¦ï¿½Ð±ï¿½
 	 * @return teachers(ArrayList)
 	 * @throws ReflectiveOperationException
 	 * @throws SQLException
 	 */
     public ArrayList<Teacher> getTeachers() throws ReflectiveOperationException,SQLException{
-    	//»ñÈ¡Êý¾Ý¿âÁ¬½Ó
+    	
+    	
+    	//ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½
     	Connection connection = DBUtils.getConnection();
-    	//´´½¨Statement
+    	//ï¿½ï¿½ï¿½ï¿½Statement
     	Statement statement = connection.createStatement();
-    	//sqlÓï¾ä
+    	//sqlï¿½ï¿½ï¿½
     	String sql="SELECT * FROM t_teacher";
-    	//Ö´ÐÐsqlÓï¾ä
+    	//Ö´ï¿½ï¿½sqlï¿½ï¿½ï¿½
     	ResultSet rs = statement.executeQuery(sql);
     	ArrayList<Teacher> teachers = new ArrayList<Teacher>();
     	while(rs.next()) {
@@ -53,20 +56,20 @@ public class TeacherDao {
      }
     
      /*
-      * Í¨¹ýÀÏÊ¦ID²éÑ¯ÀÏÊ¦ÐÅÏ¢
+      * Í¨ï¿½ï¿½ï¿½ï¿½Ê¦IDï¿½ï¿½Ñ¯ï¿½ï¿½Ê¦ï¿½ï¿½Ï¢
       * @param teacherId
       * @return teacher(class@)
       * @throws ReflectiveOperationException
       * @throws SQLException
       */
      public Teacher getTeacherById (String teacherId) throws ReflectiveOperationException,SQLException{
-    	 //»ñÈ¡Êý¾Ý¿âÁ¬½Ó
+    	 //ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½
     	 Connection connection = DBUtils.getConnection();
-    	 //´´½¨Statement
+    	 //ï¿½ï¿½ï¿½ï¿½Statement
     	 Statement statement = connection.createStatement();
-    	 //sqlÓï¾ä
+    	 //sqlï¿½ï¿½ï¿½
     	 String sql="SELECT * FROM t_teacher WHERE t_id= '"+teacherId+"' ";
-    	 //Ö´ÐÐsqlÓï¾ä
+    	 //Ö´ï¿½ï¿½sqlï¿½ï¿½ï¿½
     	 ResultSet rs = statement.executeQuery(sql);
     	 if(rs.next()) {
              Teacher teacher = new Teacher();
@@ -86,18 +89,23 @@ public class TeacherDao {
   }   
     
    /*
-    * Ìí¼ÓÀÏÊ¦£¨ÅúÁ¿£©
-    * ½ÌÊ¦id£¬ÐÕÃû£¬ÔºÏµ£¬Ö°³Æ£¬Ð½Ë®£¬µç»°ºÅÂë£¬µç×ÓÓÊÏä£¬°ì¹«ÊÒ£¬×´Ì¬£¬ÈëÖ°Ê±¼ä
+    * ï¿½ï¿½ï¿½ï¿½ï¿½Ê¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    * ï¿½ï¿½Ê¦idï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÔºÏµï¿½ï¿½Ö°ï¿½Æ£ï¿½Ð½Ë®ï¿½ï¿½ï¿½ç»°ï¿½ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä£¬ï¿½ì¹«ï¿½Ò£ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½Ö°Ê±ï¿½ï¿½
     * @param Teacher
     * @throws SQLException
     * @throws ReflectiveOperationException
     */
-    public void addTeacher(Teacher teacher) throws ReflectiveOperationException,SQLException{
-    	//»ñµÃÊý¾Ý¿âÁ¬½Ó
+    public void addTeacher(Teacher teacher) throws ReflectiveOperationException,SQLException, MyException{
+    	
+    	if(!(team543.utils.Basic.isNumeric(teacher.getT_id())&&team543.utils.Basic.isNumeric(teacher.getT_salary()))) {
+			throw new MyException();
+		}
+    	
+    	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½
     	Connection connection = DBUtils.getConnection();
-    	//sqlÓï¾ä
+    	//sqlï¿½ï¿½ï¿½
     	String sql="INSERT INTO t_teacher(t_id,t_name,t_dp,t_jobtitle,t_salay,t_phonenum,t_email,t_office,t_state,t_entertime) VALUES (?,?,?,?,?,?,?,?,?,?)";
-    	//´´½¨prepareStatement
+    	//ï¿½ï¿½ï¿½ï¿½prepareStatement
     	PreparedStatement pst = connection.prepareStatement(sql);
     	pst.setString(1, teacher.getT_id());
     	pst.setString(2, teacher.getT_name());
@@ -114,17 +122,17 @@ public class TeacherDao {
     
     
     /*
-     * Í¨¹ýÀÏÊ¦IDÉ¾³ýÀÏÊ¦£¨ÅúÁ¿£©
+     * Í¨ï¿½ï¿½ï¿½ï¿½Ê¦IDÉ¾ï¿½ï¿½ï¿½ï¿½Ê¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      * @param teacherId
      * @throws SQLException
      * @throws ReflectiveOperationException
      */
     public void deleteTeacher(Integer teacherId) throws ReflectiveOperationException,SQLException{
-    	//»ñÈ¡Êý¾Ý¿âÁ¬½Ó
+    	//ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½
     	Connection connection = DBUtils.getConnection();
-    	//sqlÓï¾ä
+    	//sqlï¿½ï¿½ï¿½
     	String sql="DELETE FROM t_teacher WHERE t_id=?";
-    	//´´½¨prepareStatement
+    	//ï¿½ï¿½ï¿½ï¿½prepareStatement
     	PreparedStatement pst = connection.prepareStatement(sql);
     	pst.setInt(1, teacherId);
     	pst.executeUpdate();
@@ -133,17 +141,17 @@ public class TeacherDao {
     
     
     /*
-     * ¸üÐÂÀÏÊ¦ÐÅÏ¢£¨ÅúÁ¿²Ù×÷£©
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¦ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      * @param teacher
      * @throws SQLException
      * @throws ReflectiveOperationException
      */
     public void updateTeacher(Teacher teacher) throws ReflectiveOperationException,SQLException{
-    	//»ñÈ¡Êý¾Ý¿âÁ¬½Ó
+    	//ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½
     	Connection connection = DBUtils.getConnection();
-    	//sqlÓï¾ä
+    	//sqlï¿½ï¿½ï¿½
     	String sql="UPDATE t_teacher SET t_name=?,t_dp=?,t_jobtitle=?,t_salary=?,t_phonenum=?,t_email=?,t_office=?,t_state=?,t_entertime=? WHERE t_id=?";
-    	//´´½¨prepeareStatement
+    	//ï¿½ï¿½ï¿½ï¿½prepeareStatement
     	PreparedStatement pst = connection.prepareStatement(sql);
     	pst.setString(1, teacher.getT_name());
     	pst.setString(2, teacher.getT_dp());

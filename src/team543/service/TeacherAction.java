@@ -17,7 +17,6 @@ import team543.dao.StudentDao;
 import team543.dao.StudentGradeDao;
 import team543.dao.StudentTeacherDao;
 import team543.dao.TeacherDao;
-import team543.entity.Class;
 import team543.entity.ElectiveClass;
 import team543.entity.GiveClass;
 import team543.entity.Grade;
@@ -25,6 +24,7 @@ import team543.entity.Student;
 import team543.entity.StudentGrade;
 import team543.entity.StudentTeacher;
 import team543.entity.Teacher;
+import team543.utils.MyException;
 
 public class TeacherAction {
 	
@@ -112,9 +112,10 @@ public class TeacherAction {
 	 * �����ڿα����
 	 * @throws SQLException 
 	 * @throws ReflectiveOperationException 
+	 * @throws MyException 
 	 * 
 	 */
-	public void addGiveClassInfo(GiveClass giveClass) throws ReflectiveOperationException, SQLException {
+	public void addGiveClassInfo(GiveClass giveClass) throws ReflectiveOperationException, SQLException, MyException {
 		GiveClassDao giveClassDao = new GiveClassDao();
 		giveClassDao.addGiveClass(giveClass);
 	}
@@ -123,9 +124,10 @@ public class TeacherAction {
 	 * �޸�ѧ���ɼ���Ϣ
 	 * @throws SQLException 
 	 * @throws ReflectiveOperationException 
+	 * @throws MyException 
 	 * 
 	 */
-	public void UpdataStudentGrade(ArrayList<Grade> grades) throws ReflectiveOperationException, SQLException {
+	public void UpdataStudentGrade(ArrayList<Grade> grades) throws ReflectiveOperationException, SQLException, MyException {
 		GradeDao gradeDao = new GradeDao();
 		gradeDao.updateGrade(grades);
 	}
