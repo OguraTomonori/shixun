@@ -1,18 +1,23 @@
 package team543.service;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import jxl.write.WriteException;
+import jxl.write.biff.RowsExceededException;
 import team543.dao.ClassDao;
 import team543.dao.ElectiveClassDao;
 import team543.dao.GiveClassDao;
 import team543.dao.GradeDao;
+import team543.dao.PutExcelDao;
 import team543.dao.SearchDao;
 import team543.dao.StudentDao;
 import team543.dao.StudentGradeDao;
 import team543.dao.StudentTeacherDao;
 import team543.dao.TeacherDao;
+import team543.entity.Class;
 import team543.entity.ElectiveClass;
 import team543.entity.GiveClass;
 import team543.entity.Grade;
@@ -144,7 +149,22 @@ public class TeacherAction {
 	 * @throws ReflectiveOperationException 
 	 * @throws SQLException 
 	 */
-	public ArrayList<StudentGrade> getGradeByClss(String classId) throws SQLException, ReflectiveOperationException{
+	public ArrayList<StudentGrade> getGradeByClass(String classId) throws SQLException, ReflectiveOperationException{
 		return new StudentGradeDao().getClassGrade(classId);
+	}
+	
+	/**
+	 * 导出学生信息
+	 * @param students
+	 * @param studentName
+	 * @return
+	 * @throws RowsExceededException
+	 * @throws WriteException
+	 * @throws IOException
+	 */
+	public String putStudentOut(ArrayList<Student> students , String studentName) throws RowsExceededException, WriteException, IOException {
+		String fileName = studentName;//+String.valueOf(System.currentTimeMillis());
+		new PutExcelDao().putStudent(students, fileName);
+		return "excel/Student/"+ fileName+".xls";
 	}
 }

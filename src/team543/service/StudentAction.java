@@ -1,8 +1,11 @@
 package team543.service;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import jxl.write.WriteException;
+import jxl.write.biff.RowsExceededException;
 import team543.dao.*;
 import team543.entity.Class;
 import team543.entity.ElectiveClass;
@@ -11,12 +14,6 @@ import team543.entity.Student;
 import team543.entity.StudentGrade;
 import team543.entity.Teacher;
 
- /**
-  * 学生操作
- *	 @author 公子小白
- * 	 @date 2019年7月30日上午9:30:22
- *
- */
 public class StudentAction {
 	StudentDao studentDao = new StudentDao();
 	StudentGradeDao studentGradeDao = new StudentGradeDao();
@@ -28,10 +25,10 @@ public class StudentAction {
 	 * @throws SQLException
 	 * @throws ReflectiveOperationException 
 	 */
-	public Student getStudentInfo(String id) throws ReflectiveOperationException, SQLException {
+	public Student getStudentInfo(String Studentid) throws ReflectiveOperationException, SQLException {
 		//�ж�id�Ƿ�Ϊ����
-		if(team543.utils.Basic.isNumeric(id)) {
-			return studentDao.getStudentById(id);
+		if(team543.utils.Basic.isNumeric(Studentid)) {
+			return studentDao.getStudentById(Studentid);
 		}else {
 			return null;
 		}
@@ -54,8 +51,7 @@ public class StudentAction {
 		
 		ec = electiveClassDao.getClassId(studentId);
 		//���ú�����ȡ
-//		System.out.println(ec.get(0).getC_id());
-//		String str = "1" ; 
+
 		for(int i = 0 ; i < ec.size() ; i++) {
 
 			list.add(ec.get(i).getC_id());
@@ -63,9 +59,7 @@ public class StudentAction {
 		}
 		//��������γ���Ϣ���б�
 		ArrayList<team543.entity.Class> cl = new ArrayList<team543.entity.Class>();
-		
-//		System.out.println(list);
-		//��ѧ��ѡ�γ̵�id
+
 		for(int i = 0 ; i<list.size();i++) {
 			//��ѯ�γ���Ϣ
 			cl.add(classDao.getClassById(list.get(i)));
@@ -105,6 +99,13 @@ public class StudentAction {
 		return classDao.getAllClass();
 	}
 	
+	/**
+	 * 
+	 * @param ClassId
+	 * @return
+	 * @throws ReflectiveOperationException
+	 * @throws SQLException
+	 */
 	public Teacher getTeacherByClassId(String ClassId) throws ReflectiveOperationException, SQLException {
 		GiveClassDao giveClassDao = new GiveClassDao();
 		TeacherDao teacherDao = new TeacherDao();
@@ -113,6 +114,41 @@ public class StudentAction {
 		giveClass = giveClassDao.getGiveClassByClassId(ClassId);
 		//�����ڿλ�ý�ʦ��Ϣ
 		return teacherDao.getTeacherById(giveClass.getT_id());
+	}
+	
+	/**
+	 * 学生获取教师信息
+	 * @param StudentId
+	 * @return
+	 * @throws ReflectiveOperationException
+	 * @throws SQLException
+	 */
+	public ArrayList<Teacher> getTeacherByStudent(String StudentId) throws ReflectiveOperationException, SQLException {
+		ElectiveClassDao electiveClassDao = new ElectiveClassDao();
+		
+		ArrayList<ElectiveClass> list = electiveClassDao.getClassId(StudentId);
+		ArrayList<Teacher> Lteacherist = new ArrayList<Teacher>();
+		//查出学生选课的id查询教授的教师的信息
+		for (ElectiveClass ec:list) {
+			Lteacherist.add(getTeacherByClassId(ec.getC_id()));
+		}
+		return Lteacherist;
+	}
+	
+
+	/**
+	 * 下载学生课程信息
+	 * @param cs
+	 * @param fileName
+	 * @return
+	 * @throws RowsExceededException
+	 * @throws WriteException
+	 * @throws IOException
+	 */
+	public String putClassOut(ArrayList<Class> cs , String studentName) throws RowsExceededException, WriteException, IOException {
+		String fileName = studentName;//+String.valueOf(System.currentTimeMillis());
+		new PutExcelDao().putClass(cs, fileName);
+		return "excel/Class/"+ fileName+".xls";
 	}
 
 }
