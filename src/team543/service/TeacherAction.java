@@ -162,14 +162,14 @@ public class TeacherAction {
 	 * @return
 	 * @throws MyException
 	 */
-	public ArrayList<Integer> addGrade(ArrayList<Grade> grade) throws MyException{
+	public ArrayList<Integer> addGrade(ArrayList<Grade> grade) {
 		ArrayList<Integer> num =new ArrayList<Integer>();
 		Integer m = 0 ; 
 		for (Grade c : grade) {
 			try {
 				new GradeDao().addGrade(c);
 				m++;
-			} catch (SQLException | ReflectiveOperationException e) {
+			} catch (SQLException | ReflectiveOperationException | MyException e) {
 				num.add(m);
 				m++;
 			} 
@@ -182,14 +182,14 @@ public class TeacherAction {
 	 * @return
 	 * @throws MyException
 	 */
-	public ArrayList<Integer> updateGrade(ArrayList<Grade> grade) throws MyException{
+	public ArrayList<Integer> updateGrade(ArrayList<Grade> grade) {
 		ArrayList<Integer> num =new ArrayList<Integer>();
 		Integer m = 0 ; 
 		for (Grade c : grade) {
 			try {
 				new GradeDao().updateGrade(c);
 				m++;
-			} catch (SQLException | ReflectiveOperationException e) {
+			} catch (SQLException | ReflectiveOperationException | MyException e) {
 				num.add(m);
 				m++;
 			} 
@@ -202,14 +202,14 @@ public class TeacherAction {
 	 * @return
 	 * @throws MyException
 	 */
-	public ArrayList<Integer> deleteGrade(ArrayList<Grade> grade) throws MyException{
+	public ArrayList<Integer> deleteGrade(ArrayList<Grade> grade) {
 		ArrayList<Integer> num =new ArrayList<Integer>();
 		Integer m = 0 ; 
 		for (Grade c : grade) {
 			try {
 				new GradeDao().deleteGrade(c);
 				m++;
-			} catch (SQLException | ReflectiveOperationException e) {
+			} catch (SQLException | ReflectiveOperationException | MyException e) {
 				num.add(m);
 				m++;
 			} 

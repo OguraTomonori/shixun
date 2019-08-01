@@ -27,8 +27,6 @@ import team543.utils.MyException;
 
 public class AdminAction {
 
-
-	
 	
 	/**
 	 * ��ȡѧ����Ϣ
@@ -75,14 +73,19 @@ public class AdminAction {
 		return  new StudentGradeDao().getGrades(sort,sequence);
 	}
 	
-	public ArrayList<Integer> updateClass(ArrayList<Class> cl) throws MyException{
+	/**
+	 * @param cl
+	 * @return
+	 * @throws MyException
+	 */
+	public ArrayList<Integer> updateClass(ArrayList<Class> cl){
 		ArrayList<Integer> num =new ArrayList<Integer>();
 		Integer m = 0 ; 
 		for (Class c : cl) {
 			try {
 				new ClassDao().updateClass(c);
 				m++;
-			} catch (SQLException | ReflectiveOperationException e) {
+			} catch (SQLException | ReflectiveOperationException | MyException e) {
 				num.add(m);
 				m++;
 			} 
@@ -207,7 +210,7 @@ public class AdminAction {
 	 * @return
 	 * @throws MyException 
 	 */
-	public ArrayList<Integer> addTeacher(ArrayList<Teacher> teachers) throws MyException {
+	public ArrayList<Integer> addTeacher(ArrayList<Teacher> teachers){
 		//num保存出错的位数
 		ArrayList<Integer> num  = new ArrayList<Integer>();
 		//m记录
@@ -220,7 +223,7 @@ public class AdminAction {
 				teacherDao.addTeacher(t);
 				m++;
 				
-			} catch (ReflectiveOperationException | SQLException e) {
+			} catch (ReflectiveOperationException | SQLException | MyException e) {
 				//否则加入num
 				num.add(m);
 				m++;
@@ -255,7 +258,7 @@ public class AdminAction {
 		return num;
 	}
 	
-	public ArrayList<Integer> addClass(ArrayList<team543.entity.Class> cl) throws MyException {
+	public ArrayList<Integer> addClass(ArrayList<team543.entity.Class> cl)  {
 		//num保存出错的位数
 		ArrayList<Integer> num  = new ArrayList<Integer>();
 		//m记录
@@ -268,7 +271,7 @@ public class AdminAction {
 				classDao.addClass(c);
 				m++;
 				
-			} catch (ReflectiveOperationException | SQLException e) {
+			} catch (ReflectiveOperationException | SQLException | MyException e) {
 				//否则加入num
 				num.add(m);
 				m++;
@@ -326,6 +329,7 @@ public class AdminAction {
 	
 	/**
 	 * 删除选课信息
+	 * 仅使用e_id判断删除条件
 	 * @param ec
 	 * @return
 	 */
@@ -364,14 +368,14 @@ public class AdminAction {
 		return num;
 	}
 	
-	public ArrayList<Integer> updateGiveClass(ArrayList<GiveClass> giveClass) throws MyException{
+	public ArrayList<Integer> updateGiveClass(ArrayList<GiveClass> giveClass) {
 		ArrayList<Integer> num =new ArrayList<Integer>();
 		Integer n = 0;
 		for(GiveClass gc:giveClass)
 			try {
 				new GiveClassDao().updateGiveClass(gc);;
 				n++;
-			} catch (SQLException | ReflectiveOperationException e) {
+			} catch (SQLException | ReflectiveOperationException | MyException e) {
 				num.add(n);
 				n++;
 			}
