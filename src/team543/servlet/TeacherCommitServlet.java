@@ -18,7 +18,7 @@ import team543.entity.ElectiveClass;
 import team543.entity.Grade;
 import team543.entity.Student;
 import team543.entity.Teacher;
-import team543.service.AdminAction;
+import team543.utils.MyException;
 import team543.service.TeacherAction;
 
 /**
@@ -35,7 +35,7 @@ public class TeacherCommitServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	private void commitGrade(AdminAction admin, JSONObject grade) {
+	private void commitGrade(TeacherAction teacher, JSONObject grade) {
 		ArrayList<Object> gradeAddObj = (ArrayList<Object>) JSONObject.parseArray(grade.getJSONArray("add").toString(), Object.class);
 		ArrayList<Grade> gradeAdd = new ArrayList();
 		
@@ -57,7 +57,8 @@ public class TeacherCommitServlet extends HttpServlet {
 				)
 			);
 		}
-		admin.addGrade(gradeAdd);
+		if (!gradeAdd.isEmpty())
+			teacher.addGrade(gradeAdd);
 		
 		
 		for (int i = 0; i < gradeUpdateObj.size(); i++) {
@@ -72,7 +73,9 @@ public class TeacherCommitServlet extends HttpServlet {
 						)
 				);
 		}
-		admin.updateGrade(gradeUpdate);
+		if (!gradeUpdate.isEmpty())
+			teacher.updateGrade(gradeUpdate);
+		
 		
 		for (int i = 0; i < gradeAddObj.size(); i++) {
 			Map<String, Object> temp = (Map<String, Object>)((Map<String, Object>) gradeDeleteObj.get(i)).get("ori");
@@ -86,7 +89,9 @@ public class TeacherCommitServlet extends HttpServlet {
 				)
 			);
 		}
-		admin.deleteGrade(gradeDelete);
+		if (!gradeDelete.isEmpty())
+			teacher.deleteGrade(gradeDelete);
+		
 	}
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -94,10 +99,9 @@ public class TeacherCommitServlet extends HttpServlet {
 		//Ïàµ±ÓÚMap<String, Object>
 		JSONObject data =  JSONObject.parseObject(request.getParameter("data"));
 		JSONObject grade = data.getJSONObject("grade");
-		AdminAction admin = new AdminAction();
-		
+		TeacherAction teacher = new TeacherAction();
 		if (grade != null)
-			this.commitGrade(admin, grade);
+			this.commitGrade(teacher, grade);
 		
 		Map<String, Object> res = new HashMap();
 		res.put("status", "success");

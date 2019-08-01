@@ -292,7 +292,7 @@
     	document.getElementById("search_btn").onclick = function() {
 
 			//根据option进行处理……
-			$.post({
+			$.get({
 				"url":"${pageContext.request.contextPath }/AdminSearchTeacherServlet",
 				"data":{
 					"search_option": document.getElementById("option_btn").getAttribute("opt"),

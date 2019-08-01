@@ -357,7 +357,7 @@
 		var ori = document.getElementById("result").innerHTML;
     	document.getElementById("search_btn").onclick = function() {
 			//根据option进行处理……
-			$.post({
+			$.get({
 				"url":"${pageContext.request.contextPath }/AdminSearchStudentServlet",
 				"data":{
 					"search_option": document.getElementById("option_btn").getAttribute("opt"),
@@ -390,20 +390,26 @@
 						var sex = res[i]["s_sex"];
 						var major = res[i]["s_major"];
 						var entertime = res[i]["entertime"];
-						result.innerHTML = 
+						var str = 
 							result.innerHTML + "<tr id='" + "student" + id_ + "'>" + 
 							"<td>" + name + "</td>" + 
 							"<td>" + id_ + "</td>" + 
 							"<td>" + class_ + "</td>" + 
 							"<td>" + sex + "</td>" + 
-							"<td>" + dp + "</td>" + 
-							"<td><a href='#' data-toggle=\"modal\" data-target=\"#student\" onclick='student(\"" +
-							id_ + "\")'>详情</a></td>" + 
-							"<td><a href='#' data-toggle=\"modal\" data-target=\"#grade\" onclick='grade(\"" +
-							id_ + "\")'>成绩</a></td>" + 
-							"<td><a href='#' data-toggle=\"modal\" data-target=\"#update\" onclick='update(\"" +
-							id_ + "\")'>更新</a></td></tr>";
-					}
+							"<td>" + dp + "</td>";
+							if (stor.has("student", id_))
+								str += 
+									"<td><span class='glyphicon glyphicon-paperclip'></span></td>"
+							else
+								str += "<td><a href='#' data-toggle=\"modal\" data-target=\"#student\" onclick='student(\"" +
+									id_ + "\")'>详情</a></td>" + 
+									"<td><a href='#' data-toggle=\"modal\" data-target=\"#grade\" onclick='grade(\"" +
+									id_ + "\")'>成绩</a></td>" + 
+									"<td><a href='#' data-toggle=\"modal\" data-target=\"#update\" onclick='update(\"" +
+									id_ + "\")'>更新</a></td>";
+							str += "</tr>";
+							result.innerHTML = str;
+					}		
 					// TODO
 					//查询后根据localStorage来更新每一tr状态
 				}

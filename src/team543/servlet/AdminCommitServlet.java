@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -20,6 +21,7 @@ import team543.entity.ElectiveClass;
 import team543.entity.Student;
 import team543.entity.Teacher;
 import team543.service.AdminAction;
+import team543.service.TeacherAction;
 import team543.utils.*;
 /**
  * Servlet implementation class AdminCommitServlet
@@ -64,6 +66,7 @@ public class AdminCommitServlet extends HttpServlet {
 				)
 			);
 		}
+		if (!studentAdd.isEmpty())
 		admin.addStudent(studentAdd);
 		
 		
@@ -82,8 +85,26 @@ public class AdminCommitServlet extends HttpServlet {
 				)
 			);
 		}
-		admin.updateStudent(studentUpdate);
+		if (!studentUpdate.isEmpty())
+			admin.updateStudent(studentUpdate);
 		
+		for (int i = 0; i < studentDeleteObj.size(); i++) {
+			Map<String, Object> temp = (Map<String, Object>)((Map<String, Object>) studentDeleteObj.get(i)).get("ori");
+			studentDelete.add(
+				new Student(
+					(String) temp.get("s_id"),
+					(String) temp.get("s_name"),
+					(String) temp.get("s_sex"),
+					(String) temp.get("s_dp"),
+					(String) temp.get("s_major"),
+					(String) temp.get("s_class"),
+					(String) temp.get("s_state"),
+					team543.utils.Basic.StringToDate((String) temp.get("entertime"))
+				)
+			);
+		}
+		if (!studentDelete.isEmpty())
+			admin.deleteStudent(studentDelete);
 		
     }
     
@@ -100,6 +121,7 @@ public class AdminCommitServlet extends HttpServlet {
 		for (int i = 0; i < teacherAddObj.size(); i++) {
 			Map<String, Object> temp = (Map<String, Object>)((Map<String, Object>) teacherAddObj.get(i)).get("ori");
 			try {
+				System.out.println((String)temp.get("t_entertime"));
 				teacherAdd.add(
 					new Teacher(
 						(String) temp.get("t_id"),
@@ -111,7 +133,7 @@ public class AdminCommitServlet extends HttpServlet {
 						(String) temp.get("t_email"),
 						(String) temp.get("t_office"),
 						(String) temp.get("s_state"),
-						team543.utils.Basic.StringToDate((String) temp.get("entertime"))
+						team543.utils.Basic.StringToDate((String) temp.get("t_entertime"))
 					)
 				);
 			} catch (ParseException e) {
@@ -119,7 +141,12 @@ public class AdminCommitServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		admin.addTeacher(teacherAdd);
+		if (!teacherAdd.isEmpty()) {
+			admin.addTeacher(teacherAdd);
+			System.out.println("caksadas");
+		}
+			
+
 		
 		
 		for (int i = 0; i < teacherUpdateObj.size(); i++) {
@@ -144,7 +171,34 @@ public class AdminCommitServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		admin.updateTeacher(teacherUpdate);
+		if (!teacherUpdate.isEmpty())
+			admin.updateTeacher(teacherUpdate);
+
+		for (int i = 0; i < teacherDeleteObj.size(); i++) {
+			Map<String, Object> temp = (Map<String, Object>)((Map<String, Object>) teacherDeleteObj.get(i)).get("ori");
+			try {
+				teacherDelete.add(
+						new Teacher(
+							(String) temp.get("t_id"),
+							(String) temp.get("t_name"),
+							(String) temp.get("t_dp"),
+							(String) temp.get("t_jobtitle"),
+							(String) temp.get("t_salary"),
+							(String) temp.get("t_phonenum"),
+							(String) temp.get("t_email"),
+							(String) temp.get("t_office"),
+							(String) temp.get("s_state"),
+							team543.utils.Basic.StringToDate((String) temp.get("entertime"))
+						)
+					);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		if (!teacherDelete.isEmpty())
+			admin.deleteTeacher(teacherDelete);
+		
 		
     }
 	private void commitCourse(AdminAction admin, JSONObject course) {
@@ -170,7 +224,9 @@ public class AdminCommitServlet extends HttpServlet {
 				)
 			);
 		}
-		admin.addClass(courseAdd);
+		if (!courseAdd.isEmpty())
+			admin.addClass(courseAdd);
+
 		
 		
 		for (int i = 0; i < courseUpdateObj.size(); i++) {
@@ -186,7 +242,25 @@ public class AdminCommitServlet extends HttpServlet {
 						)
 				);
 		}
-		admin.updateClass(courseUpdate);
+		if (!courseUpdate.isEmpty())
+			admin.updateClass(courseUpdate);
+		
+		for (int i = 0; i < courseDeleteObj.size(); i++) {
+			Map<String, Object> temp = (Map<String, Object>)((Map<String, Object>) courseDeleteObj.get(i)).get("ori");
+			courseDelete.add(
+					new team543.entity.Class(
+							(String) temp.get("c_id"),
+							(String) temp.get("c_name"),
+							(String) temp.get("c_classstate"),
+							(String) temp.get("c_score"),
+							(String) temp.get("c_opendp"),
+							Integer.valueOf(((String) temp.get("c_percentage")))
+						)
+				);
+		}
+		if (!courseDelete.isEmpty())
+			admin.deleteClass(courseDelete);
+		
 		
 	}
 	private void commitSelC(AdminAction admin, JSONObject selC) {
@@ -195,7 +269,7 @@ public class AdminCommitServlet extends HttpServlet {
 		
 		//ж╩спи╬ЁЩ
 		ArrayList<Object> selCDeleteObj = (ArrayList<Object>) JSONObject.parseArray(selC.getJSONArray("delete").toString(), Object.class);
-		ArrayList<String> selCDelete = new ArrayList();
+		ArrayList<ElectiveClass> selCDelete = new ArrayList();
 		
 		for (int i = 0; i < selCAddObj.size(); i++) {
 			Map<String, Object> temp = (Map<String, Object>)((Map<String, Object>) selCAddObj.get(i)).get("ori");
@@ -206,16 +280,21 @@ public class AdminCommitServlet extends HttpServlet {
 				)
 			);
 		}
-		admin.addElectiveClass(selCAdd);
+		if (!selCAdd.isEmpty())
+			admin.addElectiveClass(selCAdd);
 		
 		
 		for (int i = 0; i < selCDeleteObj.size(); i++) {
-			Map<String, Object> temp = (Map<String, Object>)((Map<String, Object>) selCDeleteObj.get(i)).get("after");
+			Map<String, Object> temp = (Map<String, Object>)((Map<String, Object>) selCDeleteObj.get(i)).get("ori");
 			selCDelete.add(
-					(String) temp.get("e_id")
+					new ElectiveClass(
+							(String) temp.get("c_id"),
+							(String) temp.get("s_id")
+						)
 				);
 		}
-		admin.deleteElectiveClass(selCDelete);
+		if (!selCDelete.isEmpty())
+			admin.deleteElectiveClass(selCDelete);
 	}
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -241,6 +320,12 @@ public class AdminCommitServlet extends HttpServlet {
 		if (selC != null)
 			this.commitSelC(admin, selC);
 		
+		Map<String, Object> res = new HashMap();
+		res.put("status", "success");
+		JSONObject jsonObj = new JSONObject(res);
+		String json = jsonObj.toJSONString();
+		System.out.println(json);
+		response.getWriter().append(json);
 	}
 
 	/**

@@ -292,7 +292,7 @@
 
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger del-single-btn"  data-dismiss="modal">删除</button>
+					
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 					<button type="button" class="btn btn-primary save-btn"  data-dismiss="modal">保存</button>
 				</div>
@@ -323,7 +323,6 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger del-single-btn"  data-dismiss="modal">删除</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 					<button type="button" class="btn btn-primary save-btn"  data-dismiss="modal">保存</button>
 				</div>
@@ -345,7 +344,6 @@
 
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger del-single-btn"  data-dismiss="modal">删除</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 				</div>
 			</div>
@@ -391,9 +389,9 @@
 						"<tr><th>" + key + "</th><td>" + dict["ori"][key] + "</td></tr>";
 						
 						var str = "<div class=\"input-group\">" + 
-						"<input class=\"res-item\" type=\"text\" key=\"" + key + "\" value=\"" + dict["ori"][key] + "\" class=\"form-control\" aria-describedby=\"basic-addon1\" >"
+						"<input class=\"res-item\" type=\"text\" key=\"" + key + "\" value=\"" + dict["after"][key] + "\" class=\"form-control\" aria-describedby=\"basic-addon1\" >"
 						 + "</div>";
-						if (opt != "add" && (opt == "delete" || (key == "工号" || key == "学号" || key == "课程号")))
+						if (key == "工号" || key == "学号" || key == "课程号" || key == "c_name" || key == "c_id" || key == "s_id")
 							 str = dict["after"][key];
 						table_r.innerHTML = table_r.innerHTML + 
 						"<tr><th>" + key + "</th><td class=\"res-item\" key=\'" + key + "\'>" +
@@ -447,16 +445,11 @@
 						};
 					else
 						_ = {
-							
+							"s_id": res["姓名"],
+							"c_id": res["课程号"]
 						};
 					stor.put(target, opt, _, null);
 				}
-			
-			model.getElementsByClassName("del-single-btn")[0].onclick = function() {
-				stor.delItem(target, dict["ori"]);
-				location.reload();
-			}
-			return model;
 		}
 		function stud_info(obj, opt, dict) { //stud模态框
 			if(!dict) //没有dict说明是点击“详情”执行该函数
@@ -541,10 +534,15 @@
 				 * </tr>
 				 */
 				function str(jsonObj, opt) {
+					var keyMap = {
+								"add":"添加",
+								"update":"更新",
+								"delete":"删除"
+							}
 					var jsonStr = JSON.stringify(jsonObj);
 					var _ =  "<tr data=\'" + jsonStr + "\' opt=\"" + opt + "\">" +
 					"<td><input type=\"checkbox\" class=\"sel-checkbox\"/></td>" + 
-					"<td>" + opt + "</td>" + 
+					"<td>" + keyMap[opt] + "</td>" + 
 					"<td>" + jsonObj["ori"]["s_id"] + "</td><td>" + jsonObj["ori"]["s_name"] + "</td>" + 
 					"<td><a onclick=\"stud_info(this,\'" + opt + "\')\" data-toggle=\"modal\" data-target=\"#" + opt + "-model\">详情</a></td></tr>";	
 					return _;
@@ -623,10 +621,15 @@
 				 * </tr>
 				 */
 				function str(jsonObj, opt) {
+					 var keyMap = {
+								"add":"添加",
+								"update":"更新",
+								"delete":"删除"
+							}
 					var jsonStr = JSON.stringify(jsonObj);
 					var _ =  "<tr data=\'" + jsonStr + "\' opt=\"" + opt + "\">" + 
 						"<td><input type=\"checkbox\" class=\"sel-checkbox\"/></td>" + 
-						"<td>" + opt + "</td>" + 
+						"<td>" + keyMap[opt] + "</td>" + 
 						"<td>" + jsonObj["ori"]["t_id"] + "</td><td>" + jsonObj["ori"]["t_name"] + "</td>" + 
 						"<td><a onclick=\"teac_info(this,\'" + opt + "\')\" data-toggle=\"modal\" data-target=\"#" + opt + "-model\">详情</a></td></tr>";	
 					return _;
@@ -704,10 +707,15 @@
 				 * </tr>
 				 */
 				 function str(jsonObj, opt) {
+					var keyMap = {
+						"add":"添加",
+						"update":"更新",
+						"delete":"删除"
+					}
 					var jsonStr = JSON.stringify(jsonObj);
 					var _ =  "<tr data=\'" + jsonStr + "\' opt=\"" + opt + "\">" + 
 						"<td><input type=\"checkbox\" class=\"sel-checkbox\"/></td>" + 
-						"<td>" + opt + "</td>" + 
+						"<td>" + keyMap[opt] + "</td>" + 
 						"<td>" + jsonObj["ori"]["c_id"] + "</td><td>" + jsonObj["ori"]["c_name"] + "</td>" + 
 						"<td><a onclick=\"cour_info(this,\'" + opt + "\')\" data-toggle=\"modal\" data-target=\"#" + opt + "-model\">详情</a></td></tr>";	
 					return _;
@@ -784,10 +792,15 @@
 				 * </tr>
 				 */
 				 function str(jsonObj, opt) {
+					 var keyMap = {
+								"add":"添加",
+								"update":"更新",
+								"delete":"删除"
+							}
 					var jsonStr = JSON.stringify(jsonObj);
 					var _ = "<tr data=\'" + jsonStr + "\' opt=\"" + opt + "\">" + 
 						"<td><input type=\"checkbox\" class=\"sel-checkbox\"/></td>" + 
-						"<td>" + opt + "</td>" + 
+						"<td>" + keyMap(opt) + "</td>" + 
 						"<td>" + jsonObj["ori"]["s_id"] + "</td><td>" + jsonObj["ori"]["s_name"] + "</td>" + 
 						"<td>" + jsonObj["ori"]["c_id"] + "</td><td>" + jsonObj["ori"]["c_name"] + "</td>" + 
 						"<td><a onclick=\"selC_info(this,\'" + opt + "\')\" data-toggle=\"modal\" data-target=\"#" + opt + "-model\">详情</a></td></tr>";	
@@ -915,7 +928,8 @@
     			"data": {"data":JSON.stringify(data)},
     			"dataType":"json",
     			"success": function(response, status, xhr) {
-    				if (response["stauts"] == "success") {
+    				console.log(JSON.stringify(response));
+    				if (response["status"] == "success") {
 	    				alert("提交成功");
 	    				location.href="${pageContext.request.contextPath }/admin/admin.jsp";
     				}
