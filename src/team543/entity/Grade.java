@@ -4,17 +4,17 @@ import team543.dao.ClassDao;
 
 public class Grade {
     ClassDao classDao = new ClassDao();
-	//学锟斤拷id
+	//ѧ��id
 	private String s_id;
-	//锟轿筹拷id
+	//�γ�id
 	private String c_id;
-	//平时锟缴硷拷
+	//ƽʱ�ɼ�
 	private String g_OrdTimGra;
-	//锟皆撅拷杉锟�
+	//�Ծ�ɼ�
 	private String g_ExaPopGra;
-	//锟缴硷拷锟斤拷锟斤拷
+	//�ɼ�����
 	private String g_evaluate;
-	//锟斤拷锟秸成硷拷
+	//���ճɼ�
 	private String totalMark;
 	
 	public String getS_id() {
@@ -67,11 +67,14 @@ public class Grade {
 		this.g_OrdTimGra = g_OrdTimGra;
 		this.g_ExaPopGra = g_ExaPopGra;
 		this.g_evaluate = g_evaluate;
-		double m = (double) Integer.valueOf(g_OrdTimGra).intValue();
-		double n =  (double)Integer.valueOf(g_ExaPopGra).intValue();
-		double p = (double) (Integer.valueOf(new ClassDao().getClassById("01").getC_percentage()).intValue()*0.01);
-		this.totalMark = String.valueOf(m*p+n*(1-p));
-		//this.totalMark = String.valueOf(Integer.valueOf(g_ExaPopGra).intValue()*(Integer.valueOf(g_OrdTimGra).intValue()*Integer.valueOf(classDao.getClassById(s_id).getC_percentage()).intValue()*0.01));
+		if (null != g_OrdTimGra||null !=g_ExaPopGra) {
+			double m = (double) Integer.valueOf(g_OrdTimGra).intValue();
+			double n = (double) Integer.valueOf(g_ExaPopGra).intValue();
+			double p = (double) (Integer.valueOf(new ClassDao().getClassById(c_id).getC_percentage()).intValue()
+					* 0.01);
+			this.totalMark = String.valueOf(m * p + n * (1 - p));
+			//this.totalMark = String.valueOf(Integer.valueOf(g_ExaPopGra).intValue()*(Integer.valueOf(g_OrdTimGra).intValue()*Integer.valueOf(classDao.getClassById(s_id).getC_percentage()).intValue()*0.01));
+		}
 	}
 	public Grade() {
 		

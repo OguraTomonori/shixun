@@ -85,7 +85,7 @@ public class GradeDao {
     public void deleteGrade(Grade grade) throws ReflectiveOperationException, SQLException, MyException {
     	  Connection connection = DBUtils.getConnection ();
 
-          if(!(team543.utils.Basic.isNumeric(grade.getG_OrdTimGra())&&team543.utils.Basic.isNumeric(grade.getG_ExaPopGra())&&team543.utils.Basic.isNumeric(grade.getS_id ())&& team543.utils.Basic.isNumeric(grade.getC_id ()))){
+          if(!(team543.utils.Basic.isNumeric(grade.getS_id ())&& team543.utils.Basic.isNumeric(grade.getC_id ()))){
           	throw new MyException();
           }
           String sql = "DELETE FROM t_grade WHERE  s_id=? and c_id=?";

@@ -20,53 +20,53 @@ import team543.utils.DBUtils;
  */
 public class SearchDao {
 	
-	public ArrayList<Student> searchStudent(int num , String str) throws ReflectiveOperationException, SQLException {
-		
-		str = "%"+str+"%";
-		String sql = null;
-		
-		
-		switch (num) {
-		case 1: sql = "SELECT * FROM t_student WHERE s_id like '"+str+"';";
-			break;
-		case 2: sql = "SELECT * FROM t_student WHERE s_name like '"+str+"';";
-			break;
-		case 3: sql = "SELECT * FROM t_student WHERE s_dp like '"+str+"';";
-			break;
-		case 4: sql = "SELECT * FROM t_student WHERE s_class like '"+str+"';";
-
-		default:
-			break;
-		}
-		
-        //��ȡ���ݿ�����
-        Connection connection = DBUtils.getConnection();
-        //����Statement
-        Statement statement = connection.createStatement();
-        //ִ��sql���
-        ResultSet rs = statement.executeQuery(sql);
-        //��������ѧ�����б�
-        ArrayList<Student> arrayList = new ArrayList<Student>();
-        
-        while(rs.next()) {
-        	Student student = new Student();
-        	//��ֵ
-            student.setS_id (rs.getString ("s_id"));
-            student.setS_name (rs.getString("s_name"));
-            student.setS_sex (rs.getString("s_sex"));
-            student.setS_dp (rs.getString ("s_dp"));
-            student.setS_major (rs.getString("s_major"));
-            student.setS_class (rs.getString  ("s_class"));
-            student.setS_state (rs.getString("s_state"));
-            student.setEntertime (rs.getDate("s_entertime"));
-            
-            arrayList.add(student);
-        	
-        }
-        
-		return arrayList;
-	}
-	
+//	public ArrayList<Student> searchStudent(int num , String str) throws ReflectiveOperationException, SQLException {
+//		
+//		str = "%"+str+"%";
+//		String sql = null;
+//		
+//		
+//		switch (num) {
+//		case 1: sql = "SELECT * FROM t_student WHERE s_id like '"+str+"';";
+//			break;
+//		case 2: sql = "SELECT * FROM t_student WHERE s_name like '"+str+"';";
+//			break;
+//		case 3: sql = "SELECT * FROM t_student WHERE s_dp like '"+str+"';";
+//			break;
+//		case 4: sql = "SELECT * FROM t_student WHERE s_class like '"+str+"';";
+//
+//		default:
+//			break;
+//		}
+//		
+//        //��ȡ���ݿ�����
+//        Connection connection = DBUtils.getConnection();
+//        //����Statement
+//        Statement statement = connection.createStatement();
+//        //ִ��sql���
+//        ResultSet rs = statement.executeQuery(sql);
+//        //��������ѧ�����б�
+//        ArrayList<Student> arrayList = new ArrayList<Student>();
+//        
+//        while(rs.next()) {
+//        	Student student = new Student();
+//        	//��ֵ
+//            student.setS_id (rs.getString ("s_id"));
+//            student.setS_name (rs.getString("s_name"));
+//            student.setS_sex (rs.getString("s_sex"));
+//            student.setS_dp (rs.getString ("s_dp"));
+//            student.setS_major (rs.getString("s_major"));
+//            student.setS_class (rs.getString  ("s_class"));
+//            student.setS_state (rs.getString("s_state"));
+//            student.setEntertime (rs.getDate("s_entertime"));
+//            
+//            arrayList.add(student);
+//        	
+//        }
+//        
+//		return arrayList;
+//	}
+//	
 	/**
 	 * �����ֿγ����Ʋ�ѯ�γ���Ϣ
 	 * @param className
@@ -74,37 +74,37 @@ public class SearchDao {
 	 * @throws ReflectiveOperationException
 	 * @throws SQLException
 	 */
-	public ArrayList<team543.entity.Class> searchClassByClassName(String className) throws ReflectiveOperationException, SQLException{
-		
-		className = "%"+className+"%";
-		
-		String sql =  "SELECT * FROM t_class WHERE c_name like '"+className+"';";
-		
-        //��ȡ���ݿ�����
-        Connection connection = DBUtils.getConnection();	
-        //����Statement
-        Statement statement = connection.createStatement();
-        //ִ��sql���
-        ResultSet rs = statement.executeQuery(sql);
-        //��������ѧ�����б�
-        
-        ArrayList<team543.entity.Class> cls = new ArrayList<team543.entity.Class>();
-        
-        while(rs.next()) {
-        	team543.entity.Class c = new team543.entity.Class();
-        	c.setC_id(rs.getString("c_id"));
-			c.setC_name(rs.getString("c_name"));
-			c.setC_classstate(rs.getString("c_classState"));
-			c.setC_score(rs.getString("c_score"));
-			c.setC_opendp(rs.getString("c_openDP"));
-			c.setC_percentage(rs.getInt("c_percentage"));
-			
-			cls.add(c);
-        }
-		
-		return cls;
-	}
-	
+//	public ArrayList<team543.entity.Class> searchClassByClassName(String className) throws ReflectiveOperationException, SQLException{
+//		
+//		className = "%"+className+"%";
+//		
+//		String sql =  "SELECT * FROM t_class WHERE c_name like '"+className+"';";
+//		
+//        //��ȡ���ݿ�����
+//        Connection connection = DBUtils.getConnection();	
+//        //����Statement
+//        Statement statement = connection.createStatement();
+//        //ִ��sql���
+//        ResultSet rs = statement.executeQuery(sql);
+//        //��������ѧ�����б�
+//        
+//        ArrayList<team543.entity.Class> cls = new ArrayList<team543.entity.Class>();
+//        
+//        while(rs.next()) {
+//        	team543.entity.Class c = new team543.entity.Class();
+//        	c.setC_id(rs.getString("c_id"));
+//			c.setC_name(rs.getString("c_name"));
+//			c.setC_classstate(rs.getString("c_classState"));
+//			c.setC_score(rs.getString("c_score"));
+//			c.setC_opendp(rs.getString("c_openDP"));
+//			c.setC_percentage(rs.getInt("c_percentage"));
+//			
+//			cls.add(c);
+//        }
+//		
+//		return cls;
+//	}
+//	
 	/**
 	 * ������������ѯ������ȫΪ��
 	 * @param student

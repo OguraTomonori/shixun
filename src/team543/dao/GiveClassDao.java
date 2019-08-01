@@ -24,14 +24,14 @@ public class GiveClassDao {
 		 * @throws SQLException
 		 * @throws ReflectiveOperationException
 		 */
-	public void deleteGiveClass(String c_id) throws SQLException, ReflectiveOperationException {
-		String sql = "DELETE FROM t_giveclass WHERE c_id=?";
-		Connection connection = team543.utils.DBUtils.getConnection();
-		PreparedStatement pst = connection.prepareStatement(sql);
-		pst.setString(1, c_id);
-		pst.executeUpdate();
-		DBUtils.closeConn();
-	}
+//	public void deleteGiveClass(String c_id) throws SQLException, ReflectiveOperationException {
+//		String sql = "DELETE FROM t_giveclass WHERE c_id=?";
+//		Connection connection = team543.utils.DBUtils.getConnection();
+//		PreparedStatement pst = connection.prepareStatement(sql);
+//		pst.setString(1, c_id);
+//		pst.executeUpdate();
+//		DBUtils.closeConn();
+//	}
 	
 	/**
 	 * @param giveclass
