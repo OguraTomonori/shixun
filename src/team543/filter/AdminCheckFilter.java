@@ -9,6 +9,9 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import team543.service.UserCheckAction;
 
 /**
  * Servlet Filter implementation class AdminCheckFilter
@@ -38,7 +41,7 @@ public class AdminCheckFilter implements Filter {
 
 		// pass the request along the filter chain
 		HttpServletRequest req = (HttpServletRequest) request;
-		HttpServletRequest res = (HttpServletRequest) response;
+		HttpServletResponse res = (HttpServletResponse) response;
 		Cookie[] cookies = req.getCookies();
 		String userID = null;
 		String sessionID = null;
