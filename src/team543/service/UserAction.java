@@ -17,8 +17,14 @@ public class UserAction {
 	 * @throws SQLException 
 	 * @throws ReflectiveOperationException 
 	 */
-	public void updateUser(User user) throws ReflectiveOperationException, SQLException {
+	public String updateUser(User user) {
 		UserDao userDao = new UserDao();
-		userDao.updataUserInfo(user);
+		String b = "success";
+		try {
+			userDao.updataUserInfo(user);
+		} catch (ReflectiveOperationException | SQLException e) {
+			b = "failed";
+		}
+		return b ;
 	}
 }
