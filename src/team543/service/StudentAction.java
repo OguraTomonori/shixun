@@ -15,10 +15,6 @@ import team543.entity.StudentGrade;
 import team543.entity.Teacher;
 
 public class StudentAction {
-	StudentDao studentDao = new StudentDao();
-	StudentGradeDao studentGradeDao = new StudentGradeDao();
-	ElectiveClassDao electiveClassDao = new ElectiveClassDao();
-	ClassDao  classDao =new ClassDao();
 	/**
 	 * ��ȡѧ����Ϣ
 	 * @return
@@ -28,7 +24,7 @@ public class StudentAction {
 	public Student getStudentInfo(String Studentid) throws ReflectiveOperationException, SQLException {
 		//�ж�id�Ƿ�Ϊ����
 		if(team543.utils.Basic.isNumeric(Studentid)) {
-			return studentDao.getStudentById(Studentid);
+			return  new StudentDao().getStudentById(Studentid);
 		}else {
 			return null;
 		}
@@ -75,7 +71,7 @@ public class StudentAction {
 	 * @throws ReflectiveOperationException 
 	 */
 	public ArrayList<StudentGrade> getGrade(String studentId) throws ReflectiveOperationException, SQLException{
-		return studentGradeDao.getStudentGrade(studentId);
+		return new StudentGradeDao().getStudentGrade(studentId);
 	}
 	
 	/**
@@ -86,7 +82,7 @@ public class StudentAction {
 	 * @throws SQLException
 	 */
 	public void studentElectiveClass(String studentId , String classId) throws ReflectiveOperationException, SQLException {
-		electiveClassDao.addElectiveClass(studentId, classId);
+		new ElectiveClassDao().addElectiveClass(studentId, classId);
 	}
 	
 	/**
@@ -96,7 +92,7 @@ public class StudentAction {
 	 * @throws ReflectiveOperationException
 	 */
 	public ArrayList<Class> getAllClass() throws SQLException, ReflectiveOperationException {
-		return classDao.getAllClass();
+		return new ClassDao().getAllClass();
 	}
 	
 	/**

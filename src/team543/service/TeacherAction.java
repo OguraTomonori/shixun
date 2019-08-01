@@ -17,6 +17,7 @@ import team543.dao.StudentDao;
 import team543.dao.StudentGradeDao;
 import team543.dao.StudentTeacherDao;
 import team543.dao.TeacherDao;
+import team543.entity.Class;
 import team543.entity.ElectiveClass;
 import team543.entity.GiveClass;
 import team543.entity.Grade;
@@ -28,10 +29,6 @@ import team543.utils.MyException;
 
 public class TeacherAction {
 	
-	SearchDao searchDao = new SearchDao();
-	StudentGradeDao studentGradeDao = new StudentGradeDao();
-	StudentTeacherDao studentTeacherDao = new StudentTeacherDao();
-	TeacherDao teacherDao = new TeacherDao();
 	
 	/**
 	 * ��ȡ��ʦ��Ϣ
@@ -41,7 +38,7 @@ public class TeacherAction {
 	 * @throws ReflectiveOperationException 
 	 */
 	public Teacher getTeacherInfo(String teacherId) throws ReflectiveOperationException, SQLException {
-		return teacherDao.getTeacherById(teacherId);
+		return new TeacherDao().getTeacherById(teacherId);
 	}
 	
 	/**
@@ -51,7 +48,7 @@ public class TeacherAction {
 	 * @throws ReflectiveOperationException 
 	 */
 	public ArrayList<StudentTeacher> getTeachStudentInfo(String teacherId) throws ReflectiveOperationException, SQLException {
-		return studentTeacherDao.getStudentByTeacherId(teacherId);
+		return new StudentTeacherDao().getStudentByTeacherId(teacherId);
 	}
 	
 	
@@ -104,7 +101,7 @@ public class TeacherAction {
 	 * @throws SQLException 
 	 */
 	public ArrayList<StudentGrade> getStudentGrade(String teacherId) throws SQLException, ReflectiveOperationException {
-		return studentGradeDao.getStudentGradeByTeacher(teacherId);
+		return new StudentGradeDao().getStudentGradeByTeacher(teacherId);
 		
 	}
 	
@@ -120,17 +117,6 @@ public class TeacherAction {
 		giveClassDao.addGiveClass(giveClass);
 	}
 	
-	/**
-	 * �޸�ѧ���ɼ���Ϣ
-	 * @throws SQLException 
-	 * @throws ReflectiveOperationException 
-	 * @throws MyException 
-	 * 
-	 */
-	public void UpdataStudentGrade(ArrayList<Grade> grades) throws ReflectiveOperationException, SQLException, MyException {
-		GradeDao gradeDao = new GradeDao();
-		gradeDao.updateGrade(grades);
-	}
 	
 	/**
 	 * 
@@ -142,7 +128,7 @@ public class TeacherAction {
 	 * @throws SQLException
 	 */
 	public ArrayList<Student> searchStudent(Student student,Date firstDate,Date secondDate) throws ReflectiveOperationException, SQLException{
-		return searchDao.searchStudent(student, firstDate, secondDate);
+		return new SearchDao().searchStudent(student, firstDate, secondDate);
 	}
 	
 	/**
@@ -168,5 +154,66 @@ public class TeacherAction {
 		String fileName = studentName;//+String.valueOf(System.currentTimeMillis());
 		new PutExcelDao().putStudent(students, fileName);
 		return "excel/Student/"+ fileName+".xls";
+	}
+	
+	/**
+	 * 添加成绩
+	 * @param grade
+	 * @return
+	 * @throws MyException
+	 */
+	public ArrayList<Integer> addGrade(ArrayList<Grade> grade) throws MyException{
+		ArrayList<Integer> num =new ArrayList<Integer>();
+		Integer m = 0 ; 
+		for (Grade c : grade) {
+			try {
+				new GradeDao().addGrade(c);
+				m++;
+			} catch (SQLException | ReflectiveOperationException e) {
+				num.add(m);
+				m++;
+			} 
+		}
+		return num;
+	}
+	
+	/**
+	 * @param grade
+	 * @return
+	 * @throws MyException
+	 */
+	public ArrayList<Integer> updateGrade(ArrayList<Grade> grade) throws MyException{
+		ArrayList<Integer> num =new ArrayList<Integer>();
+		Integer m = 0 ; 
+		for (Grade c : grade) {
+			try {
+				new GradeDao().updateGrade(c);
+				m++;
+			} catch (SQLException | ReflectiveOperationException e) {
+				num.add(m);
+				m++;
+			} 
+		}
+		return num;
+	}
+	
+	/**
+	 * @param grade
+	 * @return
+	 * @throws MyException
+	 */
+	public ArrayList<Integer> deleteGrade(ArrayList<Grade> grade) throws MyException{
+		ArrayList<Integer> num =new ArrayList<Integer>();
+		Integer m = 0 ; 
+		for (Grade c : grade) {
+			try {
+				new GradeDao().deleteGrade(c);
+				m++;
+			} catch (SQLException | ReflectiveOperationException e) {
+				num.add(m);
+				m++;
+			} 
+		}
+		return num;
 	}
 }

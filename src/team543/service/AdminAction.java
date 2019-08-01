@@ -26,13 +26,10 @@ import team543.entity.Class;
 import team543.utils.MyException;
 
 public class AdminAction {
-	StudentDao studentDao = new StudentDao();
-	ClassDao classDao = new ClassDao();
-	StudentDao student = new StudentDao();
-	StudentGradeDao studentGradeDao = new StudentGradeDao();
-	ElectiveClassDao electiveClassDao = new ElectiveClassDao();
-	TeacherDao teacherDao = new TeacherDao();
-	SearchDao searchDao = new SearchDao();
+
+
+	
+	
 	/**
 	 * ��ȡѧ����Ϣ
 	 * @throws SQLException 
@@ -40,7 +37,7 @@ public class AdminAction {
 	 * 
 	 */
 	public ArrayList<Student> getStudent() throws ReflectiveOperationException, SQLException {
-		return studentDao.getStudents();
+		return new StudentDao().getStudents();
 	}
 	
 	/**
@@ -50,7 +47,7 @@ public class AdminAction {
 	 * @throws ReflectiveOperationException 
 	 */
 	public ArrayList<Teacher> getTeacher() throws ReflectiveOperationException, SQLException {
-		return teacherDao.getTeachers();
+		return new TeacherDao().getTeachers();
 	}
 	
 	/**
@@ -60,7 +57,7 @@ public class AdminAction {
 	 * @throws SQLException 
 	 */
 	public ArrayList<team543.entity.Class> getClassInfo() throws SQLException, ReflectiveOperationException{
-		return classDao.getAllClass();
+		return new ClassDao().getAllClass();
 	}
 	
 	/**
@@ -75,7 +72,7 @@ public class AdminAction {
 	 * @throws ReflectiveOperationException 
 	 */
 	public ArrayList<StudentGrade> getGrade(int sort , int sequence) throws ReflectiveOperationException, SQLException{		
-		return studentGradeDao.getGrades(sort,sequence);
+		return  new StudentGradeDao().getGrades(sort,sequence);
 	}
 	
 	public ArrayList<Integer> updateClass(ArrayList<Class> cl) throws MyException{
@@ -83,7 +80,7 @@ public class AdminAction {
 		Integer m = 0 ; 
 		for (Class c : cl) {
 			try {
-				classDao.updateClass(c);
+				new ClassDao().updateClass(c);
 				m++;
 			} catch (SQLException | ReflectiveOperationException e) {
 				num.add(m);
@@ -106,7 +103,7 @@ public class AdminAction {
 		Integer m = 0 ; 
 		for ( Student s : students) {
 			try {
-				student.updateStudent(s);
+				 new StudentDao().updateStudent(s);
 				m++;
 			} catch (SQLException | ReflectiveOperationException | ParseException e) {
 				num.add(m);
@@ -127,7 +124,7 @@ public class AdminAction {
 		Integer m = 0;
 		for (Teacher teacher:teachers) {
 			try {
-				teacherDao.updateTeacher(teacher);
+				new TeacherDao().updateTeacher(teacher);
 				m++;
 			} catch (Exception e) {
 				num.add(m);
@@ -147,7 +144,7 @@ public class AdminAction {
 		ArrayList<Integer> num =new ArrayList<Integer>();
 		Integer m = 0 ; 
 		try {
-			electiveClassDao.updateElectiveClass(id,StudentId, ClassId);
+			new ElectiveClassDao().updateElectiveClass(id,StudentId, ClassId);
 			m++;
 		} catch (Exception e) {
 			num.add(m);
@@ -167,7 +164,7 @@ public class AdminAction {
 	 * @throws SQLException
 	 */
 	public ArrayList<Student> srarchStudent(Student student,Date firstDate,Date secondDate) throws ReflectiveOperationException, SQLException{
-		return searchDao.searchStudent(student, firstDate, secondDate);
+		return new SearchDao().searchStudent(student, firstDate, secondDate);
 	}
 	
 	/**
@@ -180,7 +177,7 @@ public class AdminAction {
 	 * @throws SQLException 
 	 */
 	public ArrayList<Teacher> searchTeacher(Teacher teacher,Date firstDate,Date secondDate) throws SQLException, ReflectiveOperationException{
-		return searchDao.searchTeacher(teacher, firstDate, secondDate);
+		return new SearchDao().searchTeacher(teacher, firstDate, secondDate);
 	}
 	
 	/**
@@ -191,7 +188,7 @@ public class AdminAction {
 	 * @throws SQLException
 	 */
 	public ArrayList<team543.entity.Class> searchClass(team543.entity.Class cl) throws ReflectiveOperationException, SQLException{
-		return searchDao.searchClass(cl);
+		return new SearchDao().searchClass(cl);
 	}
 	
 	/**
@@ -202,7 +199,7 @@ public class AdminAction {
 	 */
 	public Teacher getTeacherByClassId(String ClassId) throws ReflectiveOperationException, SQLException {
 		String teacherId = new GiveClassDao().getGiveClassByTeacherId(ClassId).getT_id();
-		return teacherDao.getTeacherById(teacherId);
+		return new TeacherDao().getTeacherById(teacherId);
 	}
 	
 	/**
@@ -317,7 +314,7 @@ public class AdminAction {
 		Integer n = 0;
 		for(Student studentId:students)
 			try {
-				studentDao.deleteStudent(studentId.getS_id());
+				new StudentDao().deleteStudent(studentId.getS_id());
 				n++;
 			} catch (SQLException | ReflectiveOperationException e) {
 				// TODO Auto-generated catch block
@@ -337,7 +334,7 @@ public class AdminAction {
 		Integer n = 0;
 		for(String e:e_Id)
 			try {
-				electiveClassDao.deleteElectiveClass(e);
+				new ElectiveClassDao().deleteElectiveClass(e);
 				n++;
 			} catch (SQLException | ReflectiveOperationException e1) {
 				// TODO Auto-generated catch block
@@ -358,7 +355,21 @@ public class AdminAction {
 		Integer n = 0;
 		for(Teacher t:teachers)
 			try {
-				teacherDao.deleteTeacher(Integer.valueOf(t.getT_id()));
+				new TeacherDao().deleteTeacher(Integer.valueOf(t.getT_id()));
+				n++;
+			} catch (SQLException | ReflectiveOperationException e) {
+				num.add(n);
+				n++;
+			}
+		return num;
+	}
+	
+	public ArrayList<Integer> updateGiveClass(ArrayList<GiveClass> giveClass) throws MyException{
+		ArrayList<Integer> num =new ArrayList<Integer>();
+		Integer n = 0;
+		for(GiveClass gc:giveClass)
+			try {
+				new GiveClassDao().updateGiveClass(gc);;
 				n++;
 			} catch (SQLException | ReflectiveOperationException e) {
 				num.add(n);
