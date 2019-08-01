@@ -70,7 +70,7 @@ public class UserDao {
 		pst.setString(1, user.getUser_name());
 		pst.setString(2, user.getUser_password());
 		pst.setString(3, user.getUser_root());
-		pst.setString(4, user.getUser_root());
+		pst.setString(4, user.getUser_id());
 		//�ύ
 		pst.executeUpdate();
 		//�ر�����

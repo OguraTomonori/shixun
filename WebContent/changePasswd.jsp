@@ -19,7 +19,7 @@
 					<th>旧密码</th>
 					<td>
 						<div class="input-group">
-						  <input id="old" type="text" class="item" aria-label="">
+						  <input id="old" type="password" class="item" aria-label="">
 						</div>
 					</td>
 				</tr>
@@ -28,7 +28,7 @@
 					<!--  -->
 					<td>
 						<div class="input-group">
-						  <input id="new" type="text" class="item" aria-label="">
+						  <input id="new" type="password" class="item" aria-label="">
 						</div>
 					</td>
 				</tr>
@@ -37,7 +37,7 @@
 					<!--  -->
 					<td>
 						<div class="input-group">
-						  <input id="repeat" type="text" class="item" aria-label="">
+						  <input id="repeat" type="password" class="item" aria-label="">
 						</div>
 					</td>
 				</tr>
