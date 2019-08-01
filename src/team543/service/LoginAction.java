@@ -4,41 +4,42 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
  /**
- * 	µÇÂ½º¯Êý 
- *	½ÓÊÕÊäÈëµÄuserId password
- *  ·µ»Ølist
- *  µÇÂ½³É¹¦·µ»Ø  0£¬ ÓÃ»§È¨ÏÞ £¬ md5¼ÓÃÜºóµÄÓÃ»§id
- *  µÇÂ½Ê§°Ü·µ»Ø 1£ºÓÃ»§ÃÜÂë´íÎó
- *  		 2£ºÃ»ÓÐ´ËÓÃ»§
+ * 	ï¿½ï¿½Â½ï¿½ï¿½ï¿½ï¿½ 
+ *	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½userId password
+ *  ï¿½ï¿½ï¿½ï¿½list
+ *  ï¿½ï¿½Â½ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½  0ï¿½ï¿½ ï¿½Ã»ï¿½È¨ï¿½ï¿½ ï¿½ï¿½ md5ï¿½ï¿½ï¿½Üºï¿½ï¿½ï¿½Ã»ï¿½id
+ *  ï¿½ï¿½Â½Ê§ï¿½Ü·ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ *  		 2ï¿½ï¿½Ã»ï¿½Ð´ï¿½ï¿½Ã»ï¿½
  */
 public class LoginAction {
 
 	
-	public static List login(String userId, String password) {
-		List list = new LinkedList<>();
+	public static ArrayList login(String userId, String password) {
+		ArrayList<Object> list = new ArrayList<Object>();
 		try {
 			Connection con = team543.utils.DBUtils.getConnection();
 			Statement createStatement = con.createStatement();
 			String sql = "select user_password,user_root from t_user where user_id ='"+userId+"';";
 			
-			//Ö´ÐÐsqlÓï¾ä
+			//Ö´ï¿½ï¿½sqlï¿½ï¿½ï¿½
 			ResultSet re = createStatement.executeQuery(sql);
-			//ÅÐ¶Ï½á¹ûÖÐÊÇ·ñÓÐÖµ
+			//ï¿½Ð¶Ï½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Öµ
 			if(re.next()==true) {
-				//ÅÐ¶ÏÃÜÂëÊÇ·ñÊäÈëÕýÈ·
+				//ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·
 				if(re.getString("user_password").equals(password)) {
-					//ÃÜÂëÕýÈ·
+					//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·
 					list.add(0);      
 					list.add(re.getString("user_root"));
-					list.add(team543.utils.MyMD5Util.encrypt(userId));
+					list.add(team543.utils.MyMD5Util.encrypt(userId+re.getString("user_root")));
 					list.add(re.getString("user_name"));
 				} else list.add(1);
 			} else list.add(2);
-			//¹Ø±ÕÁ¬½Ó
+			//ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½
 			team543.utils.DBUtils.closeConn();
 		} catch (ReflectiveOperationException | SQLException e) {
 			e.printStackTrace();
