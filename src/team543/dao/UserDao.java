@@ -17,26 +17,26 @@ public class UserDao {
 	 * @throws SQLException 
 	 * @throws ReflectiveOperationException 
 	 */
-	public ArrayList<User> getAllUser() throws ReflectiveOperationException, SQLException{
-		String sql = "SELECT * FROM t_user ;";
-		//��ȡ����
-		Connection connection = team543.utils.DBUtils.getConnection();
-		Statement statement = connection.createStatement();
-		//ִ��sql���
-		ResultSet rs = statement.executeQuery(sql);
-		ArrayList<User> users = new ArrayList<User>();
-		//����õ����������б�
-		while(rs.next()) {
-			User user = new User();
-			user.setUser_id(rs.getString("user_id"));
-			user.setUser_name(rs.getString("user_name"));
-			user.setUser_password(rs.getString("user_password"));
-			user.setUser_root(rs.getString("user_root"));
-			users.add(user);
-		}
-		DBUtils.closeConn();
-		return users;
-	}
+//	public ArrayList<User> getAllUser() throws ReflectiveOperationException, SQLException{
+//		String sql = "SELECT * FROM t_user ;";
+//		//��ȡ����
+//		Connection connection = team543.utils.DBUtils.getConnection();
+//		Statement statement = connection.createStatement();
+//		//ִ��sql���
+//		ResultSet rs = statement.executeQuery(sql);
+//		ArrayList<User> users = new ArrayList<User>();
+//		//����õ����������б�
+//		while(rs.next()) {
+//			User user = new User();
+//			user.setUser_id(rs.getString("user_id"));
+//			user.setUser_name(rs.getString("user_name"));
+//			user.setUser_password(rs.getString("user_password"));
+//			user.setUser_root(rs.getString("user_root"));
+//			users.add(user);
+//		}
+//		DBUtils.closeConn();
+//		return users;
+//	}
 	
 	/**
 	 * @param userId
@@ -44,24 +44,24 @@ public class UserDao {
 	 * @throws SQLException
 	 * @throws ReflectiveOperationException
 	 */
-	public User getUserById(String userId) throws SQLException, ReflectiveOperationException {
-		String sql = "SELECT * FROM t_user WHERE user_id = '"+userId+"';";
-		Connection connection = team543.utils.DBUtils.getConnection();
-		Statement statement = connection.createStatement();
-		
-		ResultSet rs = statement.executeQuery(sql);
-		
-		User user = new User();
-		//�жϽ��
-		if (rs.next()) {
-			user.setUser_id(rs.getString("user_id"));
-			user.setUser_name(rs.getString("user_name"));
-			user.setUser_password(rs.getString("user_password"));
-			user.setUser_root(rs.getString("user_root"));
-		}
-		return user;
-	}
-	
+//	public User getUserById(String userId) throws SQLException, ReflectiveOperationException {
+//		String sql = "SELECT * FROM t_user WHERE user_id = '"+userId+"';";
+//		Connection connection = team543.utils.DBUtils.getConnection();
+//		Statement statement = connection.createStatement();
+//		
+//		ResultSet rs = statement.executeQuery(sql);
+//		
+//		User user = new User();
+//		//�жϽ��
+//		if (rs.next()) {
+//			user.setUser_id(rs.getString("user_id"));
+//			user.setUser_name(rs.getString("user_name"));
+//			user.setUser_password(rs.getString("user_password"));
+//			user.setUser_root(rs.getString("user_root"));
+//		}
+//		return user;
+//	}
+//	
 	public void updataUserInfo(User user) throws ReflectiveOperationException, SQLException {
 		String sql = "UPDATE t_user SET user_name = ? , user_password = ? , user_root=?  WHERE user_id=?";
 		Connection connection = team543.utils.DBUtils.getConnection();

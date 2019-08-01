@@ -3,21 +3,21 @@ package team543.entity;
 import java.util.Date;
 
 public class Student {
-	//学生id
+	//学锟斤拷id
 	private String s_id;
-	//学生姓名
+	//学锟斤拷锟斤拷锟斤拷
 	private String s_name;
-	//学生性别
+	//学锟斤拷锟皆憋拷
 	private String s_sex;
-	//学生系别
+	//学锟斤拷系锟斤拷
 	private String s_dp;
-	//学生专业
+	//学锟斤拷专业
 	private String s_major;
-	//学生班级
+	//学锟斤拷锟洁级
 	private String s_class;
-	//学生状态
+	//学锟斤拷状态
 	private String s_state;
-	//入学时间
+	//锟斤拷学时锟斤拷
 	private Date Entertime;
 	public String getS_id() {
 		return s_id;
@@ -62,7 +62,7 @@ public class Student {
 		this.s_state = s_state;
 	}
 	public String getEntertime() {
-		return team543.dao.SearchDao.timeFormat(Entertime);
+		return team543.utils.Basic.timeFormat(Entertime);
 	}
 	public void setEntertime(Date Entertime) {
 		this.Entertime = Entertime;

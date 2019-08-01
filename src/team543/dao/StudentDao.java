@@ -91,23 +91,28 @@ public class StudentDao {
      * @throws SQLException
      * @throws ReflectiveOperationException
      */
-    public  void addStudents(ArrayList<Student> s,Connection connection) throws SQLException, ReflectiveOperationException {
-        //sql���
-        for (Student student:s
-        ) {
-            String sql = "INSERT into  t_student (s_id, s_name, s_sex, s_dp, s_class, s_state, s_entertime) VALUES (?,?,?,?,?,?,now())";
-            //����prepareStatement
-            PreparedStatement pst = connection.prepareStatement (sql);
-            pst.setString (1, student.getS_id ());
-            pst.setString (2, student.getS_name ());
-            pst.setString (3, student.getS_sex ());
-            pst.setString (4, student.getS_dp ());
-            pst.setString (5, student.getS_class ());
-            pst.setString (6, student.getS_state ());
-//            pst.setString (7, student.getEntertime ());
-            pst.executeUpdate ();
-        }
-    }
+//    public  void addStudents(ArrayList<Student> s,Connection connection) throws SQLException, ReflectiveOperationException {
+//        //sql���
+//        for (Student student:s
+//        ) {
+//            String sql = "INSERT into  t_student (s_id, s_name, s_sex, s_dp, s_class, s_state, s_entertime) VALUES (?,?,?,?,?,?,now())";
+//            //����prepareStatement
+//            PreparedStatement pst = connection.prepareStatement (sql);
+//            pst.setString (1, student.getS_id ());
+//            pst.setString (2, student.getS_name ());
+//            pst.setString (3, student.getS_sex ());
+//            pst.setString (4, student.getS_dp ());
+//            pst.setString (5, student.getS_class ());
+//            pst.setString (6, student.getS_state ());
+////            pst.setString (7, student.getEntertime ());
+//            pst.executeUpdate ();
+//        }
+//    }
+    /**
+     * @param student
+     * @throws SQLException
+     * @throws ReflectiveOperationException
+     */
     public  void addStudent(Student student) throws SQLException, ReflectiveOperationException {
         String sql = "INSERT into  t_student (s_id, s_name, s_sex, s_dp, s_class, s_state, s_entertime) VALUES (?,?,?,?,?,?,?)";
         //����prepareStatement
@@ -183,14 +188,14 @@ public class StudentDao {
     /**
      * 修改
      */
-    public void updateStudent (ArrayList<Student> students) throws SQLException, ReflectiveOperationException, ParseException {
-
-        for (Student student:students
-             ) {
-        	updateStudent(student);
-        }
-
-        //sql���
-        DBUtils.closeConn ();
-    }
+//    public void updateStudent (ArrayList<Student> students) throws SQLException, ReflectiveOperationException, ParseException {
+//
+//        for (Student student:students
+//             ) {
+//        	updateStudent(student);
+//        }
+//
+//        //sql���
+//        DBUtils.closeConn ();
+//    }
 }

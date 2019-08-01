@@ -11,69 +11,69 @@ import team543.utils.DBUtils;
 
 public class TeacherStudentGradeDao {
 	/**
-	 * ²éÑ¯½ÌÊ¦ÊÚ¿Î³É¼¨
+	 * ï¿½ï¿½Ñ¯ï¿½ï¿½Ê¦ï¿½Ú¿Î³É¼ï¿½
 	 * @param teacherId
 	 * @return
 	 * @throws ReflectiveOperationException
 	 * @throws SQLException
 	 */
-	public ArrayList<TeacherStudentGrade> gradeByTaecherId(String teacherId)throws ReflectiveOperationException, SQLException{
-        //????????????
-        Connection connection = DBUtils.getConnection();
-        //????Statement
-        Statement statement = connection.createStatement();
-        String sql="SELECT * FROM v_grade_from_teacher WHERE t_id="+teacherId;
-        //???sql???
-        ResultSet rs = statement.executeQuery(sql);
-        ArrayList<TeacherStudentGrade> teacherStudentGrades = new ArrayList<>();
-        while(rs.next()) {
-            TeacherStudentGrade teacherStudentGrade = new TeacherStudentGrade ();
-            teacherStudentGrade.setTeacherId (rs.getString ("t_id"));
-            teacherStudentGrade.setTeacherName (rs.getString("t_name"));
-            teacherStudentGrade.setStudentId (rs.getString("s_id"));
-            teacherStudentGrade.setStudentName (rs.getString ("s_name"));
-            teacherStudentGrade.setClassId (rs.getString("c_id"));
-            teacherStudentGrade.setClassName (rs.getString  ("c_name"));
-            teacherStudentGrade.setOrdTimeGra (rs.getString("g_OrdTimeGra"));
-            teacherStudentGrade.setExaPapGra (rs.getString ("g_ExaPapGra"));
-            teacherStudentGrade.setEvaluate (rs.getString("g_evaluate"));
-            teacherStudentGrades.add(teacherStudentGrade);
-        }
-        DBUtils.closeConn();
-        return teacherStudentGrades;
-
-    }
+//	public ArrayList<TeacherStudentGrade> gradeByTaecherId(String teacherId)throws ReflectiveOperationException, SQLException{
+//        //????????????
+//        Connection connection = DBUtils.getConnection();
+//        //????Statement
+//        Statement statement = connection.createStatement();
+//        String sql="SELECT * FROM v_grade_from_teacher WHERE t_id="+teacherId;
+//        //???sql???
+//        ResultSet rs = statement.executeQuery(sql);
+//        ArrayList<TeacherStudentGrade> teacherStudentGrades = new ArrayList<>();
+//        while(rs.next()) {
+//            TeacherStudentGrade teacherStudentGrade = new TeacherStudentGrade ();
+//            teacherStudentGrade.setTeacherId (rs.getString ("t_id"));
+//            teacherStudentGrade.setTeacherName (rs.getString("t_name"));
+//            teacherStudentGrade.setStudentId (rs.getString("s_id"));
+//            teacherStudentGrade.setStudentName (rs.getString ("s_name"));
+//            teacherStudentGrade.setClassId (rs.getString("c_id"));
+//            teacherStudentGrade.setClassName (rs.getString  ("c_name"));
+//            teacherStudentGrade.setOrdTimeGra (rs.getString("g_OrdTimeGra"));
+//            teacherStudentGrade.setExaPapGra (rs.getString ("g_ExaPapGra"));
+//            teacherStudentGrade.setEvaluate (rs.getString("g_evaluate"));
+//            teacherStudentGrades.add(teacherStudentGrade);
+//        }
+//        DBUtils.closeConn();
+//        return teacherStudentGrades;
+//
+//    }
 	/**
-	 * ²éÑ¯ËùÓÐ½ÌÊ¦µÄ¿Î³Ì¼°Ñ¡¿ÎÑ§Éú³É¼¨
+	 * ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½Ð½ï¿½Ê¦ï¿½Ä¿Î³Ì¼ï¿½Ñ¡ï¿½ï¿½Ñ§ï¿½ï¿½ï¿½É¼ï¿½
 	 * @return
 	 * @throws ReflectiveOperationException
 	 * @throws SQLException
 	 */
-	public ArrayList<TeacherStudentGrade> gradeByTaechers()throws ReflectiveOperationException, SQLException{
-        //????????????
-        Connection connection = DBUtils.getConnection();
-        //????Statement
-        Statement statement = connection.createStatement();
-        String sql="SELECT * FROM v_grade_from_teacher";
-        //???sql???
-        ResultSet rs = statement.executeQuery(sql);
-        ArrayList<TeacherStudentGrade> teacherStudentGrades = new ArrayList<>();
-        while(rs.next()) {
-            TeacherStudentGrade teacherStudentGrade = new TeacherStudentGrade ();
-            teacherStudentGrade.setTeacherId (rs.getString ("t_id"));
-            teacherStudentGrade.setTeacherName (rs.getString("t_name"));
-            teacherStudentGrade.setStudentId (rs.getString("s_id"));
-            teacherStudentGrade.setStudentName (rs.getString ("s_name"));
-            teacherStudentGrade.setClassId (rs.getString("c_id"));
-            teacherStudentGrade.setClassName (rs.getString  ("c_name"));
-            teacherStudentGrade.setOrdTimeGra (rs.getString("g_OrdTimeGra"));
-            teacherStudentGrade.setExaPapGra (rs.getString ("g_ExaPapGra"));
-            teacherStudentGrade.setEvaluate (rs.getString("g_evaluate"));
-            teacherStudentGrades.add(teacherStudentGrade);
-        }
-        DBUtils.closeConn();
-        return teacherStudentGrades;
-
-    }
+//	public ArrayList<TeacherStudentGrade> gradeByTaechers()throws ReflectiveOperationException, SQLException{
+//        //????????????
+//        Connection connection = DBUtils.getConnection();
+//        //????Statement
+//        Statement statement = connection.createStatement();
+//        String sql="SELECT * FROM v_grade_from_teacher";
+//        //???sql???
+//        ResultSet rs = statement.executeQuery(sql);
+//        ArrayList<TeacherStudentGrade> teacherStudentGrades = new ArrayList<>();
+//        while(rs.next()) {
+//            TeacherStudentGrade teacherStudentGrade = new TeacherStudentGrade ();
+//            teacherStudentGrade.setTeacherId (rs.getString ("t_id"));
+//            teacherStudentGrade.setTeacherName (rs.getString("t_name"));
+//            teacherStudentGrade.setStudentId (rs.getString("s_id"));
+//            teacherStudentGrade.setStudentName (rs.getString ("s_name"));
+//            teacherStudentGrade.setClassId (rs.getString("c_id"));
+//            teacherStudentGrade.setClassName (rs.getString  ("c_name"));
+//            teacherStudentGrade.setOrdTimeGra (rs.getString("g_OrdTimeGra"));
+//            teacherStudentGrade.setExaPapGra (rs.getString ("g_ExaPapGra"));
+//            teacherStudentGrade.setEvaluate (rs.getString("g_evaluate"));
+//            teacherStudentGrades.add(teacherStudentGrade);
+//        }
+//        DBUtils.closeConn();
+//        return teacherStudentGrades;
+//
+//    }
 
 }
