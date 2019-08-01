@@ -6,14 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 import team543.utils.DBUtils;
+import team543.utils.MyException;
 
  /**
-  * 课程基本信息表的操作
- *	 @author 公子小白
- * 	 @date 2019年7月30日上午9:20:00
+  * �γ���Ϣ��������
+ *	 @author ����С��
+ * 	 @date 2019��7��30������9:09:45
  *
  */
 public class ClassDao {
@@ -39,8 +39,14 @@ public class ClassDao {
 	 * @param c
 	 * @throws SQLException
 	 * @throws ReflectiveOperationException
+	 * @throws MyException 
 	 */
-	public void updateClass(team543.entity.Class c) throws SQLException, ReflectiveOperationException {
+	public void updateClass(team543.entity.Class c) throws SQLException, ReflectiveOperationException, MyException {
+		
+		if(!(team543.utils.Basic.isNumeric(c.getC_id())&&team543.utils.Basic.isNumeric(c.getC_score()))) {
+			throw new MyException();
+		}
+		
 		String sql = "UPDATE t_class SET c_name=? , c_classState=? , c_score = ?, c_openDP=? , c_percentage=?  WHERE c_id=?";
 		Connection connection = team543.utils.DBUtils.getConnection();
 		PreparedStatement pst = connection.prepareStatement(sql);
@@ -55,15 +61,18 @@ public class ClassDao {
 	}
 	
 	/**
-	 * 添加课程
 	 * @param c
 	 * @throws ReflectiveOperationException
 	 * @throws SQLException
+	 * @throws MyException 
 	 */
-	public void addClass(team543.entity.Class c) throws ReflectiveOperationException, SQLException {
-		//sql语句
+	public void addClass(team543.entity.Class c) throws ReflectiveOperationException, SQLException, MyException {
+		if(!(team543.utils.Basic.isNumeric(c.getC_id())&&team543.utils.Basic.isNumeric(c.getC_score()))) {
+			throw new MyException();
+		}
+		//sql���
 		String sql="INSERT INTO t_class(c_id,c_name,c_classState,c_score,c_openDP,c_percentage) VALUES(?,?,?,?,?,?)";
-		//获取连接
+		//��ȡ����
 		Connection connection = team543.utils.DBUtils.getConnection();
 		PreparedStatement pst = connection.prepareStatement(sql);
 		
@@ -77,17 +86,17 @@ public class ClassDao {
 		DBUtils.closeConn();
 	}
 	/**
-	 *获取课程信息，在学生成绩初始化时需要调用
+	 * ����γ�id�Ŀγ���Ϣ����ʼ��ѧ���ɼ�ʱ��Ҫ�����쳣��
 	 * @param id
 	 * @throws SQLException 
 	 * @throws ReflectiveOperationException 
 	 */
-	public team543.entity.Class getClassById(String id)  {
-		String sql = "SELECT * FROM t_class where c_id = '"+ id +"';";
+	public team543.entity.Class getClassById(String Classid)  {
+		String sql = "SELECT * FROM t_class where c_id = '"+ Classid +"';";
 		team543.entity.Class c = null;
 		
 		try {
-			//获取连接
+			//��ȡ����
 			Connection connection = team543.utils.DBUtils.getConnection();
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(sql);
@@ -101,7 +110,7 @@ public class ClassDao {
 				c.setC_percentage(rs.getInt("c_percentage"));
 				return c;
 			}
-			//关闭连接
+			//�ر�����
 			DBUtils.closeConn();
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -109,8 +118,8 @@ public class ClassDao {
 		return c;
 	}
 	/**
-	 * 获取所有的课程信息
-	 * @return List<team543.entity.Class>
+	 * ������пγ��б�
+	 * @return List<entity.Class>����
 	 * @throws SQLException
 	 * @throws ReflectiveOperationException
 	 */

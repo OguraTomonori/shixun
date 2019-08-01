@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class StudentTeacherDao {
 
     /*
-    * ¸ù¾Ý½ÌÊ¦ID²éÑ¯ÀÏÊ¦Ëù½ÌÑ§Éú
+    * ï¿½ï¿½ï¿½Ý½ï¿½Ê¦IDï¿½ï¿½Ñ¯ï¿½ï¿½Ê¦ï¿½ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½
     * */
     public ArrayList<StudentTeacher> getStudentByTeacherId(String teacherId) throws ReflectiveOperationException, SQLException{
         //????????????
@@ -44,32 +44,32 @@ public class StudentTeacherDao {
 
 
     /*
-     * ²éÑ¯ËùÓÐÀÏÊ¦Ëù½ÌÑ§Éú
+     * ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¦ï¿½ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½
      * */
-    public ArrayList<StudentTeacher> getStudentByTeachers() throws ReflectiveOperationException, SQLException{
-        //????????????
-        Connection connection = DBUtils.getConnection();
-        //????Statement
-        Statement statement = connection.createStatement();
-        String sql="SELECT * FROM v_student_from_teacher";
-        //???sql???
-        ResultSet rs = statement.executeQuery(sql);
-        ArrayList<StudentTeacher> studentTeachers = new ArrayList<> ();
-        while(rs.next()) {
-            StudentTeacher studentTeacher = new StudentTeacher ();
-            studentTeacher.setTeacherId (rs.getString ("t_id"));
-            studentTeacher.setTeacherName (rs.getString("t_name"));
-            studentTeacher.setClassId (rs.getString("c_id"));
-            studentTeacher.setClassName (rs.getString  ("c_name"));
-            studentTeacher.setStudentId (rs.getString("s_id"));
-            studentTeacher.setStudentName (rs.getString ("s_name"));
-            studentTeacher.setStudentDp (rs.getString("s_dp"));
-            studentTeacher.setStudentMajor (rs.getString ("s_major"));
-            studentTeacher.setStudentClass (rs.getString("s_class"));
-            studentTeachers.add(studentTeacher);
-        }
-        DBUtils.closeConn();
-        return studentTeachers;
-    }
+//    public ArrayList<StudentTeacher> getStudentByTeachers() throws ReflectiveOperationException, SQLException{
+//        //????????????
+//        Connection connection = DBUtils.getConnection();
+//        //????Statement
+//        Statement statement = connection.createStatement();
+//        String sql="SELECT * FROM v_student_from_teacher";
+//        //???sql???
+//        ResultSet rs = statement.executeQuery(sql);
+//        ArrayList<StudentTeacher> studentTeachers = new ArrayList<> ();
+//        while(rs.next()) {
+//            StudentTeacher studentTeacher = new StudentTeacher ();
+//            studentTeacher.setTeacherId (rs.getString ("t_id"));
+//            studentTeacher.setTeacherName (rs.getString("t_name"));
+//            studentTeacher.setClassId (rs.getString("c_id"));
+//            studentTeacher.setClassName (rs.getString  ("c_name"));
+//            studentTeacher.setStudentId (rs.getString("s_id"));
+//            studentTeacher.setStudentName (rs.getString ("s_name"));
+//            studentTeacher.setStudentDp (rs.getString("s_dp"));
+//            studentTeacher.setStudentMajor (rs.getString ("s_major"));
+//            studentTeacher.setStudentClass (rs.getString("s_class"));
+//            studentTeachers.add(studentTeacher);
+//        }
+//        DBUtils.closeConn();
+//        return studentTeachers;
+//    }
 
 }

@@ -3,15 +3,17 @@ package team543.utils;
 import java.security.MessageDigest;
 
 /**
- * MD5¼ÓÃÜ¹¤¾ßÀà
+ * MD5ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½
  * @author pibigstar
  *
  */
 public class MyMD5Util {
-	//ÑÎ£¬ÓÃÓÚ»ì½»md5
-	private static final String slat = "34243wqeweqwe";
+	//ï¿½Î£ï¿½ï¿½ï¿½ï¿½Ú»ì½»md5
+	private static final String slat = "!!!@@@###$$$%%%^^^&&& Q^Q"+String.valueOf(System.currentTimeMillis()) ;
+	
 	public static String encrypt(String dataStr) {
 		try {
+//			System.out.println(slat);
 			dataStr = dataStr + slat;
 			MessageDigest m = MessageDigest.getInstance("MD5");
 			m.update(dataStr.getBytes("UTF8"));

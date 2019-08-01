@@ -10,16 +10,9 @@ import java.util.ArrayList;
 import team543.entity.User;
 import team543.utils.DBUtils;
 
- /**
-  * 用户表的基本操作
- *	 @author 公子小白
- * 	 @date 2019年7月30日上午9:28:53
- *
- */
 public class UserDao {
 	
 	/**
-	 * ������е��û�
 	 * @return
 	 * @throws SQLException 
 	 * @throws ReflectiveOperationException 
@@ -46,7 +39,6 @@ public class UserDao {
 	}
 	
 	/**
-	 * �����û�id����û�����
 	 * @param userId
 	 * @return
 	 * @throws SQLException
@@ -86,21 +78,20 @@ public class UserDao {
 	}
 	
 	/**
-	 * ����û�
 	 * @param user
 	 * @throws SQLException 
 	 * @throws ReflectiveOperationException 
 	 */
-	public void addUser(ArrayList<User> users,Connection connection) throws ReflectiveOperationException, SQLException {
-		for(User user:users) {
-			String sql = "INSERT into  t_user (user_id,user_name,user_password,user_root) VALUES (?,?,?,?,?,?,?);";
-		PreparedStatement pst = connection.prepareStatement (sql);
-		pst.setString(1, user.getUser_id());
-		pst.setString(2, user.getUser_name());
-		pst.setString(3, user.getUser_password());
-		pst.setString(4, user.getUser_root());
-		}
-	}
+//	public void addUser(ArrayList<User> users,Connection connection) throws ReflectiveOperationException, SQLException {
+//		for(User user:users) {
+//			String sql = "INSERT into  t_user (user_id,user_name,user_password,user_root) VALUES (?,?,?,?,?,?,?);";
+//		PreparedStatement pst = connection.prepareStatement (sql);
+//		pst.setString(1, user.getUser_id());
+//		pst.setString(2, user.getUser_name());
+//		pst.setString(3, user.getUser_password());
+//		pst.setString(4, user.getUser_root());
+//		}
+//	}
 	
 //	public void addStudent(ArrayList<User> users ,ArrayList<Student> student) throws ReflectiveOperationException, SQLException {
 //		

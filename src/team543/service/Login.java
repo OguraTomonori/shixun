@@ -8,12 +8,12 @@ import java.util.LinkedList;
 import java.util.List;
 
  /**
- * 	ï¿½ï¿½Â½ï¿½ï¿½ï¿½ï¿½ 
- *	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½userId password
- *  ï¿½ï¿½ï¿½ï¿½list
- *  ï¿½ï¿½Â½ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½  0ï¿½ï¿½ ï¿½Ã»ï¿½È¨ï¿½ï¿½ ï¿½ï¿½ md5ï¿½ï¿½ï¿½Üºï¿½ï¿½ï¿½Ã»ï¿½id
- *  ï¿½ï¿½Â½Ê§ï¿½Ü·ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
- *  		 2ï¿½ï¿½Ã»ï¿½Ğ´ï¿½ï¿½Ã»ï¿½
+ * 	µÇÂ½º¯Êı 
+ *	½ÓÊÕÊäÈëµÄuserId password
+ *  ·µ»Ølist
+ *  µÇÂ½³É¹¦·µ»Ø  0£¬ ÓÃ»§È¨ÏŞ £¬ md5¼ÓÃÜºóµÄÓÃ»§id
+ *  µÇÂ½Ê§°Ü·µ»Ø 1£ºÓÃ»§ÃÜÂë´íÎó
+ *  		 2£ºÃ»ÓĞ´ËÓÃ»§
  */
 public class Login {
 
@@ -25,20 +25,20 @@ public class Login {
 			Statement createStatement = con.createStatement();
 			String sql = "select user_password,user_root from t_user where user_id ='"+userId+"';";
 			
-			//Ö´ï¿½ï¿½sqlï¿½ï¿½ï¿½
+			//Ö´ĞĞsqlÓï¾ä
 			ResultSet re = createStatement.executeQuery(sql);
-			//ï¿½Ğ¶Ï½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Öµ
+			//ÅĞ¶Ï½á¹ûÖĞÊÇ·ñÓĞÖµ
 			if(re.next()==true) {
-				//ï¿½Ğ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·
+				//ÅĞ¶ÏÃÜÂëÊÇ·ñÊäÈëÕıÈ·
 				if(re.getString("user_password").equals(password)) {
-					//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·
+					//ÃÜÂëÕıÈ·
 					list.add(0);      
 					list.add(re.getString("user_root"));
 					list.add(team543.utils.MyMD5Util.encrypt(userId));
 					list.add(re.getString("user_name"));
 				} else list.add(1);
 			} else list.add(2);
-			//ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½
+			//¹Ø±ÕÁ¬½Ó
 			team543.utils.DBUtils.closeConn();
 		} catch (ReflectiveOperationException | SQLException e) {
 			e.printStackTrace();

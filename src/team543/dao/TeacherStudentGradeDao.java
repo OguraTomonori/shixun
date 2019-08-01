@@ -11,7 +11,7 @@ import team543.utils.DBUtils;
 
 public class TeacherStudentGradeDao {
 	/**
-	 * 
+	 * 查询教师授课成绩
 	 * @param teacherId
 	 * @return
 	 * @throws ReflectiveOperationException
@@ -44,7 +44,7 @@ public class TeacherStudentGradeDao {
 
     }
 	/**
-	 * 锟斤拷询锟斤拷锟叫斤拷师锟侥课程硷拷选锟斤拷学锟斤拷锟缴硷拷
+	 * 查询所有教师的课程及选课学生成绩
 	 * @return
 	 * @throws ReflectiveOperationException
 	 * @throws SQLException
