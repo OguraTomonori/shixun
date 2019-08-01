@@ -114,6 +114,11 @@ public class ElectiveClassDao {
 		DBUtils.closeConn();
 	}
 	
+	/**
+	 * @param eId
+	 * @throws SQLException
+	 * @throws ReflectiveOperationException
+	 */
 	public void deleteElectiveClass(String eId) throws SQLException, ReflectiveOperationException {
 		String sql = "DELETE FROM  t_electiveclass WHERE e_id = ?; ";
 		Connection connection = team543.utils.DBUtils.getConnection();

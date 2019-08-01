@@ -109,7 +109,7 @@ public class StudentDao {
         }
     }
     public  void addStudent(Student student) throws SQLException, ReflectiveOperationException {
-        String sql = "INSERT into  t_student (s_id, s_name, s_sex, s_dp, s_class, s_state, s_entertime) VALUES (?,?,?,?,?,?,now())";
+        String sql = "INSERT into  t_student (s_id, s_name, s_sex, s_dp, s_class, s_state, s_entertime) VALUES (?,?,?,?,?,?,?)";
         //����prepareStatement
         Connection connection = DBUtils.getConnection();
         PreparedStatement pst = connection.prepareStatement (sql);
@@ -119,7 +119,7 @@ public class StudentDao {
         pst.setString (4, student.getS_dp ());
         pst.setString (5, student.getS_class ());
         pst.setString (6, student.getS_state ());
-//            pst.setString (7, student.getEntertime ());
+        pst.setString (7, student.getEntertime ());
         pst.executeUpdate ();
         DBUtils.closeConn();
    }

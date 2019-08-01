@@ -243,10 +243,9 @@ public class AdminAction {
 		Integer m = 0;
 		
 		for(Student s:students) {
-			StudentDao studentDao = new StudentDao();
 			try {
 				//成功m加一
-				studentDao.addStudent(s);
+				new StudentDao().addStudent(s);
 				m++;
 				
 			} catch (ReflectiveOperationException | SQLException e) {
