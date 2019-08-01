@@ -326,15 +326,15 @@ public class AdminAction {
 	
 	/**
 	 * 删除选课信息
-	 * @param e_Id
+	 * @param ec
 	 * @return
 	 */
-	public ArrayList<Integer> deleteElectiveClass(ArrayList<String> e_Id){
+	public ArrayList<Integer> deleteElectiveClass(ArrayList<ElectiveClass> ec){
 		ArrayList<Integer> num =new ArrayList<Integer>();
 		Integer n = 0;
-		for(String e:e_Id)
+		for(ElectiveClass e:ec)
 			try {
-				new ElectiveClassDao().deleteElectiveClass(e);
+				new ElectiveClassDao().deleteElectiveClass(e.getE_id());
 				n++;
 			} catch (SQLException | ReflectiveOperationException e1) {
 				// TODO Auto-generated catch block
