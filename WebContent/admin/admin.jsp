@@ -255,7 +255,7 @@
 		}
 		function grade(studentID) { 
 			var content = document.getElementById("grade-content").getElementsByClassName("table")[0];
-			content.innerHTML = "<tr><th>课程名称</th><th>课程号</th><th>成绩</th><th>平时成绩</th><th>试卷成绩</th><th>评价</th></tr>";
+			content.innerHTML = "<tr><th>课程名称</th><th>课程号</th><th>成绩</th><th>平时成绩</th><th>试卷成绩</th></tr>";
 			$.post({
 				"url":"${pageContext.request.contextPath }/AdminSearchGradeServlet",
 				"data":{
@@ -267,17 +267,20 @@
 					response = response["data"];
 					for (var i = 0; i < response.length; i++) {
 						var res = {
-								"课程名称": response[i]["c_name"],
-								"课程号": response[i]["c_id"],
+								"课程名称": response[i]["className"],
+								"课程号": response[i]["classId"],
 								"成绩": response[i]["totalMark"],
-								"平时成绩": response[i]["g_OrdTimGra"],
-								"试卷成绩": response[i]["g_ExaPopGra"],
-								"评价": response[i]["g_evaluate"]
+								"平时成绩": response[i]["regularGrade"],
+								"试卷成绩": response[i]["testGrade"]
 							};
-						for (var key in res) {
-							content.innerHTML = content.innerHTML +
-							"<tr><th>" + key + "</th><td>" + res[key] + "</td></tr>";
-						}
+						
+						content.innerHTML = content.innerHTML +
+							"<tr><td>" + 
+							res["课程名称"] + "</td><td>" + 
+							res["课程号"] + "</td><td>" + 
+							res["成绩"] + "</td><td>" + 
+							res["平时成绩"] + "</td><td>" + 
+							res["试卷成绩"] + "</td></tr>";
 					}
 				}});
 		}

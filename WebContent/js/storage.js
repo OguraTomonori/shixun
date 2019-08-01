@@ -175,26 +175,24 @@ function Stor() {
 		temp[opt].splice(index, 1);
 		this.set(target, temp);
 	}
+	function equal(dictA, dictB) {
+		for (var key in dictA) {
+			if (!dictB[key] || (dictA[key] != dictB[key]))
+				return false;
+		}
+		return true;
+	}
 	function getIndex(dictArr, ori) {
 		//dictArr为[ {"ori":...,"after":...} ]
 		//tar为 ori
 		//通过判断ori来判断是否是同一条更改
-		function equal(dictA, dictB) {
-			for (var key in dictA) {
-				if (!dictB[key] || (dictA[key] != dictB[key]))
-					return false;
-			}
-			return true;
-				
-		}
+		
 		for (var i in dictArr) {
 			if (equal(dictArr[i]["ori"], ori))
 				return i;
 			console.log(JSON.stringify(dictArr[i]["ori"]));
 			console.log(JSON.stringify(ori));
 		}
-		
-		
 		return -1;
 	}
 	this.put = function(target, opt, ori, after) {
@@ -216,22 +214,19 @@ function Stor() {
 		});
 		this.set(target, temp);
 	}
+	
+	this._ = function(opt, target, ori) {
+		var index = getIndex(this.get(target)[opt], ori);
+		if (index != -1)
+			this.del(opt, target, index); 
+	}
 	this.delItem = function(target, ori) {
 		//dictArr为[ {"ori":...,"after":...} ]
 			//tar为 ori
 			//通过判断ori来判断是否是同一条更改
-		function temp(opt, target, index) {
-			var index = -1;
-			for (var i in target[opt])
-				if (dictArr[i]["ori"] == ori)
-					index = i;
-			var temp = this.get(target); 
-			if (index != -1)
-				this.del(opt, target, index); 
-		}
-		temp("add", target, ori);
-		temp("update", target, ori);
-		temp("delete", target, ori);
+		this._("add", target, ori);
+		this._("update", target, ori);
+		this._("delete", target, ori);
 	}
 	this.show = function() {
 		console.log(window.localStorage["init"]);

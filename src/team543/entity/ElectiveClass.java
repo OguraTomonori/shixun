@@ -39,5 +39,9 @@ public class ElectiveClass {
 		this.s_id = s_id;
 		this.c_id = c_id;
 	}
+
+	public ElectiveClass() {
+		// TODO Auto-generated constructor stub
+	}
 	
 }

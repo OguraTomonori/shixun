@@ -49,15 +49,14 @@
 			 <div class="col-lg-6">
 			    <div class="input-group input-group-lg">
 			      <div class="input-group-btn">
-			        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">按课程名搜索 <span class="caret"></span></button>
+			        <button type="button" id="option_btn" opt="0" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">按课程名搜索 <span class="caret"></span></button>
 			        <ul class="dropdown-menu" id="search_option">
 			          <li><a href="#">按课程名搜索</a></li>
 			          <li><a href="#">按课程号搜索</a></li>
-			          <li><a href="#">按专业搜索</a></li>
 					  <li><a href="#">按系别搜索</a></li>
 			        </ul>
 			      </div><!-- /btn-group -->
-			      <input type="text" class="form-control" aria-label="...">
+			      <input type="text" id="search_text" class="form-control" aria-label="...">
 			      <span class="input-group-btn">
 			        <button class="btn btn-default" type="button" id="search_btn">搜索</button>
 			      </span>
@@ -86,7 +85,8 @@
 				 		<th>课程号</th>
 				 		<th>院系</th>
 				 		<th>学分</th>
-				 		<th>占比</th>
+				 		<th>平时分占比</th>
+				 		<th>状态</th>
 				 		<th>教师</th>
 				 		<th></th>
 				 	</tr>
@@ -210,16 +210,18 @@ function teacher(teacherID) {
 		"success": function(response, status, xhr) {
 			response = response["data"][0];
 			var res = {
-					"姓名": response["t_name"],
-					"工号": response["t_id"],
-					"职位": response["t_jobtitle"],
-					"院系": response["t_dp"],
-					"性别": response["t_sex"],
-					"薪水": response["t_salary"],
-					"状态": response["t_state"],
-					"入学时间": response["t_entertime"],
-					"办公室": response["t_office"],
-					"email": response["t_email"]
+					
+				"姓名": response["t_name"],
+				"工号": response["t_id"],
+				"职位": response["t_jobtitle"],
+				"院系": response["t_dp"],
+				"性别": response["t_sex"],
+				"薪水": response["t_salary"],
+				"状态": response["t_state"],
+				"入学时间": response["t_entertime"],
+				"办公室": response["t_office"],
+				"email": response["t_email"]
+			
 			};
 			for (key in res) {
 				content.innerHTML = content.innerHTML +
@@ -304,15 +306,16 @@ function update(courseID) {
 						}
 					
 					*/
+					alert("dd");
 					var res = response["data"];
 					var result = document.getElementById("result");
 					for (var i = 0; i < res.length; i++) {
 						var c_id = res[i]["c_id"];
-						var name = res[i]["name"];
-						var dp = res[i]["dp"];
-						var score = res[i]["score"];
-						var percentage = res[i]["percentage"];
-						var t_name = res[i]["t_name"];
+						var name = res[i]["c_name"];
+						var score = res[i]["c_score"];
+						var dp = res[i]["c_opendp"];
+						var percentage = res[i]["c_percentage"];
+						var t_classstate = res[i]["c_classstate"];
 						var t_id = res[i]["t_id"];
 						result.innerHTML = 
 							result.innerHTML + "<tr>" + 
@@ -320,9 +323,10 @@ function update(courseID) {
 							"<td>" + c_id + "</td>" + 
 							"<td>" + dp + "</td>" + 
 							"<td>" + score + "</td>" + 
-							"<td>" + percentage + "</td>" + 
+							"<td>" + percentage + "%</td>" + 
+							"<td>" + t_classstate + "</td>" + 
 							"<td><a href='#' data-toggle=\"modal\" data-target=\"#student\" onclick='teacher(\"" +
-							t_id + "\")'>"+ t_name + "</a></td>" +  
+							t_id + "\")'>"+ "t_name" + "</a></td>" +  
 							"<td><a href='#' data-toggle=\"modal\" data-target=\"#update\" onclick='update(\"" +
 							c_id + "\")'>更新</a></td></tr>";
 					}

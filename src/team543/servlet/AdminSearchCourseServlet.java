@@ -13,9 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSONObject;
 
+import team543.entity.Student;
+import team543.entity.StudentGrade;
 import team543.entity.Teacher;
 import team543.service.AdminAction;
 import team543.service.StudentAction;
+import team543.service.TeacherAction;
 
 /**
  * Servlet implementation class AdminSearchCourseServlet
@@ -39,24 +42,31 @@ public class AdminSearchCourseServlet extends HttpServlet {
 		response.setContentType("application/json; charset=utf-8");
 		String search_option = request.getParameter("search_option");
 		String search_text = request.getParameter("search_text");
-		//根据学生或课程获得所有成绩
-		String c_id = null;
-		String s_id = null;
 		
 		
+		String name = null;
+		String id = null;
+		String dp = null;
+		String major = null;
 		switch (search_option) {
 		case "0":
-			c_id = search_text;
+			name = search_text;
 			break;
 		case "1":
-			s_id = search_text;
+			id = search_text;
 			break;
+		case "2":
+			dp = search_text;
 		}
-		ArrayList<StudentGrade> resp = null;
+		ArrayList<team543.entity.Class> resp = null;
 		try {
-			resp = new StudentAction().getGrade(s_id);
-
-		} catch (SQLException | ReflectiveOperationException e) {
+			resp = new AdminAction().searchClass(
+				new team543.entity.Class(id, name, null, null, dp, null)
+					);
+		} catch (ReflectiveOperationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -66,6 +76,9 @@ public class AdminSearchCourseServlet extends HttpServlet {
 		String json = jsonObj.toJSONString();
 		System.out.println(json);
 		response.getWriter().append(json);
+		
+		
+
 	}
 
 	/**

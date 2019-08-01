@@ -20,7 +20,7 @@ import team543.entity.ElectiveClass;
 import team543.entity.Student;
 import team543.entity.Teacher;
 import team543.service.AdminAction;
-
+import team543.utils.*;
 /**
  * Servlet implementation class AdminCommitServlet
  */
@@ -36,16 +36,17 @@ public class AdminCommitServlet extends HttpServlet {
     }
 
 	/**
+	 * @throws ParseException 
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    private void commitStudent(AdminAction admin, Map<String,Object> student) {
-    	ArrayList<Object> studentAddObj = (ArrayList<Object>) student.get("add");
+    private void commitStudent(AdminAction admin, JSONObject student) throws ParseException {
+    	ArrayList<Object> studentAddObj = (ArrayList<Object>) JSONObject.parseArray(student.getJSONArray("add").toString(), Object.class);
 		ArrayList<Student> studentAdd = new ArrayList();
 		
-		ArrayList<Object> studentUpdateObj = (ArrayList<Object>) student.get("update");
+		ArrayList<Object> studentUpdateObj = (ArrayList<Object>) JSONObject.parseArray(student.getJSONArray("update").toString(), Object.class);
 		ArrayList<Student> studentUpdate = new ArrayList();
 		
-		ArrayList<Object> studentDeleteObj = (ArrayList<Object>) student.get("delete");
+		ArrayList<Object> studentDeleteObj = (ArrayList<Object>) JSONObject.parseArray(student.getJSONArray("delete").toString(), Object.class);
 		ArrayList<Student> studentDelete = new ArrayList();
 		
 		for (int i = 0; i < studentAddObj.size(); i++) {
@@ -59,7 +60,7 @@ public class AdminCommitServlet extends HttpServlet {
 					(String) temp.get("s_major"),
 					(String) temp.get("s_class"),
 					(String) temp.get("s_state"),
-					(Date) temp.get("entertime")
+					team543.utils.Basic.StringToDate((String) temp.get("entertime"))
 				)
 			);
 		}
@@ -77,7 +78,7 @@ public class AdminCommitServlet extends HttpServlet {
 					(String) temp.get("s_major"),
 					(String) temp.get("s_class"),
 					(String) temp.get("s_state"),
-					(Date) temp.get("entertime")
+					team543.utils.Basic.StringToDate((String) temp.get("entertime"))
 				)
 			);
 		}
@@ -86,39 +87,20 @@ public class AdminCommitServlet extends HttpServlet {
 		
     }
     
-    private void commitTeacher(AdminAction admin, Map<String,Object> teacher) {
-    	ArrayList<Object> teacherAddObj = (ArrayList<Object>) teacher.get("add");
+    private void commitTeacher(AdminAction admin, JSONObject teacher) {
+    	ArrayList<Object> teacherAddObj = (ArrayList<Object>) JSONObject.parseArray(teacher.getJSONArray("add").toString(), Object.class);
 		ArrayList<Teacher> teacherAdd = new ArrayList();
 		
-		ArrayList<Object> teacherUpdateObj = (ArrayList<Object>) teacher.get("update");
+		ArrayList<Object> teacherUpdateObj = (ArrayList<Object>) JSONObject.parseArray(teacher.getJSONArray("update").toString(), Object.class);
 		ArrayList<Teacher> teacherUpdate = new ArrayList();
 		
-		ArrayList<Object> teacherDeleteObj = (ArrayList<Object>) teacher.get("delete");
+		ArrayList<Object> teacherDeleteObj = (ArrayList<Object>) JSONObject.parseArray(teacher.getJSONArray("delete").toString(), Object.class);
 		ArrayList<Teacher> teacherDelete = new ArrayList();
 		
 		for (int i = 0; i < teacherAddObj.size(); i++) {
 			Map<String, Object> temp = (Map<String, Object>)((Map<String, Object>) teacherAddObj.get(i)).get("ori");
-			teacherAdd.add(
-				new Teacher(
-					(String) temp.get("t_id"),
-					(String) temp.get("t_name"),
-					(String) temp.get("t_dp"),
-					(String) temp.get("t_jobtitle"),
-					(String) temp.get("t_salary"),
-					(String) temp.get("t_phonenum"),
-					(String) temp.get("t_email"),
-					(String) temp.get("t_office"),
-					(String) temp.get("s_state"),
-					(Date) temp.get("entertime")
-				)
-			);
-		}
-		admin.addTeacher(teacherAdd);
-		
-		
-		for (int i = 0; i < teacherUpdateObj.size(); i++) {
-			Map<String, Object> temp = (Map<String, Object>)((Map<String, Object>) teacherUpdateObj.get(i)).get("after");
-			teacherUpdate.add(
+			try {
+				teacherAdd.add(
 					new Teacher(
 						(String) temp.get("t_id"),
 						(String) temp.get("t_name"),
@@ -129,21 +111,50 @@ public class AdminCommitServlet extends HttpServlet {
 						(String) temp.get("t_email"),
 						(String) temp.get("t_office"),
 						(String) temp.get("s_state"),
-						(Date) temp.get("entertime")
+						team543.utils.Basic.StringToDate((String) temp.get("entertime"))
 					)
 				);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		admin.addTeacher(teacherAdd);
+		
+		
+		for (int i = 0; i < teacherUpdateObj.size(); i++) {
+			Map<String, Object> temp = (Map<String, Object>)((Map<String, Object>) teacherUpdateObj.get(i)).get("after");
+			try {
+				teacherUpdate.add(
+						new Teacher(
+							(String) temp.get("t_id"),
+							(String) temp.get("t_name"),
+							(String) temp.get("t_dp"),
+							(String) temp.get("t_jobtitle"),
+							(String) temp.get("t_salary"),
+							(String) temp.get("t_phonenum"),
+							(String) temp.get("t_email"),
+							(String) temp.get("t_office"),
+							(String) temp.get("s_state"),
+							team543.utils.Basic.StringToDate((String) temp.get("entertime"))
+						)
+					);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		admin.updateTeacher(teacherUpdate);
 		
     }
-	private void commitCourse(AdminAction admin, Map<String,Object> course) {
-		ArrayList<Object> courseAddObj = (ArrayList<Object>) course.get("add");
+	private void commitCourse(AdminAction admin, JSONObject course) {
+		ArrayList<Object> courseAddObj = (ArrayList<Object>) JSONObject.parseArray(course.getJSONArray("add").toString(), Object.class);
 		ArrayList<team543.entity.Class> courseAdd = new ArrayList();
 		
-		ArrayList<Object> courseUpdateObj = (ArrayList<Object>) course.get("update");
+		ArrayList<Object> courseUpdateObj = (ArrayList<Object>) JSONObject.parseArray(course.getJSONArray("update").toString(), Object.class);
 		ArrayList<team543.entity.Class> courseUpdate = new ArrayList();
 		
-		ArrayList<Object> courseDeleteObj = (ArrayList<Object>) course.get("delete");
+		ArrayList<Object> courseDeleteObj = (ArrayList<Object>) JSONObject.parseArray(course.getJSONArray("delete").toString(), Object.class);
 		ArrayList<team543.entity.Class> courseDelete = new ArrayList();
 		
 		for (int i = 0; i < courseAddObj.size(); i++) {
@@ -175,22 +186,16 @@ public class AdminCommitServlet extends HttpServlet {
 						)
 				);
 		}
-		try {
-			admin.updateClass(courseUpdate);
-		} catch (SQLException | ReflectiveOperationException | ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		// TODO 课程删除
+		admin.updateClass(courseUpdate);
 		
 	}
-	private void commitSelC(AdminAction admin, Map<String,Object> selC) {
-		ArrayList<Object> selCAddObj = (ArrayList<Object>) selC.get("add");
+	private void commitSelC(AdminAction admin, JSONObject selC) {
+		ArrayList<Object> selCAddObj = (ArrayList<Object>) JSONObject.parseArray(selC.getJSONArray("add").toString(), Object.class);
 		ArrayList<ElectiveClass> selCAdd = new ArrayList();
 		
 		//只有删除
-		ArrayList<Object> selCUpdateObj = (ArrayList<Object>) selC.get("update");
-		ArrayList<String> selCUpdate = new ArrayList();
+		ArrayList<Object> selCDeleteObj = (ArrayList<Object>) JSONObject.parseArray(course.getJSONArray("delete").toString(), Object.class);
+		ArrayList<String> selCDelete = new ArrayList();
 		
 		for (int i = 0; i < selCAddObj.size(); i++) {
 			Map<String, Object> temp = (Map<String, Object>)((Map<String, Object>) selCAddObj.get(i)).get("ori");
@@ -204,33 +209,38 @@ public class AdminCommitServlet extends HttpServlet {
 		admin.addElectiveClass(selCAdd);
 		
 		
-		for (int i = 0; i < selCUpdateObj.size(); i++) {
-			Map<String, Object> temp = (Map<String, Object>)((Map<String, Object>) selCUpdateObj.get(i)).get("after");
-			selCUpdate.add(
+		for (int i = 0; i < selCDeleteObj.size(); i++) {
+			Map<String, Object> temp = (Map<String, Object>)((Map<String, Object>) selCDeleteObj.get(i)).get("after");
+			selCDelete.add(
 					(String) temp.get("e_id")
 				);
 		}
-		admin.deleteElectiveClass(selCUpdate);
+		admin.deleteElectiveClass(selCDelete);
 	}
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("application/json; charset=utf-8");
 		//相当于Map<String, Object>
-		JSONObject obj = JSON.parseObject(request.getParameter("data"));
-		@SuppressWarnings("unchecked")
-		Map<String,Object> student = (Map<String, Object>) obj.get("student");
-		@SuppressWarnings("unchecked")
-		Map<String,Object> teacher = (Map<String, Object>) obj.get("teacher");
-		@SuppressWarnings("unchecked")
-		Map<String,Object> course = (Map<String, Object>) obj.get("course");
-		@SuppressWarnings("unchecked")
-		Map<String,Object> selC = (Map<String, Object>) obj.get("selC");
+		JSONObject data =  JSONObject.parseObject(request.getParameter("data"));
+		JSONObject student = data.getJSONObject("student");
+		JSONObject teacher = data.getJSONObject("teacher");
+		JSONObject course = data.getJSONObject("course");
+		JSONObject selC = data.getJSONObject("selC");
 		AdminAction admin = new AdminAction();
-		this.commitStudent(admin, student);
-		this.commitTeacher(admin, teacher);
-		this.commitCourse(admin, course);
-		this.commitSelC(admin, selC);
-
+		if (student != null)
+			try {
+				this.commitStudent(admin, student);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		if (teacher != null)
+			this.commitTeacher(admin, teacher);
+		if (course != null)
+			this.commitCourse(admin, course);
+		if (selC != null)
+			this.commitSelC(admin, selC);
+		
 	}
 
 	/**
