@@ -100,8 +100,9 @@ public class TeacherCommitServlet extends HttpServlet {
 		JSONObject data =  JSONObject.parseObject(request.getParameter("data"));
 		JSONObject grade = data.getJSONObject("grade");
 		TeacherAction teacher = new TeacherAction();
-		if (grade != null)
+		if (grade != null) {
 			this.commitGrade(teacher, grade);
+		}
 		
 		Map<String, Object> res = new HashMap();
 		res.put("status", "success");

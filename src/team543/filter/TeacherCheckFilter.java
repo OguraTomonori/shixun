@@ -1,6 +1,9 @@
 package team543.filter;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -10,6 +13,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.alibaba.fastjson.JSONObject;
 
 import team543.service.UserCheckAction;
 
@@ -46,7 +51,6 @@ public class TeacherCheckFilter implements Filter {
 		String userID = null;
 		String sessionID = null;
 		String permission = null;
-		boolean flag = true;
 		for (Cookie c : cookies) {
 			if (c.getName().equals("userID"))
 				userID = c.getValue();
@@ -55,10 +59,15 @@ public class TeacherCheckFilter implements Filter {
 			else if (c.getName().equals("permission"))
 				permission = c.getValue();
 		}
-		if ((userID != null && sessionID != null && permission != null) || !permission.equals("1") || !UserCheckAction.userCheck(userID, sessionID, permission))
+		if ((userID != null && sessionID != null && permission != null) && permission.equals("1") && UserCheckAction.userCheck(userID, sessionID, permission)) 
 			chain.doFilter(request, response);
 		else {
-			request.getRequestDispatcher("/login.jsp");
+			Map<String, Object> resp = new HashMap();
+			resp.put("data", "err");
+			JSONObject jsonObj = new JSONObject(resp);
+			String json = jsonObj.toJSONString();
+			System.out.println(json);
+			res.getWriter().append(json);
 		}
 	}
 

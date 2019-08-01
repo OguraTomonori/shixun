@@ -37,13 +37,10 @@ public class StudentSearchGradeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		response.setContentType("application/json; charset=utf-8");
-		Map<String, Object> params = team543.utils.ParamUtil.getRequestParameters(request);
-		String studentId = (String) params.get("s_id");
-		
+		String studentID = request.getParameter("studentID");
 		ArrayList<StudentGrade> resp = null;
-		
 		try {
-			resp = new StudentAction().getGrade(studentId);
+			resp = new StudentAction().getGrade(studentID);
 		} catch (ReflectiveOperationException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

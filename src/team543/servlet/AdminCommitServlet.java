@@ -143,7 +143,6 @@ public class AdminCommitServlet extends HttpServlet {
 		}
 		if (!teacherAdd.isEmpty()) {
 			admin.addTeacher(teacherAdd);
-			System.out.println("caksadas");
 		}
 			
 
@@ -162,8 +161,8 @@ public class AdminCommitServlet extends HttpServlet {
 							(String) temp.get("t_phonenum"),
 							(String) temp.get("t_email"),
 							(String) temp.get("t_office"),
-							(String) temp.get("s_state"),
-							team543.utils.Basic.StringToDate((String) temp.get("entertime"))
+							(String) temp.get("t_state"),
+							team543.utils.Basic.StringToDate((String) temp.get("t_entertime"))
 						)
 					);
 			} catch (Exception e) {
@@ -187,8 +186,8 @@ public class AdminCommitServlet extends HttpServlet {
 							(String) temp.get("t_phonenum"),
 							(String) temp.get("t_email"),
 							(String) temp.get("t_office"),
-							(String) temp.get("s_state"),
-							team543.utils.Basic.StringToDate((String) temp.get("entertime"))
+							(String) temp.get("t_state"),
+							team543.utils.Basic.StringToDate((String) temp.get("t_entertime"))
 						)
 					);
 			} catch (Exception e) {

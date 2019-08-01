@@ -47,7 +47,6 @@ public class AdminSearchCourseServlet extends HttpServlet {
 		String name = null;
 		String id = null;
 		String dp = null;
-		String major = null;
 		switch (search_option) {
 		case "0":
 			name = search_text;
@@ -58,9 +57,10 @@ public class AdminSearchCourseServlet extends HttpServlet {
 		case "2":
 			dp = search_text;
 		}
-		ArrayList<team543.entity.Class> resp = null;
+		ArrayList<team543.entity.Class> cour = null;
+		ArrayList<Teacher> teac = new ArrayList();
 		try {
-			resp = new AdminAction().searchClass(
+			cour = new AdminAction().searchClass(
 				new team543.entity.Class(id, name, null, null, dp, null)
 					);
 		} catch (ReflectiveOperationException e) {
@@ -70,15 +70,25 @@ public class AdminSearchCourseServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		for (team543.entity.Class c : cour) {
+			try {
+				teac.add(new StudentAction().getTeacherByClassId(c.getC_id()));
+			} catch (ReflectiveOperationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		Map<String, Object> res = new HashMap();
-		res.put("data", resp);
+		res.put("data", cour);
+		res.put("teac", teac);
 		JSONObject jsonObj = new JSONObject(res);
 		String json = jsonObj.toJSONString();
 		System.out.println(json);
 		response.getWriter().append(json);
-		
-		
-
 	}
 
 	/**

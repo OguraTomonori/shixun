@@ -20,6 +20,8 @@ public class Basic {
 		}
 	
 	public static Date StringToDate(String date) throws ParseException {
+		if (date == null)
+			return null;
 		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
 		return dateformat.parse(date);
 	}

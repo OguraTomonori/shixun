@@ -71,6 +71,7 @@ public class Grade {
 		double n =  (double)Integer.valueOf(g_ExaPopGra).intValue();
 		double p = (double) (Integer.valueOf(new ClassDao().getClassById("01").getC_percentage()).intValue()*0.01);
 		this.totalMark = String.valueOf(m*p+n*(1-p));
+		this.g_evaluate = this.totalMark;
 		//this.totalMark = String.valueOf(Integer.valueOf(g_ExaPopGra).intValue()*(Integer.valueOf(g_OrdTimGra).intValue()*Integer.valueOf(classDao.getClassById(s_id).getC_percentage()).intValue()*0.01));
 	}
 	public Grade() {
