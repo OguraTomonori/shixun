@@ -18,7 +18,7 @@ public class UserAction {
 	 * @throws SQLException 
 	 * @throws ReflectiveOperationException 
 	 */
-	public String updateUser(String id, String oldpw ,String newpw) {
+	public static String updateUser(String id, String oldpw ,String newpw) {
 		ArrayList res = new LoginAction().login(id, oldpw);
 		String b = "success";
 		if ((Integer) res.get(0) == 0) {
@@ -35,5 +35,8 @@ public class UserAction {
 			b = "failed";
 		}
 		return b ;
+	}
+	public static void main(String[] args) {
+		System.out.println(updateUser("110603","110603","111111"));
 	}
 }

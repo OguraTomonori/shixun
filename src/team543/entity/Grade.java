@@ -67,14 +67,15 @@ public class Grade {
 		this.g_OrdTimGra = g_OrdTimGra;
 		this.g_ExaPopGra = g_ExaPopGra;
 		this.g_evaluate = g_evaluate;
-		if (null != g_OrdTimGra||null !=g_ExaPopGra) {
-			double m = (double) Integer.valueOf(g_OrdTimGra).intValue();
-			double n = (double) Integer.valueOf(g_ExaPopGra).intValue();
-			double p = (double) (Integer.valueOf(new ClassDao().getClassById(c_id).getC_percentage()).intValue()
-					* 0.01);
-			this.totalMark = String.valueOf(m * p + n * (1 - p));
+		this.totalMark = g_evaluate;
+//		if (null != g_OrdTimGra||null !=g_ExaPopGra) {
+//			double m = (double) Integer.valueOf(g_OrdTimGra).intValue();
+//			double n = (double) Integer.valueOf(g_ExaPopGra).intValue();
+//			double p = (double) (Integer.valueOf(new ClassDao().getClassById(c_id).getC_percentage()).intValue()
+//					* 0.01);
+//			this.totalMark = String.valueOf(m * p + n * (1 - p));
 			//this.totalMark = String.valueOf(Integer.valueOf(g_ExaPopGra).intValue()*(Integer.valueOf(g_OrdTimGra).intValue()*Integer.valueOf(classDao.getClassById(s_id).getC_percentage()).intValue()*0.01));
-		}
+//		}
 	}
 	public Grade() {
 		

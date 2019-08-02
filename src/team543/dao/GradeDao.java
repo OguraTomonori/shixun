@@ -1,5 +1,6 @@
 package team543.dao;
 
+import team543.entity.Class;
 import team543.entity.Grade;
 import team543.utils.DBUtils;
 import team543.utils.MyException;
@@ -30,7 +31,11 @@ public class GradeDao {
         //????prepareStatement
         PreparedStatement pst = connection.prepareStatement (sql);
         
-        if(!(team543.utils.Basic.isNumeric(grade.getS_id ())&& team543.utils.Basic.isNumeric(grade.getC_id ()))){
+        if(!(team543.utils.Basic.isNumeric(grade.getS_id ())
+        		&& team543.utils.Basic.isNumeric(grade.getC_id ())
+        		&& team543.utils.Basic.isNumeric(grade.getG_ExaPopGra())
+        		&&team543.utils.Basic.isNumeric(grade.getG_OrdTimGra())
+        		)){
         	throw new MyException();
         }
         
@@ -39,11 +44,17 @@ public class GradeDao {
         pst.setString (3, grade.getG_OrdTimGra ());
         pst.setString (4, grade.getG_ExaPopGra ());
         
-        double m = (double)Integer.valueOf(grade.getG_OrdTimGra ()).intValue();
-		double n =  (double)Integer.valueOf(grade.getG_ExaPopGra ()).intValue();
-		double p = (double) (Integer.valueOf(new ClassDao().getClassById(grade.getC_id ()).getC_percentage()).intValue()*0.01);
-		String totalMark = String.valueOf(m*p+n*(1-p));
-        
+        String totalMark = null;
+    	Double m = Double.valueOf(grade.getG_OrdTimGra()).doubleValue();
+		Double n = Double.valueOf(grade.getG_ExaPopGra()).doubleValue();
+		Integer p = new ClassDao().getClassById(grade.getC_id()).getC_percentage();
+		if (null == p) {
+			System.out.println(p);
+			DBUtils.closeConn();
+			throw new MyException();
+		}
+    	
+		totalMark = String.valueOf(m * p * 0.01 + n * (1 - p * 0.01));
         pst.setString (5, totalMark);
 
         pst.executeUpdate ();

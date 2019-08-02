@@ -166,7 +166,7 @@ public class AdminAction {
 	 * @throws ReflectiveOperationException
 	 * @throws SQLException
 	 */
-	public ArrayList<Student> srarchStudent(Student student,Date firstDate,Date secondDate) throws ReflectiveOperationException, SQLException{
+	public ArrayList<Student> searchStudent(Student student,Date firstDate,Date secondDate) throws ReflectiveOperationException, SQLException{
 		return new SearchDao().searchStudent(student, firstDate, secondDate);
 	}
 	

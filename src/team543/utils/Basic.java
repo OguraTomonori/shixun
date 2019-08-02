@@ -12,7 +12,7 @@ public class Basic {
 	 */
 	public static boolean isNumeric(String str){
 		  for (int i = str.length();--i>=0;){  
-		   if (!Character.isDigit(str.charAt(i))){
+		   if (!(Character.isDigit(str.charAt(i)) || str.charAt(i)== '.')){
 		    return false;
 		   }
 		  }
@@ -20,8 +20,6 @@ public class Basic {
 		}
 	
 	public static Date StringToDate(String date) throws ParseException {
-		if (date == null)
-			return null;
 		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
 		return dateformat.parse(date);
 	}

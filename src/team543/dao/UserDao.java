@@ -63,14 +63,15 @@ public class UserDao {
 //	}
 //	
 	public void updataUserInfo(User user) throws ReflectiveOperationException, SQLException {
-		String sql = "UPDATE t_user SET user_name = ? , user_password = ? , user_root=?  WHERE user_id=?";
+		String sql = "UPDATE t_user SET user_name = ? , user_password = ? , user_root=?  WHERE user_id=?;";
 		Connection connection = team543.utils.DBUtils.getConnection();
+		
 		PreparedStatement pst = connection.prepareStatement(sql);
 		
 		pst.setString(1, user.getUser_name());
 		pst.setString(2, user.getUser_password());
 		pst.setString(3, user.getUser_root());
-		pst.setString(4, user.getUser_root());
+		pst.setString(4, user.getUser_id());
 		//�ύ
 		pst.executeUpdate();
 		//�ر�����
